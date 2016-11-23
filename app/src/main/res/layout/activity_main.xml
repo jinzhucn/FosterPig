@@ -32,7 +32,7 @@
                 app:fgColorStart="#ffffff"
                 app:percent="100"
                 app:startAngle="0"
-                app:strokeWidth="25dp" />
+                app:strokeWidth="@dimen/main_annulus_width" />
 
 
             <LinearLayout
