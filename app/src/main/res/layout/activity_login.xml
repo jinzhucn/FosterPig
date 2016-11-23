@@ -4,22 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/login_background"
-    android:orientation="vertical"
     tools:context=".activity.LoginActivity">
 
     <ImageView
+        android:id="@+id/iv_login_top_logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-
+        android:layout_marginTop="@dimen/login_top_logo_margin_top"
         android:src="@mipmap/login_top" />
 
     <EditText
+        android:layout_marginTop="12dp"
         android:id="@+id/login_user"
         style="@style/editText_child"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginTop="220dp"
+        android:layout_below="@+id/iv_login_top_logo"
         android:drawableLeft="@mipmap/login_user"
         android:drawableStart="@mipmap/login_user"
         android:hint="@string/login_hit_user"
@@ -28,9 +26,8 @@
     <EditText
         android:id="@+id/login_password"
         style="@style/editText_child"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@id/login_user"
+        android:layout_marginTop="@dimen/login_two_edit_text_margin"
         android:drawableLeft="@mipmap/login_password"
         android:drawableStart="@mipmap/login_password"
         android:hint="@string/login_hit_password"
@@ -39,9 +36,12 @@
 
     <CheckBox
         android:id="@+id/cb_login_remember_password"
-        style="@style/login_remember_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/login_password"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="@dimen/login_two_edit_text_margin"
         android:button="@null"
         android:checked="false"
         android:drawableLeft="@drawable/selector_login_radiobutton_bg"
@@ -62,9 +62,11 @@
         android:textStyle="bold" />
 
     <TextView
-        style="@style/login_foot"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/login_bottom_text_margin_bottom"
         android:text="@string/login_foot"
         android:textColor="@color/white"
         android:textStyle="bold" />

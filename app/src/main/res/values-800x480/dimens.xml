@@ -3,4 +3,8 @@
     <dimen name="tap_middle">5dp</dimen>
     <dimen name="tap_text_padding">4dp</dimen>
 
+    <dimen name="login_top_logo_margin_top">15dp</dimen>
+    <dimen name="login_two_edit_text_margin">14dp</dimen>
+    <dimen name="login_bottom_text_margin_bottom">50dp</dimen>
+
 </resources>

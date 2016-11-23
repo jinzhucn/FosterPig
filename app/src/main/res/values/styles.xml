@@ -64,15 +64,4 @@
         <item name="android:layout_marginLeft">50dp</item>
     </style>
 
-    <style name="login_foot">
-        <item name="android:layout_marginTop">480dp</item>
-        <item name="android:layout_marginLeft">50dp</item>
-        <item name="android:layout_marginRight">50dp</item>
-    </style>
-    <style name="login_remember_password">
-        <item name="android:layout_marginTop">340dp</item>
-        <item name="android:layout_marginRight">50dp</item>
-        <item name="android:layout_marginLeft">230dp</item>
-    </style>
-
 </resources>
