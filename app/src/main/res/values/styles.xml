@@ -46,4 +46,33 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <style name="editText_parent">
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/shape_editext_bg</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+
+    </style>
+    <style name="editText_child" parent="editText_parent">
+        <item name="android:drawablePadding">15dp</item>
+        <item name="android:layout_marginRight">50dp</item>
+        <item name="android:layout_marginLeft">50dp</item>
+    </style>
+    <style name="login_in_padding">
+        <item name="android:layout_marginRight">50dp</item>
+        <item name="android:layout_marginLeft">50dp</item>
+    </style>
+
+    <style name="login_foot">
+        <item name="android:layout_marginTop">480dp</item>
+        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginRight">50dp</item>
+    </style>
+    <style name="login_remember_password">
+        <item name="android:layout_marginTop">340dp</item>
+        <item name="android:layout_marginRight">50dp</item>
+        <item name="android:layout_marginLeft">230dp</item>
+    </style>
+
 </resources>

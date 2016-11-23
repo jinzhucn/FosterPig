@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">FosterPig</string>
+    <string name="login_hit_user">请输入账号</string>
+    <string name="login_hit_password">请输入密码</string>
+    <string name="login_remember_password">记住密码</string>
+    <string name="login_button">进入系统</string>
+    <string name="login_foot">POWERED BY 明基物联  版权所有康乐畜牧</string>
 </resources>
