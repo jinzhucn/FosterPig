@@ -24,6 +24,7 @@ import java.util.ArrayList;
 public class MainToWarnFragment extends BaseFragment<String> {
 
     private ArrayList<String> objects;
+    private WarnAdapter mWarnAdapter;
 
     @Override
     protected void onSubClassOnCreateView() {
@@ -35,7 +36,8 @@ public class MainToWarnFragment extends BaseFragment<String> {
 
         View inflate = ViewsUitls.inflate(R.layout.layout_swipe_menu_listview);
         SwipeMenuListView mListView = (SwipeMenuListView) inflate.findViewById(R.id.swipe_menu_list_view);
-        mListView.setAdapter(new WarnAdapter(objects));
+        mWarnAdapter = new WarnAdapter(objects);
+        mListView.setAdapter(mWarnAdapter);
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
@@ -68,7 +70,7 @@ public class MainToWarnFragment extends BaseFragment<String> {
                 switch (index) {
                     case 0:
                         objects.remove(position);
-
+                        mWarnAdapter.notifyDataSetChanged();
 
                         Toast.makeText(ViewsUitls.getContext(), "Open", Toast.LENGTH_SHORT).show();
                         break;
@@ -115,6 +117,7 @@ public class MainToWarnFragment extends BaseFragment<String> {
                 break;
 
             case StringsFiled.SELECT_WARN_INFORMATION_TAB:
+
                 objects.add("测试");
                 break;
 

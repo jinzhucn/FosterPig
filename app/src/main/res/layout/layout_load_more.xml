@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/has_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <ProgressBar
             android:layout_width="wrap_content"
@@ -31,4 +31,8 @@
         android:text="加载失败"
         android:textColor="@android:color/black" />
 
+ <!--   <View
+        android:layout_width="match_parent"
+        android:layout_height="0.01dp"
+        android:background="@color/thin_gray" />-->
 </LinearLayout>

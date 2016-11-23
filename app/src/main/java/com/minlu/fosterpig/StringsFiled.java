@@ -17,11 +17,11 @@ public class StringsFiled {
 
     public final static String MAIN_TO_WARN_HUMIDITY = "main_to_warn_humidity";
 
-    public final static String MAIN_TO_WARN_FRAGMENT = "main_to_warn_fragment";
+    public final static String TAG_OPEN_ALL_SITE_FRAGMENT = "all_site";
 
-    public final static String SPECIFIC_FLOOR = "specific_floor";
+    public final static String TAG_OPEN_WARN_INFORMATION_FRAGMENT = "warn_information";
 
-    public final static String APPKEY = "1695aab984613";
+    public final static String TAG_OPEN_SURE_WARN_FRAGMENT = "sure_warn";
 
     public final static String APPSECRET = "88c3698a24ff9024aa0644ff1a138b96";
 

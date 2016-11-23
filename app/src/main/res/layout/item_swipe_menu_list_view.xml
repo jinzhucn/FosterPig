@@ -34,14 +34,19 @@
 
 
     <TextView
-        android:layout_marginRight="20dp"
         android:id="@+id/tv_monitor_warn_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/iv_item_left_image"
+        android:layout_marginRight="20dp"
         android:text="1000ppm"
         android:textColor="@color/red"
         android:textSize="18dp" />
 
+    <View
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="0.01dp"
+        android:background="@color/thin_gray" />
 </RelativeLayout>

@@ -11,6 +11,9 @@ import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.base.BaseActivity;
 import com.minlu.fosterpig.base.BaseFragment;
+import com.minlu.fosterpig.fragment.AllSiteFragment;
+import com.minlu.fosterpig.fragment.MainToWarnFragment;
+import com.minlu.fosterpig.fragment.SureWarnFragment;
 import com.minlu.fosterpig.util.ViewsUitls;
 
 import java.util.ArrayList;
@@ -26,6 +29,9 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
     private TextView mWarnInformation;
     private TextView mSureWarn;
     private List<TextView> mTextViews;
+    private AllSiteFragment mAllSiteFragment;
+    private MainToWarnFragment mMainToWarnFragment;
+    private SureWarnFragment mSureWarnFragment;
 
     @Override
     public void onCreateContent() {
@@ -38,8 +44,54 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
 
         initContentView(view);
 
-
+        showFragmentWhenFirstOrSecond();
     }
+
+
+    /*
+   *   此方法中对第一次进入界面直接展示一个Fragment
+   *   当activity销毁时且数据保存了，那么则从FragmentManger中取出一存储的Fragment
+   * */
+    private void showFragmentWhenFirstOrSecond() {
+        if (savedInstanceState == null) {// 第一次进入该界面，需要通过add来进行展示Fragment
+            System.out.println("第一次进入该界面，需要通过add来进行展示Fragment");
+            // mFromFragment为空的情况下
+            amendClickStyle(StringsFiled.SELECT_ALL_SITE_TAB, 1, "");
+        } else {
+            System.out.println("第二次+++++++++++++++++++++++++++++");
+            mAllSiteFragment = (AllSiteFragment) getSupportFragmentManager().findFragmentByTag(StringsFiled.TAG_OPEN_ALL_SITE_FRAGMENT);
+            mMainToWarnFragment = (MainToWarnFragment) getSupportFragmentManager().findFragmentByTag(StringsFiled.TAG_OPEN_WARN_INFORMATION_FRAGMENT);
+            mSureWarnFragment = (SureWarnFragment) getSupportFragmentManager().findFragmentByTag(StringsFiled.TAG_OPEN_SURE_WARN_FRAGMENT);
+
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+            // 所有站点的Tab对应的Fragment必须显示
+            if (mAllSiteFragment != null) {
+                fragmentTransaction.show(mAllSiteFragment);
+            } else {
+                mAllSiteFragment = new AllSiteFragment();
+                fragmentTransaction.add(R.id.fl_select_true_time, mAllSiteFragment, StringsFiled.TAG_OPEN_ALL_SITE_FRAGMENT);
+            }
+            // 走完上面的if else判断后mAllSiteFragment必定有值
+            FragmentFactory.fragments[0] = mAllSiteFragment;
+            mFromFragment = mAllSiteFragment;
+            alreadyPress = 1; // 防止再次点击所有站点的Tab
+
+
+            // 下面两个TAB对应的Fragment必须隐藏起来
+            if (mMainToWarnFragment != null) {
+                FragmentFactory.fragments[1] = mMainToWarnFragment;
+                fragmentTransaction.hide(mMainToWarnFragment);
+            }
+            if (mSureWarnFragment != null) {
+                FragmentFactory.fragments[2] = mSureWarnFragment;
+                fragmentTransaction.hide(mSureWarnFragment);
+            }
+
+            fragmentTransaction.commit();
+        }
+    }
+
 
     private void initContentView(View view) {
         mTextViews = new ArrayList<>();
@@ -54,7 +106,6 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
         mSureWarn.setOnClickListener(this);
         mTextViews.add(mSureWarn);
 
-        amendClickStyle(StringsFiled.SELECT_ALL_SITE_TAB, 1, "");
     }
 
     @Override
@@ -62,18 +113,15 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
 
         switch (v.getId()) {
             case R.id.tv_tab_all_site:
-                amendClickStyle(StringsFiled.SELECT_ALL_SITE_TAB, 1, "");
+                amendClickStyle(StringsFiled.SELECT_ALL_SITE_TAB, 1, StringsFiled.TAG_OPEN_ALL_SITE_FRAGMENT);
                 break;
             case R.id.tv_tab_warn_information:
-                amendClickStyle(StringsFiled.SELECT_WARN_INFORMATION_TAB, 2, "");
+                amendClickStyle(StringsFiled.SELECT_WARN_INFORMATION_TAB, 2, StringsFiled.TAG_OPEN_WARN_INFORMATION_FRAGMENT);
                 break;
             case R.id.tv_tab_sure_warn:
-                amendClickStyle(StringsFiled.SELECT_SURE_WARN_INFORMATION_TAB, 3, "");
+                amendClickStyle(StringsFiled.SELECT_SURE_WARN_INFORMATION_TAB, 3, StringsFiled.TAG_OPEN_SURE_WARN_FRAGMENT);
                 break;
-
-
         }
-
 
     }
 

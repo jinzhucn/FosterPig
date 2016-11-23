@@ -8,11 +8,13 @@ import com.minlu.fosterpig.fragment.SureWarnFragment;
 
 public class FragmentFactory {
 
+    /*存储工长要造的对象的仓库*/
     public static BaseFragment[] fragments = new BaseFragment[3];
 
     public static BaseFragment create(int position) {
         BaseFragment fragment = null;
 
+        /*仓库里对应位置的对象为空才需要重新创造*/
         if (fragments[position] == null) {
 
             switch (position) {
