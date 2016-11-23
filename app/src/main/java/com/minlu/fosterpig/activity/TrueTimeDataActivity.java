@@ -54,7 +54,7 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
         mSureWarn.setOnClickListener(this);
         mTextViews.add(mSureWarn);
 
-        amendClickStyle(1);
+        amendClickStyle(StringsFiled.SELECT_ALL_SITE_TAB, 1, "");
     }
 
     @Override
@@ -62,16 +62,13 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
 
         switch (v.getId()) {
             case R.id.tv_tab_all_site:
-                amendClickStyle(1);
-//                startSelectAreaContent(StringsFiled.SELECT_ALL_SITE_TAB, 1, "");
+                amendClickStyle(StringsFiled.SELECT_ALL_SITE_TAB, 1, "");
                 break;
             case R.id.tv_tab_warn_information:
-                amendClickStyle(2);
-//                startSelectAreaContent(StringsFiled.SELECT_WARN_INFORMATION_TAB, 2, "");
+                amendClickStyle(StringsFiled.SELECT_WARN_INFORMATION_TAB, 2, "");
                 break;
             case R.id.tv_tab_sure_warn:
-                amendClickStyle(3);
-//                startSelectAreaContent(StringsFiled.SELECT_SURE_WARN_INFORMATION_TAB, 3, "");
+                amendClickStyle(StringsFiled.SELECT_SURE_WARN_INFORMATION_TAB, 3, "");
                 break;
 
 
@@ -86,13 +83,13 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
     /**
      * click 为被点击的选项卡
      */
-    private void amendClickStyle(int click) {
+    private void amendClickStyle(int bundleValue, int toFragment, String tag) {
 
-        if (click != alreadyPress) {
-            alreadyPress = click;
+        if (toFragment != alreadyPress) {
+            alreadyPress = toFragment;
             for (int i = 1; i < mTextViews.size() + 1; i++) {
                 TextView view = mTextViews.get(i - 1);
-                if (i == click) {
+                if (i == toFragment) {
                     view.setTextColor(ContextCompat.getColor(ViewsUitls.getContext(), R.color.thin_blue));
                     view.setBackgroundResource(R.drawable.shape_select_tap_background_white);
                     view.setTextAppearance(ViewsUitls.getContext(), R.style.text_blod);
@@ -102,6 +99,7 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
                     view.setTextAppearance(ViewsUitls.getContext(), R.style.text_normal);
                 }
             }
+            startSelectAreaContent(bundleValue, toFragment, tag);
         }
 
     }
@@ -130,7 +128,12 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
                 bundle.putInt(StringsFiled.OPEN_FRAGMENT_BUNDLE_KEY, bundleValue);
                 baseFragment.setArguments(bundle);
 
-                transaction.hide(mFromFragment).add(R.id.fl_select_true_time, baseFragment, tag).commit(); // 隐藏当前的fragment，add下一个到Activity中
+                if (mFromFragment == null) {
+                    transaction.add(R.id.fl_select_true_time, baseFragment, tag).commit(); // 第一次进入本页面，直接add到Activity中
+                } else {
+                    transaction.hide(mFromFragment).add(R.id.fl_select_true_time, baseFragment, tag).commit(); // 隐藏当前的fragment，add下一个到Activity中
+                }
+
             } else {
                 transaction.hide(mFromFragment).show(baseFragment).commit(); // 隐藏当前的fragment，显示下一个
             }

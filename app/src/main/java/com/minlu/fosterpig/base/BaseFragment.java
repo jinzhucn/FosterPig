@@ -26,7 +26,9 @@ public abstract class BaseFragment<T> extends DialogFragment {
 
         Bundle bundle = getArguments();
 
-        mBundleValue = bundle.getInt(StringsFiled.OPEN_FRAGMENT_BUNDLE_KEY, -1);
+        if (bundle != null) {
+            mBundleValue = bundle.getInt(StringsFiled.OPEN_FRAGMENT_BUNDLE_KEY, -1);
+        }
 
     }
 

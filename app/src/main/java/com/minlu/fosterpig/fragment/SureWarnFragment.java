@@ -34,7 +34,7 @@ public class SureWarnFragment extends BaseFragment<String> {
     protected ContentPage.ResultState onLoad() {
         list = new ArrayList<>();
 
-        list.add("所有站点");
+        list.add("确认信息");
 
         return chat(list);
     }

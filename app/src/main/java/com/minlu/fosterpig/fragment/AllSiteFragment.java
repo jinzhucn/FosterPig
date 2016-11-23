@@ -29,6 +29,7 @@ public class AllSiteFragment extends BaseFragment<String> {
         TextView textView = new TextView(ViewsUitls.getContext());
         textView.setText(list.get(0));
         textView.setTextColor(ContextCompat.getColor(ViewsUitls.getContext(), R.color.black));
+
         return textView;
     }
 
