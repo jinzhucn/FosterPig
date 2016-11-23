@@ -9,7 +9,7 @@ public class StringsFiled {
 
     public final static String ACTIVITY_TITLE = "activity_title";
 
-    public final static String MAIN_TO_WARN = "main_to_warn";
+    public final static String OPEN_FRAGMENT_BUNDLE_KEY = "open_fragment_bundle_key";
 
     public final static String MAIN_TO_WARN_AMMONIA = "main_to_warn_ammonia";
 
@@ -45,16 +45,21 @@ public class StringsFiled {
 
     public final static String SAVE_USERNAME = "mUser";
 
-    public final static int SERVER_OUTAGE = 0;
+    public final static int SERVER_OUTAGE = 0;// 服务器宕机
 
-    public final static int SERVER_THROW = 1;
+    public final static int SERVER_THROW = 1;// 服务器异常
 
-    public final static int SERVER_SEND_JSON = 2;
+    public final static int SERVER_SEND_JSON = 2;// 服务器发送了Json
 
-    public final static int MAIN_TO_WARN_VALUE_AMMONIA = 0;// 氨气
+    public final static int MAIN_TO_WARN_VALUE_AMMONIA = 0;// 氨气报警信息
 
-    public final static int MAIN_TO_WARN_VALUE_TEMPERATURE = 1;// 温度
+    public final static int MAIN_TO_WARN_VALUE_TEMPERATURE = 1;// 温度报警信息
 
-    public final static int MAIN_TO_WARN_VALUE_HUMIDITY = 2;// 湿度
+    public final static int MAIN_TO_WARN_VALUE_HUMIDITY = 2;// 湿度报警信息
 
+    public final static int SELECT_WARN_INFORMATION_TAB = 3;// 所有的报警信息
+
+    public final static int SELECT_ALL_SITE_TAB = 4;// 所有站点信息
+
+    public final static int SELECT_SURE_WARN_INFORMATION_TAB = 5;// 已经确认的报警信息
 }

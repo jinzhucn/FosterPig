@@ -23,15 +23,15 @@ public class WarnActivity extends BaseActivity {
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
-        switch (getIntent().getStringExtra(StringsFiled.MAIN_TO_WARN)) {
+        switch (getIntent().getStringExtra(StringsFiled.OPEN_FRAGMENT_BUNDLE_KEY)) {
             case StringsFiled.MAIN_TO_WARN_AMMONIA:
-                bundle.putInt(StringsFiled.MAIN_TO_WARN, StringsFiled.MAIN_TO_WARN_VALUE_AMMONIA);
+                bundle.putInt(StringsFiled.OPEN_FRAGMENT_BUNDLE_KEY, StringsFiled.MAIN_TO_WARN_VALUE_AMMONIA);
                 break;
             case StringsFiled.MAIN_TO_WARN_TEMPERATURE:
-                bundle.putInt(StringsFiled.MAIN_TO_WARN, StringsFiled.MAIN_TO_WARN_VALUE_TEMPERATURE);
+                bundle.putInt(StringsFiled.OPEN_FRAGMENT_BUNDLE_KEY, StringsFiled.MAIN_TO_WARN_VALUE_TEMPERATURE);
                 break;
             case StringsFiled.MAIN_TO_WARN_HUMIDITY:
-                bundle.putInt(StringsFiled.MAIN_TO_WARN, StringsFiled.MAIN_TO_WARN_VALUE_HUMIDITY);
+                bundle.putInt(StringsFiled.OPEN_FRAGMENT_BUNDLE_KEY, StringsFiled.MAIN_TO_WARN_VALUE_HUMIDITY);
                 break;
         }
         MainToWarnFragment mainToWarnFragment = new MainToWarnFragment();

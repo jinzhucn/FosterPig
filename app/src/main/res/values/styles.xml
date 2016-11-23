@@ -36,6 +36,14 @@
         <item name="android:gravity">center</item>
         <item name="android:padding">@dimen/tap_text_padding</item>
         <item name="android:textSize">18dp</item>
+    </style>
+
+    <style name="text_blod">
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="text_normal">
+        <item name="android:textStyle">normal</item>
+    </style>
+
 </resources>

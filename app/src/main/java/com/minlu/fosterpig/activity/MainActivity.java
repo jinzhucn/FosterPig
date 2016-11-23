@@ -177,7 +177,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void mainSkipToWarn(String mainToWarn) {
         Intent intent = new Intent(getApplicationContext(), WarnActivity.class);
-        intent.putExtra(StringsFiled.MAIN_TO_WARN, mainToWarn);
+        intent.putExtra(StringsFiled.OPEN_FRAGMENT_BUNDLE_KEY, mainToWarn);
         intent.putExtra(StringsFiled.ACTIVITY_TITLE, "报警信息");
         startActivity(intent);
     }

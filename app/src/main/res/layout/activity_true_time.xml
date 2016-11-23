@@ -17,7 +17,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_select_area_first"
+                android:id="@+id/tv_tab_all_site"
                 style="@style/TabsPublicStyle"
                 android:layout_marginLeft="@dimen/tap_far_left_right"
                 android:layout_marginRight="@dimen/tap_middle"
@@ -26,7 +26,7 @@
                 android:textColor="@color/thin_blue" />
 
             <TextView
-                android:id="@+id/tv_select_area_second"
+                android:id="@+id/tv_tab_warn_information"
                 style="@style/TabsPublicStyle"
                 android:layout_marginLeft="@dimen/tap_middle"
                 android:layout_marginRight="@dimen/tap_middle"
@@ -35,7 +35,7 @@
                 android:textColor="@color/white" />
 
             <TextView
-                android:id="@+id/tv_select_area_thrid"
+                android:id="@+id/tv_tab_sure_warn"
                 style="@style/TabsPublicStyle"
                 android:layout_marginLeft="@dimen/tap_middle"
                 android:layout_marginRight="@dimen/tap_far_left_right"

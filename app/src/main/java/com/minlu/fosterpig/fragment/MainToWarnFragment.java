@@ -114,6 +114,10 @@ public class MainToWarnFragment extends BaseFragment<String> {
                 objects.add("测试");
                 break;
 
+            case StringsFiled.SELECT_WARN_INFORMATION_TAB:
+                objects.add("测试");
+                break;
+
         }
 
 
