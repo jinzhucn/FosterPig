@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#E5E3E4">
+
+    <ImageView
+        android:id="@+id/iv_all_site_child_item_left_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:src="@mipmap/test_item_image" />
+
+
+    <TextView
+        android:id="@+id/tv_all_site_child_monitor_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/iv_all_site_child_item_left_image"
+        android:text="#2猪舍安琪点"
+        android:textColor="@color/red"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/tv_all_site_child_monitor_warn_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:text="1000ppm"
+        android:textColor="@color/red"
+        android:textSize="18dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.01dp"
+        android:layout_below="@id/iv_all_site_child_item_left_image"
+        android:background="@color/white" />
+</RelativeLayout>

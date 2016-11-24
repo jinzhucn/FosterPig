@@ -1,22 +1,31 @@
 package com.minlu.fosterpig.fragment;
 
-import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ExpandableListView;
 
 import com.minlu.fosterpig.R;
+import com.minlu.fosterpig.StringsFiled;
+import com.minlu.fosterpig.adapter.MyExpandableListViewAdapter;
 import com.minlu.fosterpig.base.BaseFragment;
 import com.minlu.fosterpig.base.ContentPage;
+import com.minlu.fosterpig.manager.ThreadManager;
 import com.minlu.fosterpig.util.ViewsUitls;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by user on 2016/11/23.
  */
-public class AllSiteFragment extends BaseFragment<String> {
+public class AllSiteFragment extends BaseFragment<ArrayList> implements SwipeRefreshLayout.OnRefreshListener {
 
-    private ArrayList<String> list;
+    private List<ArrayList> list;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private ExpandableListView expandableListView;
+    private int currentExpandGroup = -1;
+    private Runnable mRefreshThread;
+    private MyExpandableListViewAdapter myExpandableListViewAdapter;
 
     @Override
     protected void onSubClassOnCreateView() {
@@ -26,20 +35,143 @@ public class AllSiteFragment extends BaseFragment<String> {
     @Override
     protected View onCreateSuccessView() {
 
-        TextView textView = new TextView(ViewsUitls.getContext());
-        textView.setText(list.get(0));
-        textView.setTextColor(ContextCompat.getColor(ViewsUitls.getContext(), R.color.black));
+        View inflate = ViewsUitls.inflate(R.layout.layout_all_site);
 
-        return textView;
+        swipeRefreshLayout = (SwipeRefreshLayout) inflate.findViewById(R.id.swipe_refresh_all_site);
+        //改变加载显示的颜色
+        swipeRefreshLayout.setColorSchemeColors(StringsFiled.SWIPE_REFRESH_FIRST_ROUND_COLOR, StringsFiled.SWIPE_REFRESH_SECOND_ROUND_COLOR, StringsFiled.SWIPE_REFRESH_THIRD_ROUND_COLOR);
+        //设置背景颜色
+        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(StringsFiled.SWIPE_REFRESH_BACKGROUND);
+        //设置初始时的大小
+        swipeRefreshLayout.setSize(SwipeRefreshLayout.DEFAULT);
+        //设置监听
+        swipeRefreshLayout.setOnRefreshListener(this);
+
+        expandableListView = (ExpandableListView) inflate.findViewById(R.id.elv_all_site);
+        expandableListView.setGroupIndicator(null);
+
+        myExpandableListViewAdapter = new MyExpandableListViewAdapter(list);
+        expandableListView.setAdapter(myExpandableListViewAdapter);
+
+        expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            //v : 条目的view对象
+            //groupPosition :条目的位置
+            //id : 条目的id
+            //return : true:表示执行完成
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
+                //打开关闭条目,打开条目的时候关闭其他条目,同时让当前打开条目置顶
+                if (currentExpandGroup == -1) {
+                    //打开的自己
+                    expandableListView.expandGroup(groupPosition);//打开点击的组条目
+                    currentExpandGroup = groupPosition;
+                    expandableListView.setSelectedGroup(groupPosition);
+                } else {
+                    //关闭组,打开其他组
+                    //1.打开的是自己,又点击了自己,关闭自己
+                    //2.打开的是自己,又点击其他组,关闭自己,打开其他组,通将其他组置顶
+                    if (currentExpandGroup == groupPosition) {
+                        //关闭自己
+                        expandableListView.collapseGroup(groupPosition);
+                        currentExpandGroup = -1;
+                    } else {
+                        //关闭之前打开的组,打开点击的组
+                        expandableListView.collapseGroup(currentExpandGroup);
+                        //打开点击的组
+                        expandableListView.expandGroup(groupPosition);
+
+                        expandableListView.setSelectedGroup(groupPosition);
+                        currentExpandGroup = groupPosition;
+                    }
+                }
+
+                return true;
+            }
+        });
+
+        return inflate;
     }
 
     @Override
     protected ContentPage.ResultState onLoad() {
 
         list = new ArrayList<>();
+        for (int i = 0; i < 50; i++) {
+            ArrayList<String> list1 = new ArrayList<>();
+            list1.add("测试");
+            list1.add("测试");
+            list1.add("测试");
+            list1.add("测试");
+            list1.add("测试");
+            list1.add("测试");
+            list.add(list1);
+        }
 
-        list.add("所有站点");
 
         return chat(list);
+    }
+
+    @Override
+    public void onRefresh() {
+
+        if (mRefreshThread == null) {
+            System.out.println("SureWarnFragment-New-Thread");
+            mRefreshThread = new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    // 请求网络数据
+                    list.clear();
+                    ArrayList<String> list1 = new ArrayList<>();
+                    list1.add("测试");
+                    list1.add("测试");
+                    list1.add("测试");
+                    list1.add("测试");
+                    list1.add("测试");
+                    list1.add("测试");
+                    ArrayList<String> list2 = new ArrayList<>();
+                    list2.add("测试");
+                    list2.add("测试");
+                    list2.add("测试");
+                    list2.add("测试");
+                    list2.add("测试");
+                    list2.add("测试");
+                    list.add(list1);
+                    list.add(list2);
+
+                    ViewsUitls.runInMainThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            myExpandableListViewAdapter.notifyDataSetChanged();
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                    });
+                }
+            };
+        }
+        ThreadManager.getInstance().execute(mRefreshThread);
+
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        System.out.println("WarnInformation-onDestroy");
+        if (mRefreshThread != null) {
+            System.out.println("线程没有结束");
+            ThreadManager.getInstance().cancel(mRefreshThread);
+            mRefreshThread = null;
+        }
+        if (swipeRefreshLayout.isRefreshing()) {
+            System.out.println("还在刷新");
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 }
