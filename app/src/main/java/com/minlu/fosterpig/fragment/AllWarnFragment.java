@@ -12,21 +12,22 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
-import com.minlu.fosterpig.adapter.WarnAdapter;
+import com.minlu.fosterpig.adapter.AllWarnAdapter;
 import com.minlu.fosterpig.base.BaseFragment;
 import com.minlu.fosterpig.base.ContentPage;
+import com.minlu.fosterpig.manager.ThreadManager;
 import com.minlu.fosterpig.util.ViewsUitls;
 
 import java.util.ArrayList;
 
 /**
- * Created by user on 2016/11/22.
+ * Created by user on 2016/11/24.
  */
-public class MainToWarnFragment extends BaseFragment<String>{
-
+public class AllWarnFragment extends BaseFragment<String> implements SwipeRefreshLayout.OnRefreshListener {
     private ArrayList<String> objects;
-    private WarnAdapter mWarnAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private AllWarnAdapter mAllWarnAdapter;
+    private Runnable mRefreshThread;
 
     @Override
     protected void onSubClassOnCreateView() {
@@ -35,15 +36,21 @@ public class MainToWarnFragment extends BaseFragment<String>{
 
     @Override
     protected View onCreateSuccessView() {
-
         View inflate = ViewsUitls.inflate(R.layout.layout_swipe_menu_listview);
 
         swipeRefreshLayout = (SwipeRefreshLayout) inflate.findViewById(R.id.swipe_refresh_list_view_have_swipe_menu);
-        swipeRefreshLayout.setEnabled(false);
+        //改变加载显示的颜色
+        swipeRefreshLayout.setColorSchemeColors(StringsFiled.SWIPE_REFRESH_FIRST_ROUND_COLOR, StringsFiled.SWIPE_REFRESH_SECOND_ROUND_COLOR, StringsFiled.SWIPE_REFRESH_THIRD_ROUND_COLOR);
+        //设置背景颜色
+        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(StringsFiled.SWIPE_REFRESH_BACKGROUND);
+        //设置初始时的大小
+        swipeRefreshLayout.setSize(SwipeRefreshLayout.DEFAULT);
+        //设置监听
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         SwipeMenuListView mListView = (SwipeMenuListView) inflate.findViewById(R.id.swipe_menu_list_view);
-        mWarnAdapter = new WarnAdapter(objects);
-        mListView.setAdapter(mWarnAdapter);
+        mAllWarnAdapter = new AllWarnAdapter(objects);
+        mListView.setAdapter(mAllWarnAdapter);
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
@@ -76,7 +83,7 @@ public class MainToWarnFragment extends BaseFragment<String>{
                 switch (index) {
                     case 0:
                         objects.remove(position);
-                        mWarnAdapter.notifyDataSetChanged();
+                        mAllWarnAdapter.notifyDataSetChanged();
 
                         Toast.makeText(ViewsUitls.getContext(), "Open", Toast.LENGTH_SHORT).show();
                         break;
@@ -97,34 +104,62 @@ public class MainToWarnFragment extends BaseFragment<String>{
 
     @Override
     protected ContentPage.ResultState onLoad() {
+
         objects = new ArrayList<>();
-
-        switch (getBundleValue()) {
-
-            case StringsFiled.MAIN_TO_WARN_VALUE_AMMONIA:
-                objects.add("测试");
-                objects.add("测试");
-                break;
-
-            case StringsFiled.MAIN_TO_WARN_VALUE_TEMPERATURE:
-                objects.add("测试");
-                objects.add("测试");
-                objects.add("测试");
-                objects.add("测试");
-                break;
-
-            case StringsFiled.MAIN_TO_WARN_VALUE_HUMIDITY:
-
-                objects.add("测试");
-                objects.add("测试");
-                objects.add("测试");
-                objects.add("测试");
-                objects.add("测试");
-                break;
-
-        }
-
-
+        objects.add("测试");
         return chat(objects);
+    }
+
+    @Override
+    public void onRefresh() {
+
+        if (mRefreshThread == null) {
+            System.out.println("WarnInformation-New-Thread");
+            mRefreshThread = new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    // 请求网络数据
+                    objects.clear();
+                    objects.add("刷新的数据");
+                    objects.add("刷新的数据");
+                    objects.add("刷新的数据");
+                    objects.add("刷新的数据");
+                    objects.add("刷新的数据");
+
+
+                    ViewsUitls.runInMainThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAllWarnAdapter.notifyDataSetChanged();
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                    });
+                }
+            };
+        }
+        ThreadManager.getInstance().execute(mRefreshThread);
+
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        System.out.println("WarnInformation-onDestroy");
+        if (mRefreshThread != null) {
+            System.out.println("线程没有结束");
+            ThreadManager.getInstance().cancel(mRefreshThread);
+            mRefreshThread = null;
+        }
+        if (swipeRefreshLayout.isRefreshing()) {
+            System.out.println("还在刷新");
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 }

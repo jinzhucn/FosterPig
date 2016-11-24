@@ -12,7 +12,7 @@ import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.base.BaseActivity;
 import com.minlu.fosterpig.base.BaseFragment;
 import com.minlu.fosterpig.fragment.AllSiteFragment;
-import com.minlu.fosterpig.fragment.MainToWarnFragment;
+import com.minlu.fosterpig.fragment.AllWarnFragment;
 import com.minlu.fosterpig.fragment.SureWarnFragment;
 import com.minlu.fosterpig.util.ViewsUitls;
 
@@ -30,7 +30,7 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
     private TextView mSureWarn;
     private List<TextView> mTextViews;
     private AllSiteFragment mAllSiteFragment;
-    private MainToWarnFragment mMainToWarnFragment;
+    private AllWarnFragment mAllWarnFragment;
     private SureWarnFragment mSureWarnFragment;
 
     @Override
@@ -60,7 +60,7 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
         } else {
             System.out.println("第二次+++++++++++++++++++++++++++++");
             mAllSiteFragment = (AllSiteFragment) getSupportFragmentManager().findFragmentByTag(StringsFiled.TAG_OPEN_ALL_SITE_FRAGMENT);
-            mMainToWarnFragment = (MainToWarnFragment) getSupportFragmentManager().findFragmentByTag(StringsFiled.TAG_OPEN_WARN_INFORMATION_FRAGMENT);
+            mAllWarnFragment = (AllWarnFragment) getSupportFragmentManager().findFragmentByTag(StringsFiled.TAG_OPEN_WARN_INFORMATION_FRAGMENT);
             mSureWarnFragment = (SureWarnFragment) getSupportFragmentManager().findFragmentByTag(StringsFiled.TAG_OPEN_SURE_WARN_FRAGMENT);
 
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -79,9 +79,9 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
 
 
             // 下面两个TAB对应的Fragment必须隐藏起来
-            if (mMainToWarnFragment != null) {
-                FragmentFactory.fragments[1] = mMainToWarnFragment;
-                fragmentTransaction.hide(mMainToWarnFragment);
+            if (mAllWarnFragment != null) {
+                FragmentFactory.fragments[1] = mAllWarnFragment;
+                fragmentTransaction.hide(mAllWarnFragment);
             }
             if (mSureWarnFragment != null) {
                 FragmentFactory.fragments[2] = mSureWarnFragment;

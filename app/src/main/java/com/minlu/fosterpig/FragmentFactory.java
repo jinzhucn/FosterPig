@@ -2,7 +2,7 @@ package com.minlu.fosterpig;
 
 import com.minlu.fosterpig.base.BaseFragment;
 import com.minlu.fosterpig.fragment.AllSiteFragment;
-import com.minlu.fosterpig.fragment.MainToWarnFragment;
+import com.minlu.fosterpig.fragment.AllWarnFragment;
 import com.minlu.fosterpig.fragment.SureWarnFragment;
 
 
@@ -22,7 +22,7 @@ public class FragmentFactory {
                     fragment = new AllSiteFragment();
                     break;
                 case 1:
-                    fragment = new MainToWarnFragment();
+                    fragment = new AllWarnFragment();
                     break;
                 case 2:
                     fragment = new SureWarnFragment();
