@@ -1,5 +1,7 @@
 package com.minlu.fosterpig;
 
+import android.graphics.Color;
+
 /**
  * Created by user on 2016/7/27.
  */
@@ -62,4 +64,12 @@ public class StringsFiled {
     public final static int SELECT_ALL_SITE_TAB = 4;// 所有站点信息
 
     public final static int SELECT_SURE_WARN_INFORMATION_TAB = 5;// 已经确认的报警信息
+
+    public final static int SWIPE_REFRESH_FIRST_ROUND_COLOR= Color.RED;
+
+    public final static int SWIPE_REFRESH_SECOND_ROUND_COLOR=Color.YELLOW;
+
+    public final static int SWIPE_REFRESH_THIRD_ROUND_COLOR=Color.BLUE;
+
+    public final static int SWIPE_REFRESH_BACKGROUND=Color.GREEN;
 }

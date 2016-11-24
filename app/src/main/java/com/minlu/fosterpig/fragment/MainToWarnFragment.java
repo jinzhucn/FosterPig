@@ -1,6 +1,7 @@
 package com.minlu.fosterpig.fragment;
 
 import android.graphics.Color;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.adapter.WarnAdapter;
 import com.minlu.fosterpig.base.BaseFragment;
 import com.minlu.fosterpig.base.ContentPage;
+import com.minlu.fosterpig.manager.ThreadManager;
 import com.minlu.fosterpig.util.ViewsUitls;
 
 import java.util.ArrayList;
@@ -21,10 +23,12 @@ import java.util.ArrayList;
 /**
  * Created by user on 2016/11/22.
  */
-public class MainToWarnFragment extends BaseFragment<String> {
+public class MainToWarnFragment extends BaseFragment<String> implements SwipeRefreshLayout.OnRefreshListener {
 
     private ArrayList<String> objects;
     private WarnAdapter mWarnAdapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private Runnable mRefreshThread;
 
     @Override
     protected void onSubClassOnCreateView() {
@@ -35,6 +39,18 @@ public class MainToWarnFragment extends BaseFragment<String> {
     protected View onCreateSuccessView() {
 
         View inflate = ViewsUitls.inflate(R.layout.layout_swipe_menu_listview);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) inflate.findViewById(R.id.swipe_refresh_list_view_have_swipe_menu);
+        //改变加载显示的颜色
+        swipeRefreshLayout.setColorSchemeColors(StringsFiled.SWIPE_REFRESH_FIRST_ROUND_COLOR, StringsFiled.SWIPE_REFRESH_SECOND_ROUND_COLOR, StringsFiled.SWIPE_REFRESH_THIRD_ROUND_COLOR);
+        //设置背景颜色
+        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(StringsFiled.SWIPE_REFRESH_BACKGROUND);
+        //设置初始时的大小
+        swipeRefreshLayout.setSize(SwipeRefreshLayout.DEFAULT);
+        //设置监听
+        swipeRefreshLayout.setOnRefreshListener(this);
+        setSwipeRefreshIsUse();
+
         SwipeMenuListView mListView = (SwipeMenuListView) inflate.findViewById(R.id.swipe_menu_list_view);
         mWarnAdapter = new WarnAdapter(objects);
         mListView.setAdapter(mWarnAdapter);
@@ -84,6 +100,26 @@ public class MainToWarnFragment extends BaseFragment<String> {
         return inflate;
     }
 
+    private void setSwipeRefreshIsUse() {
+
+        switch (getBundleValue()) {
+            case StringsFiled.MAIN_TO_WARN_VALUE_AMMONIA:
+                swipeRefreshLayout.setEnabled(false);
+                break;
+            case StringsFiled.MAIN_TO_WARN_VALUE_TEMPERATURE:
+                swipeRefreshLayout.setEnabled(false);
+                break;
+            case StringsFiled.MAIN_TO_WARN_VALUE_HUMIDITY:
+                swipeRefreshLayout.setEnabled(false);
+                break;
+            case StringsFiled.SELECT_WARN_INFORMATION_TAB:
+                swipeRefreshLayout.setEnabled(true);
+                break;
+
+        }
+
+    }
+
     private int dp2px(int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
                 getResources().getDisplayMetrics());
@@ -127,4 +163,56 @@ public class MainToWarnFragment extends BaseFragment<String> {
         return chat(objects);
     }
 
+    @Override
+    public void onRefresh() {
+
+        if (mRefreshThread == null) {
+            System.out.println("WarnInformation-New-Thread");
+            mRefreshThread = new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    // 请求网络数据
+                    objects.clear();
+                    objects.add("刷新的数据");
+                    objects.add("刷新的数据");
+                    objects.add("刷新的数据");
+                    objects.add("刷新的数据");
+                    objects.add("刷新的数据");
+
+
+                    ViewsUitls.runInMainThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mWarnAdapter.notifyDataSetChanged();
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                    });
+                }
+            };
+        }
+        ThreadManager.getInstance().execute(mRefreshThread);
+
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        System.out.println("WarnInformation-onDestroy");
+        if (mRefreshThread != null) {
+            System.out.println("线程没有结束");
+            ThreadManager.getInstance().cancel(mRefreshThread);
+            mRefreshThread = null;
+        }
+        if (swipeRefreshLayout.isRefreshing()) {
+            System.out.println("还在刷新");
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
 }
