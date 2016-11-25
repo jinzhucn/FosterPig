@@ -86,6 +86,28 @@ public class MainToWarnFragment extends BaseFragment<String>{
             }
         });
 
+        mListView.setOnMenuStateChangeListener(new SwipeMenuListView.OnMenuStateChangeListener() {
+            @Override
+            public void onMenuOpen(int position) {
+                System.out.println("setOnMenuStateChangeListener+onMenuOpen: "+position);
+            }
+
+            @Override
+            public void onMenuClose(int position) {
+                System.out.println("setOnMenuStateChangeListener+onMenuClose: "+position);
+            }
+        });
+        mListView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+            @Override
+            public void onSwipeStart(int position) {
+                System.out.println("setOnSwipeListener+onSwipeStart: "+position);
+            }
+
+            @Override
+            public void onSwipeEnd(int position) {
+                System.out.println("setOnSwipeListener+onSwipeEnd: "+position);
+            }
+        });
 
         return inflate;
     }

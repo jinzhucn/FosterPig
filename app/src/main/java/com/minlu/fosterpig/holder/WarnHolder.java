@@ -34,6 +34,33 @@ public class WarnHolder extends BaseHolder<String> {
     @Override
     public void setRelfshData(String mData, int postion) {
 
-        mMonitorWarnNumber.setText(postion+"");
+
+        if(postion==1){
+            mLeftImage.setImageResource(R.mipmap.small_icon_warn_ammonia);
+            mMonitorAddress.setText("kzgfhaqosdhlas");
+            mMonitorWarnTime.setText("mnjbhiuhoij;m");
+        }else if(postion%2==0){
+            mLeftImage.setImageResource(R.mipmap.small_icon_warn_temperature);
+            mMonitorAddress.setText("kzgfhukywuieyriuaqosdhlas");
+            mMonitorWarnTime.setText("mnjbhiuhvnbdfgasdcoij;m");
+        }else if(postion%3==0){
+            mLeftImage.setImageResource(R.mipmap.small_icon_warn_humidity);
+            mMonitorAddress.setText("kzs");
+            mMonitorWarnTime.setText("mnjbhm");
+        }else if(postion%5==0){
+            mLeftImage.setImageResource(R.mipmap.small_icon_warn_ammonia);
+            mMonitorAddress.setText("1231231231");
+            mMonitorWarnTime.setText("45734548");
+        }
+
+
+
+
+
+
+
+
+        mMonitorWarnNumber.setText(mData);
+
     }
 }
