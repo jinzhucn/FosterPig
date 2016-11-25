@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.base.BaseActivity;
+import com.minlu.fosterpig.base.MyApplication;
 import com.minlu.fosterpig.customview.ColorfulRingProgressView;
 import com.minlu.fosterpig.http.OkHttpManger;
 import com.minlu.fosterpig.util.SharedPreferencesUtil;
@@ -80,6 +81,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onCreateContent() {
         View view = setContent(R.layout.activity_main);
+
+        boolean informWarn = SharedPreferencesUtil.getboolean(
+                ViewsUitls.getContext(), StringsFiled.INFORM_WARN, false);
+        if (informWarn) {
+            // ture为开启状态，所以要关闭服务
+            startService(MyApplication.getIntentServicer());
+        }
+
+
 
         initContentView(view);
     }
@@ -220,6 +230,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         setLoadingVisibility(View.GONE);
         setIsInterruptTouch(false);
+
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        boolean informWarn = SharedPreferencesUtil.getboolean(
+                ViewsUitls.getContext(), StringsFiled.INFORM_WARN, false);
+        if (informWarn) {
+            // ture为开启状态，所以要关闭服务
+            stopService(MyApplication.getIntentServicer());
+        }
 
     }
 }
