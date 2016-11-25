@@ -6,15 +6,15 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.Toast;
 
-import com.baoyz.swipemenulistview.SwipeMenu;
-import com.baoyz.swipemenulistview.SwipeMenuCreator;
-import com.baoyz.swipemenulistview.SwipeMenuItem;
-import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.adapter.AllWarnAdapter;
 import com.minlu.fosterpig.base.BaseFragment;
 import com.minlu.fosterpig.base.ContentPage;
+import com.minlu.fosterpig.customview.swipelistview.SwipeMenu;
+import com.minlu.fosterpig.customview.swipelistview.SwipeMenuCreator;
+import com.minlu.fosterpig.customview.swipelistview.SwipeMenuItem;
+import com.minlu.fosterpig.customview.swipelistview.SwipeMenuListView;
 import com.minlu.fosterpig.manager.ThreadManager;
 import com.minlu.fosterpig.util.ViewsUitls;
 
