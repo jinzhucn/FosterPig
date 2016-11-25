@@ -142,7 +142,17 @@ public class SwipeMenuLayout extends FrameLayout {
 		mMenuView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT));
 
+		FrameLayout parent1 = (FrameLayout) mContentView.getParent();
+		if(parent1!=null){
+			System.out.println("=====================================mContentView=====================================================");
+			parent1.removeView(mContentView);
+		}
 		addView(mContentView);
+		FrameLayout parent2 = (FrameLayout) mMenuView.getParent();
+		if(parent2!=null){
+			System.out.println("=======================================mMenuView===================================================");
+			parent2.removeView(mMenuView);
+		}
 		addView(mMenuView);
 
 		// if (mContentView.getBackground() == null) {

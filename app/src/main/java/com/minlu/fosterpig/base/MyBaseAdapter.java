@@ -2,14 +2,14 @@ package com.minlu.fosterpig.base;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 
+import com.minlu.fosterpig.customview.swipelistview.BaseSwipListAdapter;
 import com.minlu.fosterpig.util.ViewsUitls;
 
 import java.util.List;
 
 
-public abstract class MyBaseAdapter<T> extends BaseAdapter {
+public abstract class MyBaseAdapter<T> extends BaseSwipListAdapter {
 
     // 一般条目对应的类型码
     public static final int LIST_VIEW_ITEM = 0;
