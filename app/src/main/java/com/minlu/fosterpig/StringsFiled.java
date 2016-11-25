@@ -25,7 +25,7 @@ public class StringsFiled {
 
     public final static String TAG_OPEN_SURE_WARN_FRAGMENT = "sure_warn";
 
-    public final static String APPSECRET = "88c3698a24ff9024aa0644ff1a138b96";
+    public final static String INFORM_WARN = "inform_warn";
 
     public final static String CLIENTID = "clientid";
 

@@ -2,13 +2,17 @@ package com.minlu.fosterpig.base;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
+
+import com.minlu.fosterpig.activity.AlarmServicer;
 
 public class MyApplication extends Application {
     private static Context mContext;
     private static long mainThreadId;
     private static MyApplication ins;
     private static Handler mHandler;
+    private static Intent intentServicer;
 
     @Override
     public void onCreate() {
@@ -19,6 +23,14 @@ public class MyApplication extends Application {
         mainThreadId = android.os.Process.myTid();
         ins = this;
         mHandler = new Handler();
+
+        // 将这个加入通知
+        intentServicer = new Intent(mContext, AlarmServicer.class);
+
+    }
+
+    public static Intent getIntentServicer() {
+        return intentServicer;
     }
 
     public static MyApplication getIns() {
