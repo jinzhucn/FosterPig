@@ -2,6 +2,7 @@ package com.minlu.fosterpig.activity;
 
 import android.view.View;
 
+import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.base.BaseActivity;
 
 
@@ -15,6 +16,8 @@ public class SettingActivity extends BaseActivity {
         getThreeLine().setVisibility(View.GONE);
         setBackVisibility(View.VISIBLE);
         setSettingVisibility(View.GONE);
+
+        setContent(R.layout.activity_setting);
 
     }
 }

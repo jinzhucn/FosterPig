@@ -11,4 +11,6 @@
     <color name="black">#000</color>
     <color name="dark_blue">#2C9DC9</color>
     <color name="thin_blue">#3EABD6</color>
+    <color name="setting_gray_color">#707070</color>
+    <color name="setting_logout">#EE2424</color>
 </resources>
