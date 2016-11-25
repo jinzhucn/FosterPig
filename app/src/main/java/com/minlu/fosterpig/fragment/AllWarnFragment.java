@@ -39,19 +39,20 @@ public class AllWarnFragment extends BaseFragment<String> implements SwipeRefres
         View inflate = ViewsUitls.inflate(R.layout.layout_swipe_menu_listview);
 
         swipeRefreshLayout = (SwipeRefreshLayout) inflate.findViewById(R.id.swipe_refresh_list_view_have_swipe_menu);
-        //改变加载显示的颜色
-        swipeRefreshLayout.setColorSchemeColors(StringsFiled.SWIPE_REFRESH_FIRST_ROUND_COLOR, StringsFiled.SWIPE_REFRESH_SECOND_ROUND_COLOR, StringsFiled.SWIPE_REFRESH_THIRD_ROUND_COLOR);
-        //设置背景颜色
-        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(StringsFiled.SWIPE_REFRESH_BACKGROUND);
-        //设置初始时的大小
-        swipeRefreshLayout.setSize(SwipeRefreshLayout.DEFAULT);
-        //设置监听
-        swipeRefreshLayout.setOnRefreshListener(this);
+        setSwipeRefreshSetting();
+
 
         SwipeMenuListView mListView = (SwipeMenuListView) inflate.findViewById(R.id.swipe_menu_list_view);
+
+        setSwipeMenu(mListView);
+
         mAllWarnAdapter = new AllWarnAdapter(objects);
         mListView.setAdapter(mAllWarnAdapter);
 
+        return inflate;
+    }
+
+    private void setSwipeMenu(SwipeMenuListView mListView) {
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
@@ -92,9 +93,43 @@ public class AllWarnFragment extends BaseFragment<String> implements SwipeRefres
                 return false;
             }
         });
+        mListView.setOnMenuStateChangeListener(new SwipeMenuListView.OnMenuStateChangeListener() {
+            @Override
+            public void onMenuOpen(int position) {
+                System.out.println("setOnMenuStateChangeListener+onMenuOpen: " + position);
+                swipeRefreshLayout.setEnabled(true);
+            }
 
+            @Override
+            public void onMenuClose(int position) {
+                System.out.println("setOnMenuStateChangeListener+onMenuClose: " + position);
+                swipeRefreshLayout.setEnabled(true);
+            }
+        });
+        mListView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+            @Override
+            public void onSwipeStart(int position) {
+                System.out.println("setOnSwipeListener+onSwipeStart: " + position);
+                swipeRefreshLayout.setEnabled(false);
+            }
 
-        return inflate;
+            @Override
+            public void onSwipeEnd(int position) {
+                System.out.println("setOnSwipeListener+onSwipeEnd: " + position);
+                swipeRefreshLayout.setEnabled(true);
+            }
+        });
+    }
+
+    private void setSwipeRefreshSetting() {
+        //改变加载显示的颜色
+        swipeRefreshLayout.setColorSchemeColors(StringsFiled.SWIPE_REFRESH_FIRST_ROUND_COLOR, StringsFiled.SWIPE_REFRESH_SECOND_ROUND_COLOR, StringsFiled.SWIPE_REFRESH_THIRD_ROUND_COLOR);
+        //设置背景颜色
+        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(StringsFiled.SWIPE_REFRESH_BACKGROUND);
+        //设置初始时的大小
+        swipeRefreshLayout.setSize(SwipeRefreshLayout.DEFAULT);
+        //设置监听
+        swipeRefreshLayout.setOnRefreshListener(this);
     }
 
     private int dp2px(int dp) {
@@ -106,7 +141,11 @@ public class AllWarnFragment extends BaseFragment<String> implements SwipeRefres
     protected ContentPage.ResultState onLoad() {
 
         objects = new ArrayList<>();
-        objects.add("测试");
+        for (int i=0;i<200;i++){
+            objects.add("测试"+i);
+
+        }
+
         return chat(objects);
     }
 
