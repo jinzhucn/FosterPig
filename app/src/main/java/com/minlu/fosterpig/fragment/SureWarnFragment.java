@@ -69,21 +69,11 @@ public class SureWarnFragment extends BaseFragment<String> implements SwipeRefre
     private void requestData() {
         list = new ArrayList<>();
 
-        list.add("确认信息");
-        list.add("确认信息");
-        list.add("确认信息");
-        list.add("确认信息");
-        list.add("确认信息");
-        list.add("确认信息");
-        list.add("确认信息");
-        list.add("确认信息");
-        list.add("确认信息");
-        list.add("确认信息");
-        list.add("确认信息");
-        list.add("确认信息");
-        list.add("确认信息");
-        list.add("确认信息");
-        list.add("确认信息");
+        for (int i=0;i<10;i++){
+            list.add("确认信息");
+        }
+
+
     }
 
     @Override
@@ -101,11 +91,9 @@ public class SureWarnFragment extends BaseFragment<String> implements SwipeRefre
                     }
                     // 请求网络数据
                     list.clear();
-                    list.add("刷新的数据");
-                    list.add("刷新的数据");
-                    list.add("刷新的数据");
-                    list.add("刷新的数据");
-                    list.add("刷新的数据");
+                    for (int i=0;i<10;i++){
+                        list.add("确认信息");
+                    }
 
 
                     ViewsUitls.runInMainThread(new Runnable() {
