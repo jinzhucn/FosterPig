@@ -9,6 +9,7 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat.Builder;
+import android.util.Log;
 
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
@@ -85,24 +86,30 @@ public class AlarmServicer extends Service {
                 }
 
                 // TODO 测试用
-//				msg = "dasdasdasd";
-//				isAlarm = true;
+				msg = "dasdasdasd";
+				isAlarm = true;
                 // TODO 测试用
 
                 if (!SharedPreferencesUtil.getboolean(ViewsUitls.getContext(), StringsFiled.IS_ALLOW_SOUND_PLAY, false)) {
+                    Log.v("alarm","此时不允许报警播放，所以接下来判断时间间隔");
                     long timeInterval = SharedPreferencesUtil.getLong(ViewsUitls.getContext(), StringsFiled.IS_ALLOW_SOUND_PLAY_TIME, -1) - System.currentTimeMillis();
+                    Log.v("alarm","时间间隔为: " + timeInterval);
                     if (timeInterval < 0) {// 如果时间间隔小于0，说明暂停报警声音时间超过，可重新报警
+                        Log.v("alarm","由于时间间隔小于0，所以重新允许报警播放");
                         SharedPreferencesUtil.saveboolean(ViewsUitls.getContext(), StringsFiled.IS_ALLOW_SOUND_PLAY, true);
                     }
                 }
 
                 if (SharedPreferencesUtil.getboolean(ViewsUitls.getContext(), StringsFiled.IS_ALLOW_SOUND_PLAY, false)) {
+                    Log.v("alarm","允许报警，开始进行是否开启声音判断");
                     if (isAlarm) {
                         isStart++;
                         myMediaPlayer.start();
+                        Log.v("alarm","开启声音报警");
                     } else {
                         if (isStart != 0) {
                             myMediaPlayer.pause();
+                            Log.v("alarm","暂停声音报警");
                             isStart = 0;
                         }
                     }

@@ -4,7 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout style="@style/setting_item_ll_parent_style">
+    <LinearLayout
+        style="@style/setting_item_ll_parent_style"
+        android:background="@color/white">
 
         <ImageView
             style="@style/setting_item_left_right_image_style"
@@ -26,9 +28,9 @@
         android:background="@color/thin_gray" />
 
     <LinearLayout
-        android:background="@drawable/selector_main_bottom_item_background"
         android:id="@+id/ll_setting_about_us"
-        style="@style/setting_item_ll_parent_style">
+        style="@style/setting_item_ll_parent_style"
+        android:background="@drawable/selector_main_bottom_item_background">
 
         <ImageView
             style="@style/setting_item_left_right_image_style"
@@ -49,9 +51,9 @@
         android:background="@color/thin_gray" />
 
     <LinearLayout
-        android:background="@drawable/selector_main_bottom_item_background"
         android:id="@+id/ll_setting_version_information"
-        style="@style/setting_item_ll_parent_style">
+        style="@style/setting_item_ll_parent_style"
+        android:background="@drawable/selector_main_bottom_item_background">
 
         <ImageView
             style="@style/setting_item_left_right_image_style"
@@ -76,11 +78,11 @@
         android:layout_height="match_parent">
 
         <Button
-            android:layout_centerInParent="true"
             android:id="@+id/bt_setting_logout"
             style="@style/login_in_padding"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:background="@drawable/selector_setting_button"
             android:text="注销帐号"
             android:textColor="@color/white"
