@@ -7,9 +7,10 @@ public class IpFiled {
 
     public final static String IP = "/ess.web3.0/";
 
-    public final static String MOBILE = IP + "mobile/";
-
     public final static String LOGIN = IP + "loginForm.html";
+
+
+    public final static String MOBILE = IP + "mobile/";
 
     public final static String FLOOR_READING_ROOM_DATE = MOBILE + "floorAndArea";
 
