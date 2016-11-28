@@ -1,5 +1,7 @@
 package com.minlu.fosterpig.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -10,6 +12,8 @@ import com.minlu.fosterpig.base.BaseActivity;
 import com.minlu.fosterpig.base.MyApplication;
 import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
+
+import java.util.List;
 
 
 /**
@@ -27,6 +31,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         setSettingVisibility(View.GONE);
 
         View view = setContent(R.layout.activity_setting);
+
+        MyApplication.getSaveActivity().add(this);
 
         initContentView(view);
     }
@@ -54,6 +60,16 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             case R.id.ll_setting_version_information:
                 break;
             case R.id.bt_setting_logout:
+
+                SharedPreferencesUtil.saveboolean(ViewsUitls.getContext(), StringsFiled.IS_AUTO_LOGIN, false);
+                startActivity(new Intent(ViewsUitls.getContext(), LoginActivity.class));
+                List<Activity> saveActicity = MyApplication.getSaveActivity();
+                for (int i = 0; i < saveActicity.size(); i++) {
+                    Activity activity = saveActicity
+                            .get(i);
+                    activity.finish();
+                }
+
                 break;
             case R.id.iv_setting_switch:
 
@@ -105,5 +121,12 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             // 闭
             mSwitch.setImageResource(R.mipmap.setting_switch_close);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        MyApplication.getSaveActivity().remove(this);
     }
 }

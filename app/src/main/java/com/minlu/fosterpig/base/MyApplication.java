@@ -1,5 +1,6 @@
 package com.minlu.fosterpig.base;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -7,12 +8,16 @@ import android.os.Handler;
 
 import com.minlu.fosterpig.activity.AlarmServicer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyApplication extends Application {
     private static Context mContext;
     private static long mainThreadId;
     private static MyApplication ins;
     private static Handler mHandler;
     private static Intent intentServicer;
+    private static List<Activity> saveActivity = new ArrayList<>();
 
     @Override
     public void onCreate() {
@@ -50,5 +55,9 @@ public class MyApplication extends Application {
     // 返回主线程的Handler
     public static Handler getHanlder() {
         return mHandler;
+    }
+
+    public static List<Activity> getSaveActivity() {
+        return saveActivity;
     }
 }

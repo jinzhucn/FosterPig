@@ -89,7 +89,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             startService(MyApplication.getIntentServicer());
         }
 
-
+        MyApplication.getSaveActivity().add(this);
 
         initContentView(view);
     }
@@ -244,6 +244,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             // ture为开启状态，所以要关闭服务
             stopService(MyApplication.getIntentServicer());
         }*/
-
+        MyApplication.getSaveActivity().remove(this);
     }
 }
