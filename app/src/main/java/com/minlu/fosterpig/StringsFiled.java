@@ -27,13 +27,15 @@ public class StringsFiled {
 
     public final static String INFORM_WARN = "inform_warn";
 
-    public final static String CLIENTID = "clientid";
+    public final static String LOGIN_USER = "login_user";
 
     public static final String IS_ALLOW_SOUND_PLAY = "is_allow_sound_play";
 
     public static final String IS_ALLOW_SOUND_PLAY_TIME = "is_allow_sound_play_time";
 
     public static final String MEDIA_IS_PLAYING = "media_is_playing";
+
+    public final static String IS_AUTO_LOGIN = "is_auto_login";
 
     public static final String ROLEID = "roleId";
 
@@ -42,8 +44,6 @@ public class StringsFiled {
     public final static String SEARCH_JSON_RESULT = "search_json_result";
 
     public final static String SEARCH_RESULT_SEAT_NUMBER = "search_result_seat_number";
-
-    public final static String IS_AUTO_LOGIN = "is_auto_login";
 
     public final static String SAVE_USERNAME = "mUser";
 
