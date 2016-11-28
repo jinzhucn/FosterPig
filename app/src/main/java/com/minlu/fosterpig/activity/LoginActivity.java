@@ -21,6 +21,9 @@ import com.minlu.fosterpig.util.StringUtils;
 import com.minlu.fosterpig.util.ToastUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -51,6 +54,8 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     private Button mBLogin;
     private MySQLiteOpenHelper mySQLiteOpenHelper;
     private SQLiteDatabase writableDatabase;
+    private String loginResult;
+    private String loginResultMessage;
 
     @Override
     public void onClick(View v) {
@@ -107,7 +112,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     }
 
     private void initView() {
-        mEtPassWord = (EditText) findViewById(R.id.login_user);
+        mEtPassWord = (EditText) findViewById(R.id.login_password);
         mEtUser = (EditText) findViewById(R.id.login_user);
         mRbRemember = (CheckBox) findViewById(R.id.cb_login_remember_password);
         mRbRemember.setChecked(mIsAuto);
@@ -165,18 +170,34 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                final String result = response.body().string().toString();
-                System.out.println(result + "      +++++++++++++++++++++++++++++++++");
+
+                try {
+                    loginResult = response.body().string().toString();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(loginResult + "      +++++++++++++++++++++++++++++++++");
                 ViewsUitls.runInMainThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (StringUtils.interentIsNormal(result)) {
-                            if (result.contains("true")) {
+                        if (StringUtils.interentIsNormal(loginResult)) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(loginResult);
+                                if (jsonObject.has("resStr")) {
+                                    loginResultMessage = jsonObject.optString("resStr");
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            if (loginResult.contains("true")) {
                                 saveSuccessPassWardUserName();
                                 Intent mainActivity = new Intent(ViewsUitls.getContext(),
                                         MainActivity.class);
                                 startActivity(mainActivity);
+                                ToastUtil.showToast(LoginActivity.this, "登录成功");
                                 finish();
+                            } else {
+                                ToastUtil.showToast(LoginActivity.this, loginResultMessage);
                             }
                         } else {
                             ToastUtil.showToast(LoginActivity.this, "服务器异常,请稍候");
@@ -210,7 +231,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 
         if (!mHistoryUser.equals(mUser)) {// EditText中的帐号与历史帐号不一样
             SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(),
-                    StringsFiled.SAVE_USERNAME, mUser);
+                    StringsFiled.LOGIN_USER, mUser);
         }
         SharedPreferencesUtil.saveboolean(ViewsUitls.getContext(),
                 StringsFiled.IS_AUTO_LOGIN, mRbRemember.isChecked());

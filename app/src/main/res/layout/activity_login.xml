@@ -14,6 +14,8 @@
         android:src="@mipmap/login_top" />
 
     <EditText
+        android:singleLine="true"
+        android:maxLines="1"
         android:layout_marginTop="12dp"
         android:id="@+id/login_user"
         style="@style/editText_child"
@@ -24,6 +26,8 @@
         android:textColor="@color/black" />
 
     <EditText
+        android:singleLine="true"
+        android:maxLines="1"
         android:id="@+id/login_password"
         style="@style/editText_child"
         android:layout_below="@id/login_user"
