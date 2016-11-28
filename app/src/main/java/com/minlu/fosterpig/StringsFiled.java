@@ -29,11 +29,11 @@ public class StringsFiled {
 
     public final static String CLIENTID = "clientid";
 
-    public static final String FLOORID = "floorid";
+    public static final String IS_ALLOW_SOUND_PLAY = "is_allow_sound_play";
 
-    public static final String READINGROOMID = "readingroomid";
+    public static final String IS_ALLOW_SOUND_PLAY_TIME = "is_allow_sound_play_time";
 
-    public static final String USERID = "userid";
+    public static final String MEDIA_IS_PLAYING = "media_is_playing";
 
     public static final String ROLEID = "roleId";
 
@@ -65,11 +65,15 @@ public class StringsFiled {
 
     public final static int SELECT_SURE_WARN_INFORMATION_TAB = 5;// 已经确认的报警信息
 
-    public final static int SWIPE_REFRESH_FIRST_ROUND_COLOR= Color.RED;
+    public final static int SWIPE_REFRESH_FIRST_ROUND_COLOR = Color.RED;
 
-    public final static int SWIPE_REFRESH_SECOND_ROUND_COLOR=Color.YELLOW;
+    public final static int SWIPE_REFRESH_SECOND_ROUND_COLOR = Color.YELLOW;
 
-    public final static int SWIPE_REFRESH_THIRD_ROUND_COLOR=Color.BLUE;
+    public final static int SWIPE_REFRESH_THIRD_ROUND_COLOR = Color.BLUE;
 
-    public final static int SWIPE_REFRESH_BACKGROUND=Color.GREEN;
+    public final static int SWIPE_REFRESH_BACKGROUND = Color.GREEN;
+
+    public final static int OBSERVER_MEDIA_PLAYER_PAUSE = 0;
+
+    public final static int OBSERVER_MEDIA_PLAYER_IS_PLAYING = 1;
 }

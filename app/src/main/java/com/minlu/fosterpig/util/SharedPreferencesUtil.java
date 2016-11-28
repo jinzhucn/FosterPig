@@ -50,4 +50,18 @@ public class SharedPreferencesUtil {
 	}
 
 
+	// 存Long值
+	public static void saveLong(Context context, String key, long value) {
+		if (spf == null)
+			spf = context.getSharedPreferences("config", Context.MODE_PRIVATE);
+		spf.edit().putLong(key, value).commit();
+	}
+
+	public static long getLong(Context context, String key, long defvalue) {
+		if (spf == null)
+			spf = context.getSharedPreferences("config", Context.MODE_PRIVATE);
+		return spf.getLong(key, defvalue);
+	}
+
+
 }
