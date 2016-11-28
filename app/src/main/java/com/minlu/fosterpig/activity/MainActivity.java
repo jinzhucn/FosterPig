@@ -85,8 +85,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         boolean informWarn = SharedPreferencesUtil.getboolean(
                 ViewsUitls.getContext(), StringsFiled.INFORM_WARN, false);
         if (informWarn) {
-            // ture为开启状态，所以要关闭服务
-            startService(MyApplication.getIntentServicer());
+            if (!SharedPreferencesUtil.getboolean(ViewsUitls.getContext(), StringsFiled.ALARM_SERVICE_ALREADY_OPEN, false)) {
+                // ture为开启状态，所以要关闭服务
+                System.out.println("=====================在主界面开启了报警服务===============");
+                startService(MyApplication.getIntentServicer());
+            }
         }
 
         MyApplication.getSaveActivity().add(this);

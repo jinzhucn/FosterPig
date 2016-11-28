@@ -37,7 +37,7 @@ public class StringsFiled {
 
     public final static String IS_AUTO_LOGIN = "is_auto_login";
 
-    public static final String ROLEID = "roleId";
+    public static final String ALARM_SERVICE_ALREADY_OPEN = "alarm_service_already_open";
 
     public final static String SEARCH_HISTORY = "search_history";
 
