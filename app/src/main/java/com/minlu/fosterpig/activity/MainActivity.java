@@ -238,12 +238,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onDestroy() {
         super.onDestroy();
 
-        boolean informWarn = SharedPreferencesUtil.getboolean(
+/*        boolean informWarn = SharedPreferencesUtil.getboolean(
                 ViewsUitls.getContext(), StringsFiled.INFORM_WARN, false);
         if (informWarn) {
             // ture为开启状态，所以要关闭服务
             stopService(MyApplication.getIntentServicer());
-        }
+        }*/
 
     }
 }
