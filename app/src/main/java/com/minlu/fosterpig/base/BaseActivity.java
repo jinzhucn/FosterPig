@@ -105,6 +105,9 @@ public abstract class BaseActivity extends FragmentActivity {
         return mBaseThreePoint;
     }
 
+    public TextView getmBaseTitle() {
+        return mBaseTitle;
+    }
 
     /**
      * 首先将一个xml布局打气压缩成一个View，在将该View添加到Framelayout中

@@ -21,5 +21,7 @@
         <activity android:name=".activity.TrueTimeDataActivity" />
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.MainActivity"/>
+        <service android:name=".activity.AlarmServicer"/>
+        <activity android:name=".activity.NotificationToWarnActivity"/>
     </application>
 </manifest>

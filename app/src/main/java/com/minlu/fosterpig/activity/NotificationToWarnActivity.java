@@ -1,5 +1,7 @@
 package com.minlu.fosterpig.activity;
 
+import android.view.View;
+
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.base.BaseActivity;
 import com.minlu.fosterpig.fragment.AllWarnFragment;
@@ -10,6 +12,12 @@ import com.minlu.fosterpig.fragment.AllWarnFragment;
 public class NotificationToWarnActivity extends BaseActivity {
     @Override
     public void onCreateContent() {
+
+        getThreeLine().setVisibility(View.GONE);
+        setBackVisibility(View.VISIBLE);
+        setSettingVisibility(View.GONE);
+
+        getmBaseTitle().setText("报警信息");
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_base_content,new AllWarnFragment()).commit();
 
