@@ -56,8 +56,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         switch (v.getId()) {
 
             case R.id.ll_setting_about_us:
+                startActivity(new Intent(ViewsUitls.getContext(), AboutUsActivity.class));
                 break;
             case R.id.ll_setting_version_information:
+                startActivity(new Intent(ViewsUitls.getContext(), VersionActivity.class));
                 break;
             case R.id.bt_setting_logout:
 

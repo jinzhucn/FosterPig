@@ -34,7 +34,7 @@ public class NotificationToWarnActivity extends BaseActivity {
         setBackVisibility(View.VISIBLE);
         setSettingVisibility(View.GONE);
 
-        getmBaseTitle().setText("报警信息");
+        getBaseTitle().setText("报警信息");
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_base_content, new AllWarnFragment()).commit();
 

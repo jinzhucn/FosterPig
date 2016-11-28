@@ -21,6 +21,8 @@
         <activity android:name=".activity.TrueTimeDataActivity" />
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.AboutUsActivity" />
+        <activity android:name=".activity.VersionActivity" />
         <activity
             android:name=".activity.NotificationToWarnActivity"
             android:launchMode="singleTop" />

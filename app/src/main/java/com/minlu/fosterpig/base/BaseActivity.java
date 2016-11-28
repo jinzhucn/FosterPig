@@ -105,7 +105,7 @@ public abstract class BaseActivity extends FragmentActivity {
         return mBaseThreePoint;
     }
 
-    public TextView getmBaseTitle() {
+    public TextView getBaseTitle() {
         return mBaseTitle;
     }
 
