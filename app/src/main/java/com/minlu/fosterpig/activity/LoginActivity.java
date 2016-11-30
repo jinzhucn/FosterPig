@@ -72,7 +72,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         setContentView(R.layout.activity_login);
         //设置ip
         SharedPreferencesUtil.saveStirng(getApplicationContext(), StringsFiled.IP_ADDRESS_PREFIX,
-                "http://" + "192.168.1.39:8080");
+                "http://" + "192.168.1.35:8083");
 
         //创建数据库操作对象
         mySQLiteOpenHelper = new MySQLiteOpenHelper(ViewsUitls.getContext());
@@ -85,6 +85,34 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         if (mIsAuto) {
             login();
         }
+
+
+        // TODO 编写JSON
+     /*   ArrayList<MainAllInformation> objects = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            objects.add(new MainAllInformation("1#猪舍", i+"#站点", 0, 1000+i, true));
+        }
+
+        ArrayList<AllSiteBean> objects = new ArrayList<>();
+
+        ArrayList<FacilityDetail> objects1 = new ArrayList<>();
+        objects1.add(new FacilityDetail(2000,0,"1号站点","区域1",1));
+        objects1.add(new FacilityDetail(1000,1,"1号站点","区域1",0));
+        objects1.add(new FacilityDetail(3000,2,"1号站点","区域1",1));
+        objects1.add(new FacilityDetail(2000,0,"2号站点","区域1",0));
+        objects1.add(new FacilityDetail(1000,1,"2号站点","区域1",0));
+        objects1.add(new FacilityDetail(5000,2,"2号站点","区域1",1));
+
+        objects.add(new AllSiteBean("区域1",50,20,objects1));
+        objects.add(new AllSiteBean("区域2",50,10,objects1));
+        objects.add(new AllSiteBean("区域3",50,30,objects1));
+        objects.add(new AllSiteBean("区域4",50,20,objects1));
+        objects.add(new AllSiteBean("区域5",50,10,objects1));
+
+
+        String gsonString = GsonTools.createGsonString(objects);
+
+        System.out.println(gsonString);*/
 
     }
 
