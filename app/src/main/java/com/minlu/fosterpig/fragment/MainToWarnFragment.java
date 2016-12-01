@@ -12,6 +12,7 @@ import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.adapter.WarnAdapter;
 import com.minlu.fosterpig.base.BaseFragment;
 import com.minlu.fosterpig.base.ContentPage;
+import com.minlu.fosterpig.bean.MainAllInformation;
 import com.minlu.fosterpig.customview.swipelistview.SwipeMenu;
 import com.minlu.fosterpig.customview.swipelistview.SwipeMenuCreator;
 import com.minlu.fosterpig.customview.swipelistview.SwipeMenuItem;
@@ -19,14 +20,19 @@ import com.minlu.fosterpig.customview.swipelistview.SwipeMenuListView;
 import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by user on 2016/11/22.
  */
-public class MainToWarnFragment extends BaseFragment<String> {
+public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
 
-    private ArrayList<String> objects;
+    private List<MainAllInformation> list = new ArrayList<>();
     private WarnAdapter mWarnAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private boolean isHaveSwipeMenu;
@@ -45,7 +51,7 @@ public class MainToWarnFragment extends BaseFragment<String> {
         swipeRefreshLayout.setEnabled(false);
 
         SwipeMenuListView mListView = (SwipeMenuListView) inflate.findViewById(R.id.swipe_menu_list_view);
-        mWarnAdapter = new WarnAdapter(objects);
+        mWarnAdapter = new WarnAdapter(list);
         mListView.setAdapter(mWarnAdapter);
 
         if (isHaveSwipeMenu) {
@@ -57,50 +63,52 @@ public class MainToWarnFragment extends BaseFragment<String> {
 
     @Override
     protected ContentPage.ResultState onLoad() {
-        objects = new ArrayList<>();
-
         switch (getBundleValue()) {
-
             case StringsFiled.MAIN_TO_WARN_VALUE_AMMONIA:
                 isHaveSwipeMenu = true;
-
-                SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_AMMONIA_JSON, "");
-                objects.add("测试");
-                objects.add("测试");
+                analysisDataJSON(SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_AMMONIA_JSON, ""));
                 break;
-
             case StringsFiled.MAIN_TO_WARN_VALUE_TEMPERATURE:
                 isHaveSwipeMenu = true;
-
-                SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_TEMPERATURE_JSON, "");
-                objects.add("测试");
-                objects.add("测试");
-                objects.add("测试");
-                objects.add("测试");
+                analysisDataJSON(SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_TEMPERATURE_JSON, ""));
                 break;
-
             case StringsFiled.MAIN_TO_WARN_VALUE_HUMIDITY:
                 isHaveSwipeMenu = true;
-
-                SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_HUMIDITY_JSON, "");
-                objects.add("测试");
-                objects.add("测试");
-                objects.add("测试");
-                objects.add("测试");
-                objects.add("测试");
+                analysisDataJSON(SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_HUMIDITY_JSON, ""));
                 break;
-
             case StringsFiled.MAIN_TO_WARN_VALUE_POWER_SUPPLY:
                 isHaveSwipeMenu = false;
-
-                SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_POWER_SUPPLY_JSON, "");
-                objects.add("测试");
+                analysisDataJSON(SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_POWER_SUPPLY_JSON, ""));
                 break;
-
         }
 
 
-        return chat(objects);
+        return chat(list);
+    }
+
+    private void analysisDataJSON(String jsonData) {
+
+        list.clear();
+        try {
+            JSONArray jsonArray = new JSONArray(jsonData);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject singleWarnData = jsonArray.getJSONObject(i);
+
+                double facilityValue = singleWarnData.optDouble("facilityValue");
+                int facilityType = singleWarnData.optInt("facilityType");
+                int isWarn = singleWarnData.optInt("isWarn");
+                int siteId = singleWarnData.optInt("siteId");
+                int facilityId = singleWarnData.optInt("facilityId");
+                int areaId = singleWarnData.optInt("areaId");
+                String siteName = singleWarnData.optString("siteName");
+                String facilityName = singleWarnData.optString("facilityName");
+                String areaName = singleWarnData.optString("areaName");
+                list.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.out.println(jsonData);
     }
 
 
@@ -114,7 +122,7 @@ public class MainToWarnFragment extends BaseFragment<String> {
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        objects.remove(position);
+                        list.remove(position);
                         mWarnAdapter.notifyDataSetChanged();
 
                         Toast.makeText(ViewsUitls.getContext(), "Open", Toast.LENGTH_SHORT).show();

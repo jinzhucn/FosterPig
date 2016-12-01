@@ -6,12 +6,13 @@ import android.widget.TextView;
 
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.base.BaseHolder;
+import com.minlu.fosterpig.bean.MainAllInformation;
 import com.minlu.fosterpig.util.ViewsUitls;
 
 /**
  * Created by user on 2016/11/22.
  */
-public class WarnHolder extends BaseHolder<String> {
+public class WarnHolder extends BaseHolder<MainAllInformation> {
 
     private ImageView mLeftImage;
     private TextView mMonitorAddress;
@@ -36,15 +37,15 @@ public class WarnHolder extends BaseHolder<String> {
         return inflate;
     }
 
-    private void isShowPowerSupply(boolean isShow){
-        if(isShow){
+    private void isShowPowerSupply(boolean isShow) {
+        if (isShow) {
             mMonitorAddress.setVisibility(View.GONE);
             mMonitorWarnNumber.setVisibility(View.GONE);
-            mMonitorWarnTime.setVisibility(View.GONE);
+            mMonitorWarnTime.setVisibility(View.INVISIBLE);
 
             mPowerSupplyAddress.setVisibility(View.VISIBLE);
             mBrokenLink.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             mMonitorAddress.setVisibility(View.VISIBLE);
             mMonitorWarnNumber.setVisibility(View.VISIBLE);
             mMonitorWarnTime.setVisibility(View.VISIBLE);
@@ -55,35 +56,38 @@ public class WarnHolder extends BaseHolder<String> {
     }
 
     @Override
-    public void setRelfshData(String mData, int postion) {
+    public void setRelfshData(MainAllInformation mData, int postion) {
 
+        switch (mData.getFacilityType()) {
 
-        if(postion==1){
-            mLeftImage.setImageResource(R.mipmap.small_icon_warn_ammonia);
-            mMonitorAddress.setText("kzgfhaqosdhlas");
-            mMonitorWarnTime.setText("mnjbhiuhoij;m");
-        }else if(postion%2==0){
-            mLeftImage.setImageResource(R.mipmap.small_icon_warn_temperature);
-            mMonitorAddress.setText("kzgfhukywuieyriuaqosdhlas");
-            mMonitorWarnTime.setText("mnjbhiuhvnbdfgasdcoij;m");
-        }else if(postion%3==0){
-            mLeftImage.setImageResource(R.mipmap.small_icon_warn_humidity);
-            mMonitorAddress.setText("kzs");
-            mMonitorWarnTime.setText("mnjbhm");
-        }else if(postion%5==0){
-            mLeftImage.setImageResource(R.mipmap.small_icon_warn_ammonia);
-            mMonitorAddress.setText("1231231231");
-            mMonitorWarnTime.setText("45734548");
+            case 1:// 1氨气 a
+                isShowPowerSupply(false);
+                mLeftImage.setImageResource(R.mipmap.small_icon_warn_ammonia);
+                mMonitorWarnNumber.setText(mData.getFacilityValue() + "ppm");
+                mMonitorAddress.setText(mData.getAreaName() + "-" + mData.getSiteName() + "-氨气");
+                break;
+            case 2:// 2温度 t
+                isShowPowerSupply(false);
+                mLeftImage.setImageResource(R.mipmap.small_icon_warn_temperature);
+                mMonitorWarnNumber.setText(mData.getFacilityValue() + "℃");
+                mMonitorAddress.setText(mData.getAreaName() + "-" + mData.getSiteName() + "-温度");
+                break;
+            case 3:// 3湿度 h
+                isShowPowerSupply(false);
+                mLeftImage.setImageResource(R.mipmap.small_icon_warn_humidity);
+                mMonitorWarnNumber.setText(mData.getFacilityValue() + "%");
+                mMonitorAddress.setText(mData.getAreaName() + "-" + mData.getSiteName() + "-湿度");
+                break;
+            default:// 市电 p
+                isShowPowerSupply(true);
+                mLeftImage.setImageResource(R.mipmap.small_icon_warn_power_supply);
+                mPowerSupplyAddress.setText(mData.getAreaName() + "-" + mData.getSiteName() + "-市电" + (mData.getFacilityType() - 3));
+                if (mData.getFacilityValue() == 0) {
+                    mBrokenLink.setVisibility(View.VISIBLE);
+                } else {
+                    mBrokenLink.setVisibility(View.GONE);
+                }
+                break;
         }
-
-
-
-
-
-
-
-
-        mMonitorWarnNumber.setText(mData);
-
     }
 }
