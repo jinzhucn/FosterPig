@@ -2,32 +2,57 @@ package com.minlu.fosterpig.fragment;
 
 import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Toast;
 
+import com.minlu.fosterpig.IpFiled;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.adapter.AllWarnAdapter;
 import com.minlu.fosterpig.base.BaseFragment;
 import com.minlu.fosterpig.base.ContentPage;
+import com.minlu.fosterpig.bean.MainAllInformation;
 import com.minlu.fosterpig.customview.swipelistview.SwipeMenu;
 import com.minlu.fosterpig.customview.swipelistview.SwipeMenuCreator;
 import com.minlu.fosterpig.customview.swipelistview.SwipeMenuItem;
 import com.minlu.fosterpig.customview.swipelistview.SwipeMenuListView;
+import com.minlu.fosterpig.http.OkHttpManger;
 import com.minlu.fosterpig.manager.ThreadManager;
+import com.minlu.fosterpig.util.SharedPreferencesUtil;
+import com.minlu.fosterpig.util.StringUtils;
+import com.minlu.fosterpig.util.ToastUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * Created by user on 2016/11/24.
  */
-public class AllWarnFragment extends BaseFragment<String> implements SwipeRefreshLayout.OnRefreshListener {
-    private ArrayList<String> objects;
+public class AllWarnFragment extends BaseFragment<MainAllInformation> implements SwipeRefreshLayout.OnRefreshListener {
+    private List<MainAllInformation> allInformation;
     private SwipeRefreshLayout swipeRefreshLayout;
     private AllWarnAdapter mAllWarnAdapter;
     private Runnable mRefreshThread;
+    private String mResultString;
+
+    private boolean requestDataIsSuccess;
 
     @Override
     protected void onSubClassOnCreateView() {
@@ -46,10 +71,155 @@ public class AllWarnFragment extends BaseFragment<String> implements SwipeRefres
 
         setSwipeMenu(mListView);
 
-        mAllWarnAdapter = new AllWarnAdapter(objects);
+        mAllWarnAdapter = new AllWarnAdapter(allInformation);
         mListView.setAdapter(mAllWarnAdapter);
 
         return inflate;
+    }
+
+    @Override
+    protected ContentPage.ResultState onLoad() {
+
+
+        requestData();
+
+        if (!requestDataIsSuccess) {
+            allInformation = null;
+        }
+        return chat(allInformation);
+    }
+
+    private void requestData() {
+        OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
+        RequestBody formBody = new FormBody.Builder().build();
+
+        String address = SharedPreferencesUtil.getString(
+                ViewsUitls.getContext(), StringsFiled.IP_ADDRESS_PREFIX, "");
+
+        Request request = new Request.Builder()
+                .url(address + IpFiled.MAIN_GET_ALL_INFORMATION)
+                .post(formBody)
+                .build();
+        try {
+            Response response = okHttpClient.newCall(request).execute();
+            if (response.isSuccessful()) {
+                mResultString = response.body().string();
+                Log.i("okHttp_SUCCESS", mResultString);
+                analysisJsonDate();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("=========================onFailure=============================");
+            Log.i("okHttp_ERROE", "okHttp is request error");
+            requestDataIsSuccess = false;
+        }
+    }
+
+    private void analysisJsonDate() {
+        // TODO 测试数据
+        try {
+            InputStream is = getActivity().getAssets().open("textJson.txt");
+            mResultString = readTextFromSDcard(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // TODO 测试数据
+
+        if (StringUtils.interentIsNormal(mResultString)) {
+            try {
+                JSONObject jsonObject = new JSONObject(mResultString);
+                if (jsonObject.has("selectList")) {
+                    JSONArray informationList = jsonObject.optJSONArray("selectList");
+                    if (allInformation == null) {
+                        allInformation = new ArrayList<>();
+                    } else {
+                        allInformation.clear();
+                    }
+                    for (int i = 0; i < informationList.length(); i++) {
+
+                        JSONObject singleInformation = informationList.getJSONObject(i);
+                        int facilityType = singleInformation.optInt("type");//1氨气 2温度 3湿度 4市电通道一 。。。11市电通道八
+                        double facilityValue = singleInformation.optDouble("value");// 市电的值0断1通  温湿氨气为double
+                        // 获取是否报警
+                        int isWarn = -1;
+                        if (singleInformation.has("police")) {
+                            isWarn = singleInformation.optInt("police");// 0报警1不报警 市电没有这个字段
+                        }
+                        String siteName = singleInformation.optString("dtuName");
+                        String facilityName = singleInformation.optString("lmuName");
+                        String areaName = singleInformation.optString("stationName");
+                        int siteId = singleInformation.optInt("dtuId");
+                        int facilityId = singleInformation.optInt("lmuId");
+                        int areaId = singleInformation.optInt("stationId");
+                        if (facilityType < 4 && isWarn == 0) {
+                            allInformation.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn));
+                        }
+                    }
+                    requestDataIsSuccess = true;
+                } else {
+                    // 没有selectList这个字段说明服务器异常了
+                    requestDataIsSuccess = false;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            requestDataIsSuccess = false;
+        }
+    }
+
+    private String readTextFromSDcard(InputStream is) throws Exception {
+        InputStreamReader reader = new InputStreamReader(is);
+        BufferedReader bufferedReader = new BufferedReader(reader);
+        StringBuffer buffer = new StringBuffer("");
+        String str;
+        while ((str = bufferedReader.readLine()) != null) {
+            buffer.append(str);
+        }
+        return buffer.toString();
+    }
+
+    @Override
+    public void onRefresh() {
+
+        if (mRefreshThread == null) {
+            System.out.println("WarnInformation-New-Thread");
+            mRefreshThread = new Runnable() {
+                @Override
+                public void run() {
+                    requestData();
+                    ViewsUitls.runInMainThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (requestDataIsSuccess) {
+                                mAllWarnAdapter.notifyDataSetChanged();
+                            } else {
+                                ToastUtil.showToast(ViewsUitls.getContext(), "刷新失败");
+                            }
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                    });
+                }
+            };
+        }
+        ThreadManager.getInstance().execute(mRefreshThread);
+
+    }
+
+    private void setSwipeRefreshSetting() {
+        //改变加载显示的颜色
+        swipeRefreshLayout.setColorSchemeColors(StringsFiled.SWIPE_REFRESH_FIRST_ROUND_COLOR, StringsFiled.SWIPE_REFRESH_SECOND_ROUND_COLOR, StringsFiled.SWIPE_REFRESH_THIRD_ROUND_COLOR);
+        //设置背景颜色
+        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(StringsFiled.SWIPE_REFRESH_BACKGROUND);
+        //设置初始时的大小
+        swipeRefreshLayout.setSize(SwipeRefreshLayout.DEFAULT);
+        //设置监听
+        swipeRefreshLayout.setOnRefreshListener(this);
+    }
+
+    private int dp2px(int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                getResources().getDisplayMetrics());
     }
 
     private void setSwipeMenu(SwipeMenuListView mListView) {
@@ -83,7 +253,7 @@ public class AllWarnFragment extends BaseFragment<String> implements SwipeRefres
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        objects.remove(position);
+                        allInformation.remove(position);
                         mAllWarnAdapter.notifyDataSetChanged();
 
                         Toast.makeText(ViewsUitls.getContext(), "Open", Toast.LENGTH_SHORT).show();
@@ -120,71 +290,6 @@ public class AllWarnFragment extends BaseFragment<String> implements SwipeRefres
             }
         });
     }
-
-    private void setSwipeRefreshSetting() {
-        //改变加载显示的颜色
-        swipeRefreshLayout.setColorSchemeColors(StringsFiled.SWIPE_REFRESH_FIRST_ROUND_COLOR, StringsFiled.SWIPE_REFRESH_SECOND_ROUND_COLOR, StringsFiled.SWIPE_REFRESH_THIRD_ROUND_COLOR);
-        //设置背景颜色
-        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(StringsFiled.SWIPE_REFRESH_BACKGROUND);
-        //设置初始时的大小
-        swipeRefreshLayout.setSize(SwipeRefreshLayout.DEFAULT);
-        //设置监听
-        swipeRefreshLayout.setOnRefreshListener(this);
-    }
-
-    private int dp2px(int dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-                getResources().getDisplayMetrics());
-    }
-
-    @Override
-    protected ContentPage.ResultState onLoad() {
-
-        objects = new ArrayList<>();
-        for (int i=0;i<200;i++){
-            objects.add("测试"+i);
-
-        }
-
-        return chat(objects);
-    }
-
-    @Override
-    public void onRefresh() {
-
-        if (mRefreshThread == null) {
-            System.out.println("WarnInformation-New-Thread");
-            mRefreshThread = new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    // 请求网络数据
-                    objects.clear();
-                    objects.add("刷新的数据");
-                    objects.add("刷新的数据");
-                    objects.add("刷新的数据");
-                    objects.add("刷新的数据");
-                    objects.add("刷新的数据");
-
-
-                    ViewsUitls.runInMainThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mAllWarnAdapter.notifyDataSetChanged();
-                            swipeRefreshLayout.setRefreshing(false);
-                        }
-                    });
-                }
-            };
-        }
-        ThreadManager.getInstance().execute(mRefreshThread);
-
-    }
-
 
     @Override
     public void onDestroy() {

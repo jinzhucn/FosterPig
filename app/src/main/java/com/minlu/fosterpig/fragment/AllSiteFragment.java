@@ -1,19 +1,30 @@
 package com.minlu.fosterpig.fragment;
 
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 
+import com.minlu.fosterpig.IpFiled;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.adapter.MyExpandableListViewAdapter;
 import com.minlu.fosterpig.base.BaseFragment;
 import com.minlu.fosterpig.base.ContentPage;
+import com.minlu.fosterpig.http.OkHttpManger;
 import com.minlu.fosterpig.manager.ThreadManager;
+import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * Created by user on 2016/11/23.
@@ -26,6 +37,7 @@ public class AllSiteFragment extends BaseFragment<ArrayList> implements SwipeRef
     private int currentExpandGroup = -1;
     private Runnable mRefreshThread;
     private MyExpandableListViewAdapter myExpandableListViewAdapter;
+    private String mResultString;
 
     @Override
     protected void onSubClassOnCreateView() {
@@ -96,6 +108,32 @@ public class AllSiteFragment extends BaseFragment<ArrayList> implements SwipeRef
     @Override
     protected ContentPage.ResultState onLoad() {
 
+        OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
+        RequestBody formBody = new FormBody.Builder().build();
+
+        String address = SharedPreferencesUtil.getString(
+                ViewsUitls.getContext(), StringsFiled.IP_ADDRESS_PREFIX, "");
+
+        Request request = new Request.Builder()
+                .url(address + IpFiled.ALL_SITE_DATA)
+                .post(formBody)
+                .build();
+        try {
+            Response response = okHttpClient.newCall(request).execute();
+            if (response.isSuccessful()) {
+                mResultString = response.body().string();
+                Log.i("okHttp_SUCCESS", mResultString);
+                analysisJsonDate();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("=========================onFailure=============================");
+            Log.i("okHttp_ERROE", "okHttp is request error");
+        }
+
+
+
+
         list = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
             ArrayList<String> list1 = new ArrayList<>();
@@ -110,6 +148,11 @@ public class AllSiteFragment extends BaseFragment<ArrayList> implements SwipeRef
 
 
         return chat(list);
+    }
+
+    private void analysisJsonDate() {
+
+
     }
 
     @Override

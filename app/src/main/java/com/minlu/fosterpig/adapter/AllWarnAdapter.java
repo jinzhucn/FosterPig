@@ -3,6 +3,7 @@ package com.minlu.fosterpig.adapter;
 
 import com.minlu.fosterpig.base.BaseHolder;
 import com.minlu.fosterpig.base.MyBaseAdapter;
+import com.minlu.fosterpig.bean.MainAllInformation;
 import com.minlu.fosterpig.holder.WarnHolder;
 
 import java.util.List;
@@ -10,9 +11,9 @@ import java.util.List;
 /**
  * Created by user on 2016/11/22.
  */
-public class AllWarnAdapter extends MyBaseAdapter<String> {
+public class AllWarnAdapter extends MyBaseAdapter<MainAllInformation> {
 
-    public AllWarnAdapter(List<String> list) {
+    public AllWarnAdapter(List<MainAllInformation> list) {
         super(list);
     }
 
@@ -22,7 +23,7 @@ public class AllWarnAdapter extends MyBaseAdapter<String> {
     }
 
     @Override
-    public List<String> onLoadMore() {
+    public List<MainAllInformation> onLoadMore() {
         return null;
     }
 

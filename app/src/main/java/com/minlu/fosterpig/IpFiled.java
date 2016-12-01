@@ -11,7 +11,7 @@ public class IpFiled {
 
     public final static String MAIN_GET_ALL_INFORMATION = IP + "selection.html";
 
-    public final static String FLOOR_READING_ROOM_DATE = IP + "floorAndArea";
+    public final static String ALL_SITE_DATA = IP + "limitAtation.html";
 
     public final static String SEATS_DETAIL = IP + "seatMobile";
 
