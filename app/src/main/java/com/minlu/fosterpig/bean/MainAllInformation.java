@@ -5,56 +5,97 @@ package com.minlu.fosterpig.bean;
  */
 public class MainAllInformation {
 
-    private String pigHome;
-    private String siteNumber;
-    private int collectionPoint;
-    private int collectionNumber;
-    private boolean isWarn;
+    private String areaName;
+    private String siteName;
+    private String facilityName;
+    private int siteId;
+    private int facilityId;
+    private int areaId;
+    private int facilityType;
+    private double facilityValue;
+    private int isWarn;
 
-    public MainAllInformation(String pigHome, String siteNumber, int collectionPoint, int collectionNumber, boolean isWarn) {
-        this.pigHome = pigHome;
-        this.siteNumber = siteNumber;
-        this.collectionPoint = collectionPoint;
-        this.collectionNumber = collectionNumber;
+    public MainAllInformation(String areaName, String siteName, int siteId, String facilityName, int facilityId, int areaId, int facilityType, double facilityValue, int isWarn) {
+        this.areaName = areaName;
+        this.siteName = siteName;
+        this.siteId = siteId;
+        this.facilityName = facilityName;
+        this.facilityId = facilityId;
+        this.areaId = areaId;
+        this.facilityType = facilityType;
+        this.facilityValue = facilityValue;
         this.isWarn = isWarn;
     }
-    public String getPigHome() {
-        return pigHome;
+
+    public String getAreaName() {
+        return areaName;
     }
 
-    public void setPigHome(String pigHome) {
-        this.pigHome = pigHome;
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
     }
 
-    public String getSiteNumber() {
-        return siteNumber;
+    public String getSiteName() {
+        return siteName;
     }
 
-    public void setSiteNumber(String siteNumber) {
-        this.siteNumber = siteNumber;
+    public void setSiteName(String siteName) {
+        this.siteName = siteName;
     }
 
-    public int getCollectionPoint() {
-        return collectionPoint;
+    public int getSiteId() {
+        return siteId;
     }
 
-    public void setCollectionPoint(int collectionPoint) {
-        this.collectionPoint = collectionPoint;
+    public void setSiteId(int siteId) {
+        this.siteId = siteId;
     }
 
-    public int getCollectionNumber() {
-        return collectionNumber;
+    public String getFacilityName() {
+        return facilityName;
     }
 
-    public void setCollectionNumber(int collectionNumber) {
-        this.collectionNumber = collectionNumber;
+    public void setFacilityName(String facilityName) {
+        this.facilityName = facilityName;
     }
 
-    public boolean isWarn() {
+    public int getFacilityId() {
+        return facilityId;
+    }
+
+    public void setFacilityId(int facilityId) {
+        this.facilityId = facilityId;
+    }
+
+    public int getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(int areaId) {
+        this.areaId = areaId;
+    }
+
+    public int getFacilityType() {
+        return facilityType;
+    }
+
+    public void setFacilityType(int facilityType) {
+        this.facilityType = facilityType;
+    }
+
+    public double getFacilityValue() {
+        return facilityValue;
+    }
+
+    public void setFacilityValue(double facilityValue) {
+        this.facilityValue = facilityValue;
+    }
+
+    public int getIsWarn() {
         return isWarn;
     }
 
-    public void setWarn(boolean warn) {
-        isWarn = warn;
+    public void setIsWarn(int isWarn) {
+        this.isWarn = isWarn;
     }
 }

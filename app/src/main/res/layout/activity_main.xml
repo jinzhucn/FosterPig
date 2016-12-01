@@ -211,6 +211,7 @@
             android:background="@drawable/selector_main_bottom_item_background">
 
             <LinearLayout
+                android:id="@+id/ll_item_power_supply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -225,8 +226,15 @@
                 <TextView
                     android:id="@+id/tv_item_power_supply_monitor_number"
                     style="@style/main_bottom_item_text_style"
-                    android:text="市电[断电]" />
+                    android:text="市电[0]" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_item_power_supply_warn_number"
+                style="@style/main_bottom_item_red_round_style"
+                android:layout_alignTop="@id/ll_item_power_supply"
+                android:layout_toRightOf="@id/ll_item_power_supply"
+                android:text="1" />
         </RelativeLayout>
 
     </LinearLayout>

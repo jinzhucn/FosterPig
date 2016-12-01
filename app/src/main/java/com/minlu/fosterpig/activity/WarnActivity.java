@@ -33,6 +33,9 @@ public class WarnActivity extends BaseActivity {
             case StringsFiled.MAIN_TO_WARN_HUMIDITY:
                 bundle.putInt(StringsFiled.OPEN_FRAGMENT_BUNDLE_KEY, StringsFiled.MAIN_TO_WARN_VALUE_HUMIDITY);
                 break;
+            case StringsFiled.MAIN_TO_WARN_POWER_SUPPLY:
+                bundle.putInt(StringsFiled.OPEN_FRAGMENT_BUNDLE_KEY, StringsFiled.MAIN_TO_WARN_VALUE_POWER_SUPPLY);
+                break;
         }
         MainToWarnFragment mainToWarnFragment = new MainToWarnFragment();
         mainToWarnFragment.setArguments(bundle);

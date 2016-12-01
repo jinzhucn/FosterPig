@@ -1,6 +1,7 @@
 package com.minlu.fosterpig.fragment;
 
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.TypedValue;
 import android.view.View;
@@ -22,11 +23,12 @@ import java.util.ArrayList;
 /**
  * Created by user on 2016/11/22.
  */
-public class MainToWarnFragment extends BaseFragment<String>{
+public class MainToWarnFragment extends BaseFragment<String> {
 
     private ArrayList<String> objects;
     private WarnAdapter mWarnAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private boolean isHaveSwipeMenu;
 
     @Override
     protected void onSubClassOnCreateView() {
@@ -45,28 +47,60 @@ public class MainToWarnFragment extends BaseFragment<String>{
         mWarnAdapter = new WarnAdapter(objects);
         mListView.setAdapter(mWarnAdapter);
 
-        SwipeMenuCreator creator = new SwipeMenuCreator() {
+        if (isHaveSwipeMenu) {
+            setSwipeMenuAttribute(mListView);
+        }
 
-            @Override
-            public void create(SwipeMenu menu) {
-                // create "open" item
-                SwipeMenuItem openItem = new SwipeMenuItem(ViewsUitls.getContext());
-                // set item background
-                openItem.setBackground(R.drawable.selector_swipe_menu_bottom_item_background);
-                // set item width
-                openItem.setWidth(dp2px(90));
-                // set item title
-                openItem.setTitle("确认");
-                // set item title fontsize
-                openItem.setTitleSize(18);
-                // set item title font color
-                openItem.setTitleColor(Color.WHITE);
-                // add to menu
-                menu.addMenuItem(openItem);
+        return inflate;
+    }
 
-            }
-        };
+    @Override
+    protected ContentPage.ResultState onLoad() {
+        objects = new ArrayList<>();
 
+        switch (getBundleValue()) {
+
+            case StringsFiled.MAIN_TO_WARN_VALUE_AMMONIA:
+                isHaveSwipeMenu = true;
+
+                objects.add("测试");
+                objects.add("测试");
+                break;
+
+            case StringsFiled.MAIN_TO_WARN_VALUE_TEMPERATURE:
+                isHaveSwipeMenu = true;
+
+                objects.add("测试");
+                objects.add("测试");
+                objects.add("测试");
+                objects.add("测试");
+                break;
+
+            case StringsFiled.MAIN_TO_WARN_VALUE_HUMIDITY:
+                isHaveSwipeMenu = true;
+
+                objects.add("测试");
+                objects.add("测试");
+                objects.add("测试");
+                objects.add("测试");
+                objects.add("测试");
+                break;
+
+            case StringsFiled.MAIN_TO_WARN_VALUE_POWER_SUPPLY:
+                isHaveSwipeMenu = false;
+
+                objects.add("测试");
+                break;
+
+        }
+
+
+        return chat(objects);
+    }
+
+
+    private void setSwipeMenuAttribute(SwipeMenuListView mListView) {
+        SwipeMenuCreator creator = createSwipeMenuCreator();
         // set creator
         mListView.setMenuCreator(creator);
 
@@ -89,27 +123,50 @@ public class MainToWarnFragment extends BaseFragment<String>{
         mListView.setOnMenuStateChangeListener(new SwipeMenuListView.OnMenuStateChangeListener() {
             @Override
             public void onMenuOpen(int position) {
-                System.out.println("setOnMenuStateChangeListener+onMenuOpen: "+position);
+                System.out.println("setOnMenuStateChangeListener+onMenuOpen: " + position);
             }
 
             @Override
             public void onMenuClose(int position) {
-                System.out.println("setOnMenuStateChangeListener+onMenuClose: "+position);
+                System.out.println("setOnMenuStateChangeListener+onMenuClose: " + position);
             }
         });
         mListView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
             @Override
             public void onSwipeStart(int position) {
-                System.out.println("setOnSwipeListener+onSwipeStart: "+position);
+                System.out.println("setOnSwipeListener+onSwipeStart: " + position);
             }
 
             @Override
             public void onSwipeEnd(int position) {
-                System.out.println("setOnSwipeListener+onSwipeEnd: "+position);
+                System.out.println("setOnSwipeListener+onSwipeEnd: " + position);
             }
         });
+    }
 
-        return inflate;
+    @NonNull
+    private SwipeMenuCreator createSwipeMenuCreator() {
+        return new SwipeMenuCreator() {
+
+            @Override
+            public void create(SwipeMenu menu) {
+                // create "open" item
+                SwipeMenuItem openItem = new SwipeMenuItem(ViewsUitls.getContext());
+                // set item background
+                openItem.setBackground(R.drawable.selector_swipe_menu_bottom_item_background);
+                // set item width
+                openItem.setWidth(dp2px(90));
+                // set item title
+                openItem.setTitle("确认");
+                // set item title fontsize
+                openItem.setTitleSize(18);
+                // set item title font color
+                openItem.setTitleColor(Color.WHITE);
+                // add to menu
+                menu.addMenuItem(openItem);
+
+            }
+        };
     }
 
     private int dp2px(int dp) {
@@ -117,36 +174,4 @@ public class MainToWarnFragment extends BaseFragment<String>{
                 getResources().getDisplayMetrics());
     }
 
-    @Override
-    protected ContentPage.ResultState onLoad() {
-        objects = new ArrayList<>();
-
-        switch (getBundleValue()) {
-
-            case StringsFiled.MAIN_TO_WARN_VALUE_AMMONIA:
-                objects.add("测试");
-                objects.add("测试");
-                break;
-
-            case StringsFiled.MAIN_TO_WARN_VALUE_TEMPERATURE:
-                objects.add("测试");
-                objects.add("测试");
-                objects.add("测试");
-                objects.add("测试");
-                break;
-
-            case StringsFiled.MAIN_TO_WARN_VALUE_HUMIDITY:
-
-                objects.add("测试");
-                objects.add("测试");
-                objects.add("测试");
-                objects.add("测试");
-                objects.add("测试");
-                break;
-
-        }
-
-
-        return chat(objects);
-    }
 }

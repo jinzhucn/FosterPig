@@ -19,6 +19,8 @@ public class StringsFiled {
 
     public final static String MAIN_TO_WARN_HUMIDITY = "main_to_warn_humidity";
 
+    public final static String MAIN_TO_WARN_POWER_SUPPLY = "main_to_warn_power_supply";
+
     public final static String TAG_OPEN_ALL_SITE_FRAGMENT = "all_site";
 
     public final static String TAG_OPEN_WARN_INFORMATION_FRAGMENT = "warn_information";
@@ -39,25 +41,30 @@ public class StringsFiled {
 
     public static final String ALARM_SERVICE_ALREADY_OPEN = "alarm_service_already_open";
 
-    public final static String SEARCH_HISTORY = "search_history";
 
-    public final static String SEARCH_JSON_RESULT = "search_json_result";
 
     public final static String SEARCH_RESULT_SEAT_NUMBER = "search_result_seat_number";
 
-    public final static String SAVE_USERNAME = "mUser";
 
+   // 在main界面中的hundle
     public final static int SERVER_OUTAGE = 0;// 服务器宕机
 
     public final static int SERVER_THROW = 1;// 服务器异常
 
-    public final static int SERVER_SEND_JSON = 2;// 服务器发送了Json
+    public final static int STOP_LOADING_BUT_NO_CLICK = 2;
+
+    public final static int MAIN_ANALYSIS_FINISH_JSON = 3;
+    // 在main界面中的hundle
+
+
 
     public final static int MAIN_TO_WARN_VALUE_AMMONIA = 0;// 氨气报警信息
 
     public final static int MAIN_TO_WARN_VALUE_TEMPERATURE = 1;// 温度报警信息
 
     public final static int MAIN_TO_WARN_VALUE_HUMIDITY = 2;// 湿度报警信息
+
+    public final static int MAIN_TO_WARN_VALUE_POWER_SUPPLY = 3;
 
     public final static int SELECT_WARN_INFORMATION_TAB = 3;// 所有的报警信息
 

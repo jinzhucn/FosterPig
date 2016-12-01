@@ -17,6 +17,8 @@ public class WarnHolder extends BaseHolder<String> {
     private TextView mMonitorAddress;
     private TextView mMonitorWarnTime;
     private TextView mMonitorWarnNumber;
+    private TextView mPowerSupplyAddress;
+    private ImageView mBrokenLink;
 
     @Override
     public View initView() {
@@ -28,7 +30,28 @@ public class WarnHolder extends BaseHolder<String> {
         mMonitorWarnTime = (TextView) inflate.findViewById(R.id.tv_monitor_warn_time);
         mMonitorWarnNumber = (TextView) inflate.findViewById(R.id.tv_monitor_warn_number);
 
+        mPowerSupplyAddress = (TextView) inflate.findViewById(R.id.tv_power_supply_address);
+        mBrokenLink = (ImageView) inflate.findViewById(R.id.iv_power_supply);
+
         return inflate;
+    }
+
+    private void isShowPowerSupply(boolean isShow){
+        if(isShow){
+            mMonitorAddress.setVisibility(View.GONE);
+            mMonitorWarnNumber.setVisibility(View.GONE);
+            mMonitorWarnTime.setVisibility(View.GONE);
+
+            mPowerSupplyAddress.setVisibility(View.VISIBLE);
+            mBrokenLink.setVisibility(View.VISIBLE);
+        }else {
+            mMonitorAddress.setVisibility(View.VISIBLE);
+            mMonitorWarnNumber.setVisibility(View.VISIBLE);
+            mMonitorWarnTime.setVisibility(View.VISIBLE);
+
+            mPowerSupplyAddress.setVisibility(View.GONE);
+            mBrokenLink.setVisibility(View.GONE);
+        }
     }
 
     @Override

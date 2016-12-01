@@ -20,7 +20,8 @@
         android:layout_toRightOf="@id/iv_item_left_image"
         android:text="#2猪舍安琪点"
         android:textColor="@color/red"
-        android:textSize="17dp" />
+        android:textSize="17dp"
+        android:visibility="visible" />
 
     <TextView
         android:id="@+id/tv_monitor_warn_time"
@@ -30,7 +31,8 @@
         android:layout_toRightOf="@id/iv_item_left_image"
         android:text="报警时间: 2016/11/11 21:21:15"
         android:textColor="@color/black"
-        android:textSize="12dp" />
+        android:textSize="12dp"
+        android:visibility="visible" />
 
 
     <TextView
@@ -42,12 +44,34 @@
         android:layout_marginRight="20dp"
         android:text="1000ppm"
         android:textColor="@color/red"
-        android:textSize="18dp" />
+        android:textSize="18dp"
+        android:visibility="visible" />
+
+    <TextView
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:id="@+id/tv_power_supply_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_item_left_image"
+        android:text="#2猪舍安琪点"
+        android:textColor="@color/red"
+        android:textSize="25dp" />
+
+    <ImageView
+        android:id="@+id/iv_power_supply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/broken_link"
+        android:visibility="gone" />
 
     <View
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/tv_monitor_warn_time"
         android:layout_width="match_parent"
         android:layout_height="0.01dp"
+        android:layout_below="@id/tv_monitor_warn_time"
+        android:layout_marginTop="10dp"
         android:background="@color/thin_gray" />
 </RelativeLayout>

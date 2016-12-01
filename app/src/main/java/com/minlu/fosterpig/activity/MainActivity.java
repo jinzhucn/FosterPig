@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.minlu.fosterpig.IpFiled;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.base.BaseActivity;
@@ -22,7 +23,14 @@ import com.minlu.fosterpig.util.StringUtils;
 import com.minlu.fosterpig.util.ToastUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 
 import okhttp3.Call;
@@ -46,6 +54,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView mAmmoniaWarn;
     private TextView mTemperatureWarn;
     private TextView mHumidityWarn;
+    private TextView mPowerSupplyWarn;
+    private String mResultJSON;
 
 
     static class MyHandler extends Handler {
@@ -69,8 +79,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     mainActivity.setLoadingVisibility(View.GONE);
                     mainActivity.setIsInterruptTouch(false);
                     break;
-                case StringsFiled.SERVER_SEND_JSON:
-                    mainActivity.analysisDataJSON();
+                case StringsFiled.STOP_LOADING_BUT_NO_CLICK:
+                    mainActivity.setLoadingVisibility(View.GONE);
+                    break;
+                case StringsFiled.MAIN_ANALYSIS_FINISH_JSON:
+                    mainActivity.setIsInterruptTouch(false);
+                    mainActivity.mAmmoniaWarn.setVisibility(View.VISIBLE);
+                    mainActivity.mHumidityWarn.setVisibility(View.VISIBLE);
+                    mainActivity.mTemperatureWarn.setVisibility(View.VISIBLE);
+                    mainActivity.mPowerSupplyWarn.setVisibility(View.VISIBLE);
                     break;
             }
         }
@@ -108,10 +125,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mHumidityMonitor = (TextView) view.findViewById(R.id.tv_item_humidity_monitor_number);
         mPowerSupplyMonitor = (TextView) view.findViewById(R.id.tv_item_power_supply_monitor_number);
 
-        // 三个条目中代表警报数的文本
+        // 四个条目中代表警报数的文本
         mAmmoniaWarn = (TextView) view.findViewById(R.id.tv_item_ammonia_warn_number);
         mTemperatureWarn = (TextView) view.findViewById(R.id.tv_item_temperature_warn_number);
         mHumidityWarn = (TextView) view.findViewById(R.id.tv_item_humidity_warn_number);
+        mPowerSupplyWarn = (TextView) view.findViewById(R.id.tv_item_power_supply_warn_number);
 
         // 四个条目的点击事件
         RelativeLayout mItemAmmonia = (RelativeLayout) view.findViewById(R.id.rl_item_ammonia);
@@ -164,6 +182,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
                 break;
             case R.id.rl_item_power_supply:
+                if (mPowerSupplyWarn.getVisibility() == View.VISIBLE) {
+                    mainSkipToWarn(StringsFiled.MAIN_TO_WARN_POWER_SUPPLY);
+                }
                 break;
             case R.id.color_ful_ring_progress_view:
 
@@ -202,7 +223,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         String address = SharedPreferencesUtil.getString(
                 ViewsUitls.getContext(), StringsFiled.IP_ADDRESS_PREFIX, "");
         Request request = new Request.Builder()
-                .url("https://www.baidu.com/")
+                .url(address + IpFiled.MAIN_GET_ALL_INFORMATION)
                 .post(formBody)
                 .build();
         okHttpClient.newCall(request).enqueue(new Callback() {
@@ -213,8 +234,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (StringUtils.interentIsNormal(response.body().string())) {
-                    myHandler.sendEmptyMessage(StringsFiled.SERVER_SEND_JSON);
+                mResultJSON = response.body().string();
+                if (StringUtils.interentIsNormal(mResultJSON)) {
+                    analysisDataJSON();
                 } else {
                     myHandler.sendEmptyMessage(StringsFiled.SERVER_THROW);
                 }
@@ -224,18 +246,68 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void analysisDataJSON() {
+        try {
+            InputStream is = getAssets().open("textJson.txt");
+            mResultJSON = readTextFromSDcard(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // 解析json数据
-        System.out.println("解析数据");
+        System.out.println("解析数据: " + mResultJSON);
+        try {
+            JSONObject allInformation = new JSONObject(mResultJSON);
+            if (allInformation.has("selectList")) {
+                JSONArray informationList = allInformation.optJSONArray("selectList");
+                if (informationList.length() > 0) {
 
-        mAmmoniaWarn.setVisibility(View.VISIBLE);
-        mHumidityWarn.setVisibility(View.VISIBLE);
-        mTemperatureWarn.setVisibility(View.VISIBLE);
+                    // 这里是准备分析一条条数据，所以去除转圈，但不能点击
+                    myHandler.sendEmptyMessage(StringsFiled.STOP_LOADING_BUT_NO_CLICK);
+                    for (int i = 0; i < informationList.length(); i++) {
 
-        setLoadingVisibility(View.GONE);
-        setIsInterruptTouch(false);
+                        JSONObject singleInformation = informationList.getJSONObject(i);
 
+                        int isWarn = -1;
+                        if (singleInformation.has("police")) {
+                            isWarn = singleInformation.optInt("police");// 0报警1不报警 市电没有这个字段
+                        }
+                        double facilityValue = singleInformation.optDouble("value");// 市电的值0断1通  温湿氨气为double
+                        int facilityType = singleInformation.optInt("type");//1氨气 2温度 3湿度 4市电通道一 。。。11市电通道八
+                        String siteName = singleInformation.optString("dtuName");
+                        String facilityName = singleInformation.optString("lmuName");
+                        String areaName = singleInformation.optString("stationName");
+                        int siteId = singleInformation.optInt("dtuId");
+                        int facilityId = singleInformation.optInt("lmuId");
+                        int areaId = singleInformation.optInt("stationId");
+
+
+                    /* MainAllInformation mainAllInformation = new MainAllInformation(singleInformation.optString("stationName"), singleInformation.optString("dtuName"), singleInformation.optInt("dtuId"), singleInformation.optString("lmuName"),
+                            singleInformation.optInt("lmuId"), singleInformation.optInt("stationId"), singleInformation.optInt("type"), singleInformation.optDouble("value"), isWarn);*/
+                    }
+
+                    myHandler.sendEmptyMessage(StringsFiled.MAIN_ANALYSIS_FINISH_JSON);
+                } else {
+                    // json数组里没有一点数据说明服务器异常了
+                    myHandler.sendEmptyMessage(StringsFiled.SERVER_THROW);
+                }
+            } else {
+                // 没有selectList这个字段说明服务器异常了
+                myHandler.sendEmptyMessage(StringsFiled.SERVER_THROW);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
+    private String readTextFromSDcard(InputStream is) throws Exception {
+        InputStreamReader reader = new InputStreamReader(is);
+        BufferedReader bufferedReader = new BufferedReader(reader);
+        StringBuffer buffer = new StringBuffer("");
+        String str;
+        while ((str = bufferedReader.readLine()) != null) {
+            buffer.append(str);
+        }
+        return buffer.toString();
+    }
 
     @Override
     protected void onDestroy() {
