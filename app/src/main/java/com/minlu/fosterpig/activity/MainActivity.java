@@ -4,6 +4,7 @@ package com.minlu.fosterpig.activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -16,8 +17,10 @@ import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.base.BaseActivity;
 import com.minlu.fosterpig.base.MyApplication;
+import com.minlu.fosterpig.bean.MainAllInformation;
 import com.minlu.fosterpig.customview.ColorfulRingProgressView;
 import com.minlu.fosterpig.http.OkHttpManger;
+import com.minlu.fosterpig.util.GsonTools;
 import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.StringUtils;
 import com.minlu.fosterpig.util.ToastUtil;
@@ -32,6 +35,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -57,6 +62,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView mPowerSupplyWarn;
     private String mResultJSON;
 
+    private float mAllFacilityData = 0f;
+    private float mAllWarnFacilityData = 0f;
+    private int mSafePercentNumber = 100;
+
+    private boolean singleIsWarn = false;
+    private int mAmmoniaAllNumber = 0;
+    private int mTemperatureAllNumber = 0;
+    private int mHumidityAllNumber = 0;
+    private int mPowerSupplyAllNumber = 0;
+    private int mAmmoniaWarnNumber = 0;
+    private int mTemperatureWarnNumber = 0;
+    private int mHumidityWarnNumber = 0;
+    private int mPowerSupplyWarnNumber = 0;
+    private String mAreaName;
+    private String mSiteName;
+    private String mFacilityName;
+
+    private List<MainAllInformation> mAllAmmoniaWarnData = new ArrayList<>();
+    private List<MainAllInformation> mAllTemperatureWarnData = new ArrayList<>();
+    private List<MainAllInformation> mAllHumidityWarnData = new ArrayList<>();
+    private List<MainAllInformation> mAllPowerSupplyWarnData = new ArrayList<>();
 
     static class MyHandler extends Handler {
         WeakReference<MainActivity> mActivity;
@@ -83,11 +109,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     mainActivity.setLoadingVisibility(View.GONE);
                     break;
                 case StringsFiled.MAIN_ANALYSIS_FINISH_JSON:
+
+                    mainActivity.mSafeProcessResult.setTextColor(ContextCompat.getColor(mainActivity, R.color.white));
+                    if (mainActivity.mSafePercentNumber >= 80) {
+                        mainActivity.mSafeProcessResult.setText("安全等级良好");
+                    } else if (mainActivity.mSafePercentNumber < 80 && mainActivity.mSafePercentNumber >= 60) {
+                        mainActivity.mSafeProcessResult.setText("安全等级及格");
+                    } else if (mainActivity.mSafePercentNumber < 60) {
+                        mainActivity.mSafeProcessResult.setText("安全等级不及格");
+                    }
                     mainActivity.setIsInterruptTouch(false);
-                    mainActivity.mAmmoniaWarn.setVisibility(View.VISIBLE);
-                    mainActivity.mHumidityWarn.setVisibility(View.VISIBLE);
-                    mainActivity.mTemperatureWarn.setVisibility(View.VISIBLE);
-                    mainActivity.mPowerSupplyWarn.setVisibility(View.VISIBLE);
+                    ToastUtil.showToast(mainActivity, "扫描完成");
+                    break;
+                case StringsFiled.MAIN_DISPOSE_DATA_TO_UI:
+                    mainActivity.updateRingProgress();
+                    mainActivity.updateSafeProcessResult();
+                    mainActivity.updateFourItem();
                     break;
             }
         }
@@ -188,6 +225,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.color_ful_ring_progress_view:
 
+                setFourItemAllNumber(0, 0, 0, 0);
+                mAmmoniaWarn.setVisibility(View.INVISIBLE);
+                mTemperatureWarn.setVisibility(View.INVISIBLE);
+                mHumidityWarn.setVisibility(View.INVISIBLE);
+                mPowerSupplyWarn.setVisibility(View.INVISIBLE);
+                mRingProgressView.setFgColorEnd(ContextCompat.getColor(MainActivity.this, R.color.white));
+                mRingProgressView.setFgColorStart(ContextCompat.getColor(MainActivity.this, R.color.white));
+                mRingProgressView.setPercent(100f);
+                mPercent.setText("100分");
+                mPercent.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.white));
+
                 setLoadingVisibility(View.VISIBLE);
                 setIsInterruptTouch(true);
                 // 点击圆环开始请求网络
@@ -246,12 +294,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void analysisDataJSON() {
+
+        // TODO 测试数据
         try {
             InputStream is = getAssets().open("textJson.txt");
             mResultJSON = readTextFromSDcard(is);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        // TODO 测试数据
         // 解析json数据
         System.out.println("解析数据: " + mResultJSON);
         try {
@@ -262,16 +313,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                     // 这里是准备分析一条条数据，所以去除转圈，但不能点击
                     myHandler.sendEmptyMessage(StringsFiled.STOP_LOADING_BUT_NO_CLICK);
+
+                    dataInit(informationList);
                     for (int i = 0; i < informationList.length(); i++) {
 
                         JSONObject singleInformation = informationList.getJSONObject(i);
 
+                        int facilityType = singleInformation.optInt("type");//1氨气 2温度 3湿度 4市电通道一 。。。11市电通道八
+                        double facilityValue = singleInformation.optDouble("value");// 市电的值0断1通  温湿氨气为double
+
+                        // 获取是否报警
                         int isWarn = -1;
                         if (singleInformation.has("police")) {
                             isWarn = singleInformation.optInt("police");// 0报警1不报警 市电没有这个字段
                         }
-                        double facilityValue = singleInformation.optDouble("value");// 市电的值0断1通  温湿氨气为double
-                        int facilityType = singleInformation.optInt("type");//1氨气 2温度 3湿度 4市电通道一 。。。11市电通道八
+
                         String siteName = singleInformation.optString("dtuName");
                         String facilityName = singleInformation.optString("lmuName");
                         String areaName = singleInformation.optString("stationName");
@@ -279,10 +335,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         int facilityId = singleInformation.optInt("lmuId");
                         int areaId = singleInformation.optInt("stationId");
 
+                        // 下面是对数据进行处理，发到ui进行更新
+                        disposeDataToUI(facilityType, facilityValue, isWarn, siteName, areaName, facilityName, siteId, facilityId, areaId);
 
-                    /* MainAllInformation mainAllInformation = new MainAllInformation(singleInformation.optString("stationName"), singleInformation.optString("dtuName"), singleInformation.optInt("dtuId"), singleInformation.optString("lmuName"),
-                            singleInformation.optInt("lmuId"), singleInformation.optInt("stationId"), singleInformation.optInt("type"), singleInformation.optDouble("value"), isWarn);*/
+                        // 延迟时间，给ui更新
+                        try {
+                            Thread.sleep(10000 / informationList.length());
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        myHandler.sendEmptyMessage(StringsFiled.MAIN_DISPOSE_DATA_TO_UI);
                     }
+
+                    // TODO 在这里创建json
+                    SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_AMMONIA_JSON, GsonTools.createGsonString(mAllAmmoniaWarnData));
+                    SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_TEMPERATURE_JSON, GsonTools.createGsonString(mAllTemperatureWarnData));
+                    SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_HUMIDITY_JSON, GsonTools.createGsonString(mAllHumidityWarnData));
+                    SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_POWER_SUPPLY_JSON, GsonTools.createGsonString(mAllPowerSupplyWarnData));
 
                     myHandler.sendEmptyMessage(StringsFiled.MAIN_ANALYSIS_FINISH_JSON);
                 } else {
@@ -298,6 +368,86 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    private void disposeDataToUI(int facilityType, double facilityValue, int isWarn, String siteName,
+                                 String areaName, String facilityName, int siteId, int facilityId, int areaId) {
+        mAreaName = areaName;
+        mSiteName = siteName;
+        switch (facilityType) {
+            case 1:// 1氨气 a
+                mFacilityName = "氨气传感器";
+                mAmmoniaAllNumber++;
+                if (isWarn == 0) {
+                    mAllWarnFacilityData++; // 温湿氨的报警
+                    mAmmoniaWarnNumber++;
+                    singleIsWarn = true;
+                    mAllAmmoniaWarnData.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn));
+                } else {
+                    singleIsWarn = false;
+                }
+                break;
+            case 2:// 2温度 t
+                mFacilityName = "温度传感器";
+                mTemperatureAllNumber++;
+                if (isWarn == 0) {
+                    mAllWarnFacilityData++; // 温湿氨的报警
+                    mTemperatureWarnNumber++;
+                    singleIsWarn = true;
+                    mAllTemperatureWarnData.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn));
+                } else {
+                    singleIsWarn = false;
+                }
+                break;
+            case 3:// 3湿度 h
+                mFacilityName = "湿度传感器";
+                mHumidityAllNumber++;
+                if (isWarn == 0) {
+                    mAllWarnFacilityData++; // 温湿氨的报警
+                    mHumidityWarnNumber++;
+                    singleIsWarn = true;
+                    mAllHumidityWarnData.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn));
+                } else {
+                    singleIsWarn = false;
+                }
+                break;
+            default:// 市电 p
+                mFacilityName = "市电通道" + (facilityType - 3);
+                mPowerSupplyAllNumber++;
+                if (facilityValue == 0) {
+                    mAllWarnFacilityData++; // 市电的报警
+                    mPowerSupplyWarnNumber++;
+                    singleIsWarn = true;
+                    mAllPowerSupplyWarnData.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn));
+                } else {
+                    singleIsWarn = false;
+                }
+                break;
+        }
+        // 计算获取安全数值
+        mSafePercentNumber = (int) (((mAllFacilityData - mAllWarnFacilityData) / mAllFacilityData) * 100);
+
+        // Log.v("allData", "安全指数：" + mSafePercentNumber + " 氨气总数：" + mAmmoniaAllNumber + " 温度总数：" + mTemperatureAllNumber + " 湿度总数：" + mHumidityAllNumber + " 市电总数：" + mPowerSupplyAllNumber + " 氨气报警总数：" + mAmmoniaWarnNumber + " 温度报警总数：" + mTemperatureWarnNumber + " 湿度报警总数：" + mHumidityWarnNumber + " 市电报警总数：" + mPowerSupplyWarnNumber + " 区域名字：" + mAreaName + " 站点名字：" + mSiteName + " 设备名字：" + mFacilityName);
+    }
+
+    private void dataInit(JSONArray informationList) {
+        mAllFacilityData = informationList.length();// 每次准备解析数组数据，就将数组的长度赋值给mAllFacilityData
+        mAllWarnFacilityData = 0f;// 每次准备解析数组数据，就将报警设备数清零
+        mAmmoniaAllNumber = 0;
+        mTemperatureAllNumber = 0;
+        mHumidityAllNumber = 0;
+        mPowerSupplyAllNumber = 0;
+        mAmmoniaWarnNumber = 0;
+        mTemperatureWarnNumber = 0;
+        mHumidityWarnNumber = 0;
+        mPowerSupplyWarnNumber = 0;
+        singleIsWarn = false;
+
+        // 存储四大模块的数据
+        mAllAmmoniaWarnData.clear();
+        mAllTemperatureWarnData.clear();
+        mAllHumidityWarnData.clear();
+        mAllPowerSupplyWarnData.clear();
+    }
+
     private String readTextFromSDcard(InputStream is) throws Exception {
         InputStreamReader reader = new InputStreamReader(is);
         BufferedReader bufferedReader = new BufferedReader(reader);
@@ -307,6 +457,65 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             buffer.append(str);
         }
         return buffer.toString();
+    }
+
+    private void updateFourItem() {
+        setFourItemAllNumber(mAmmoniaAllNumber, mHumidityAllNumber, mTemperatureAllNumber, mPowerSupplyAllNumber);
+
+        // 设置四个模块的警告红点
+        if (mAmmoniaWarnNumber > 0) {
+            mAmmoniaWarn.setVisibility(View.VISIBLE);
+            mAmmoniaWarn.setText("" + mAmmoniaWarnNumber);
+        }
+        if (mTemperatureWarnNumber > 0) {
+            mTemperatureWarn.setVisibility(View.VISIBLE);
+            mTemperatureWarn.setText("" + mTemperatureWarnNumber);
+        }
+        if (mHumidityWarnNumber > 0) {
+            mHumidityWarn.setVisibility(View.VISIBLE);
+            mHumidityWarn.setText("" + mHumidityWarnNumber);
+        }
+        if (mPowerSupplyWarnNumber > 0) {
+            mPowerSupplyWarn.setVisibility(View.VISIBLE);
+            mPowerSupplyWarn.setText("" + mPowerSupplyWarnNumber);
+        }
+    }
+
+    private void setFourItemAllNumber(int ammoniaAllNumber, int humidityAllNumber, int temperatureAllNumber, int powerSupplyAllNumber) {
+        // 设置四个模块下的文本
+        mAmmoniaMonitor.setText("氨气[" + ammoniaAllNumber + "]");
+        mHumidityMonitor.setText("湿度[" + humidityAllNumber + "]");
+        mTemperatureMonitor.setText("温度[" + temperatureAllNumber + "]");
+        mPowerSupplyMonitor.setText("市电[" + powerSupplyAllNumber + "]");
+    }
+
+    private void updateSafeProcessResult() {
+        // 设置圆环下的文本内容与颜色
+        mSafeProcessResult.setText(mAreaName + "-" + mSiteName + "-" + mFacilityName);
+       /* if (singleIsWarn) {
+            mSafeProcessResult.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.red));
+        } else {
+            mSafeProcessResult.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.white));
+        }*/
+    }
+
+    private void updateRingProgress() {
+        // 更新圆环进度与颜色，安全指数大小与颜色
+        mRingProgressView.setPercent(mSafePercentNumber);
+        mPercent.setText(mSafePercentNumber + "分");
+        if (mSafePercentNumber >= 80) {
+            mRingProgressView.setFgColorEnd(ContextCompat.getColor(MainActivity.this, R.color.liang_hao));
+            mRingProgressView.setFgColorStart(ContextCompat.getColor(MainActivity.this, R.color.liang_hao));
+            mPercent.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.liang_hao));
+        } else if (mSafePercentNumber < 80 && mSafePercentNumber >= 60) {
+            mRingProgressView.setFgColorEnd(ContextCompat.getColor(MainActivity.this, R.color.ji_ge));
+            mRingProgressView.setFgColorStart(ContextCompat.getColor(MainActivity.this, R.color.ji_ge));
+            mPercent.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.ji_ge));
+        } else if (mSafePercentNumber < 60) {
+            mRingProgressView.setFgColorEnd(ContextCompat.getColor(MainActivity.this, R.color.red));
+            mRingProgressView.setFgColorStart(ContextCompat.getColor(MainActivity.this, R.color.red));
+            mPercent.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.red));
+        }
     }
 
     @Override

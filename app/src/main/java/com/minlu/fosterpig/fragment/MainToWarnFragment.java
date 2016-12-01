@@ -16,6 +16,7 @@ import com.minlu.fosterpig.customview.swipelistview.SwipeMenu;
 import com.minlu.fosterpig.customview.swipelistview.SwipeMenuCreator;
 import com.minlu.fosterpig.customview.swipelistview.SwipeMenuItem;
 import com.minlu.fosterpig.customview.swipelistview.SwipeMenuListView;
+import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
 
 import java.util.ArrayList;
@@ -63,6 +64,7 @@ public class MainToWarnFragment extends BaseFragment<String> {
             case StringsFiled.MAIN_TO_WARN_VALUE_AMMONIA:
                 isHaveSwipeMenu = true;
 
+                SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_AMMONIA_JSON, "");
                 objects.add("测试");
                 objects.add("测试");
                 break;
@@ -70,6 +72,7 @@ public class MainToWarnFragment extends BaseFragment<String> {
             case StringsFiled.MAIN_TO_WARN_VALUE_TEMPERATURE:
                 isHaveSwipeMenu = true;
 
+                SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_TEMPERATURE_JSON, "");
                 objects.add("测试");
                 objects.add("测试");
                 objects.add("测试");
@@ -79,6 +82,7 @@ public class MainToWarnFragment extends BaseFragment<String> {
             case StringsFiled.MAIN_TO_WARN_VALUE_HUMIDITY:
                 isHaveSwipeMenu = true;
 
+                SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_HUMIDITY_JSON, "");
                 objects.add("测试");
                 objects.add("测试");
                 objects.add("测试");
@@ -89,6 +93,7 @@ public class MainToWarnFragment extends BaseFragment<String> {
             case StringsFiled.MAIN_TO_WARN_VALUE_POWER_SUPPLY:
                 isHaveSwipeMenu = false;
 
+                SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_POWER_SUPPLY_JSON, "");
                 objects.add("测试");
                 break;
 

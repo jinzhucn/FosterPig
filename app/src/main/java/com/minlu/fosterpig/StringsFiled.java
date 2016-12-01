@@ -15,11 +15,19 @@ public class StringsFiled {
 
     public final static String MAIN_TO_WARN_AMMONIA = "main_to_warn_ammonia";
 
+    public final static String MAIN_TO_WARN_AMMONIA_JSON = "main_to_warn_ammonia_json";
+
     public final static String MAIN_TO_WARN_TEMPERATURE = "main_to_warn_temperature";
+
+    public final static String MAIN_TO_WARN_TEMPERATURE_JSON = "main_to_warn_temperature_json";
 
     public final static String MAIN_TO_WARN_HUMIDITY = "main_to_warn_humidity";
 
+    public final static String MAIN_TO_WARN_HUMIDITY_JSON = "main_to_warn_humidity_json";
+
     public final static String MAIN_TO_WARN_POWER_SUPPLY = "main_to_warn_power_supply";
+
+    public final static String MAIN_TO_WARN_POWER_SUPPLY_JSON= "main_to_warn_power_supply_json";
 
     public final static String TAG_OPEN_ALL_SITE_FRAGMENT = "all_site";
 
@@ -41,11 +49,6 @@ public class StringsFiled {
 
     public static final String ALARM_SERVICE_ALREADY_OPEN = "alarm_service_already_open";
 
-
-
-    public final static String SEARCH_RESULT_SEAT_NUMBER = "search_result_seat_number";
-
-
    // 在main界面中的hundle
     public final static int SERVER_OUTAGE = 0;// 服务器宕机
 
@@ -54,9 +57,9 @@ public class StringsFiled {
     public final static int STOP_LOADING_BUT_NO_CLICK = 2;
 
     public final static int MAIN_ANALYSIS_FINISH_JSON = 3;
+
+    public final static int MAIN_DISPOSE_DATA_TO_UI = 4;
     // 在main界面中的hundle
-
-
 
     public final static int MAIN_TO_WARN_VALUE_AMMONIA = 0;// 氨气报警信息
 
