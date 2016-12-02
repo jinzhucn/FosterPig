@@ -144,7 +144,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     break;
                 case StringsFiled.STOP_LOADING_BUT_NO_CLICK:// 在这里是获取到了具体数据，在进行解析前先停止加载页面，并初始化一些数据与Ui
                     mainActivity.setLoadingVisibility(View.GONE);
-                    mainActivity.dataInit();
+                    mainActivity.dataInitToView();
                     break;
                 case StringsFiled.MAIN_ANALYSIS_FINISH_JSON:
                     mainActivity.mSafeProcessResult.setTextColor(ContextCompat.getColor(mainActivity, R.color.white));
@@ -346,6 +346,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 JSONArray informationList = allInformation.optJSONArray("selectList");
                 if (informationList.length() > 0) {
 
+                    dataInit();
+
                     // 这里是准备分析一条条数据，所以去除转圈，但不能点击
                     myHandler.sendEmptyMessage(StringsFiled.STOP_LOADING_BUT_NO_CLICK);
 
@@ -355,9 +357,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     for (int i = 0; i < informationList.length(); i++) {
 
                         JSONObject singleInformation = informationList.getJSONObject(i);
-                        if (i == 0) {
-                            System.out.println("===============" + singleInformation.has("police") + "=============");
-                        }
 
                         int facilityType = singleInformation.optInt("type");//1氨气 2温度 3湿度 4市电通道一 。。。11市电通道八
                         double facilityValue = singleInformation.optDouble("value");// 市电的值0断1通  温湿氨气为double
@@ -368,7 +367,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                             isWarn = singleInformation.optInt("police");// 0报警1不报警 市电没有这个字段
                         }
 
-                        String siteName = singleInformation.optString("dtuName")+i;// TODO 加个i测试用
+                        String siteName = singleInformation.optString("dtuName");
                         String facilityName = singleInformation.optString("lmuName");
                         String areaName = singleInformation.optString("stationName");
                         int siteId = singleInformation.optInt("dtuId");
@@ -376,7 +375,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         int areaId = singleInformation.optInt("stationId");
 
                         // 下面是对数据进行处理，发到ui进行更新
-                        disposeDataToUI(facilityType, facilityValue, isWarn, siteName, areaName, facilityName, siteId, facilityId, areaId);
+                        disposeDataToUI(facilityType, facilityValue, isWarn, siteName, areaName, facilityName, siteId, facilityId, areaId, i);
 
                         // 延迟时间，给ui更新
                         try {
@@ -388,7 +387,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         myHandler.sendEmptyMessage(StringsFiled.MAIN_DISPOSE_DATA_TO_UI);
                     }
 
-                    // TODO 在这里创建json
                     SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_AMMONIA_JSON, GsonTools.createGsonString(mAllAmmoniaWarnData));
                     SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_TEMPERATURE_JSON, GsonTools.createGsonString(mAllTemperatureWarnData));
                     SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_HUMIDITY_JSON, GsonTools.createGsonString(mAllHumidityWarnData));
@@ -409,11 +407,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     private void disposeDataToUI(int facilityType, double facilityValue, int isWarn, String siteName,
-                                 String areaName, String facilityName, int siteId, int facilityId, int areaId) {
+                                 String areaName, String facilityName, int siteId, int facilityId, int areaId, int i) {
         mAreaName = areaName;
         mSiteName = siteName;
         switch (facilityType) {
             case 1:// 1氨气 a
+                if (i == 0) {
+                    System.out.println("=================for循环为0，进入switch，case为1，是氨气================");
+                }
                 mFacilityName = "氨气传感器";
                 mAmmoniaAllNumber++;
                 if (isWarn == 0) {
@@ -423,6 +424,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     mAllAmmoniaWarnData.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn));
                 } else {
                     singleIsWarn = false;
+                }
+                if (i == 0) {
+                    System.out.println(mFacilityName + " 氨气总数:" + mAmmoniaAllNumber + " 设备总数: " + mAllWarnFacilityData + " 氨气报警数: " + mAmmoniaWarnNumber + " 集合长度:" + mAllAmmoniaWarnData.size());
+                    System.out.println("=================for循环为0，进入switch，case为1，是氨气，完成了数据处理================");
                 }
                 break;
             case 2:// 2温度 t
@@ -472,18 +477,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mSafePercentNumber = (int) (((mAllFacilityData - mAllWarnFacilityData) / mAllFacilityData) * 100);
     }
 
+    private void dataInitToView() {
+        setFourItemAllNumber();
+        updateFourItem();
+        updateRingProgress();
+    }
+
     private void dataInit() {
         mAmmoniaAllNumber = 0;
         mTemperatureAllNumber = 0;
         mHumidityAllNumber = 0;
         mPowerSupplyAllNumber = 0;
-        setFourItemAllNumber();
 
         mAmmoniaWarnNumber = 0;
         mTemperatureWarnNumber = 0;
         mHumidityWarnNumber = 0;
         mPowerSupplyWarnNumber = 0;
-        updateFourItem();
 
         singleIsWarn = false;
         mFacilityName = "";
@@ -491,7 +500,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mSiteName = "";
 
         mSafePercentNumber = 100;
-        updateRingProgress();
 
         // 存储四大模块的数据
         mAllAmmoniaWarnData.clear();
