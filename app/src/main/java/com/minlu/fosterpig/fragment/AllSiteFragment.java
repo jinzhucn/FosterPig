@@ -17,6 +17,7 @@ import com.minlu.fosterpig.http.OkHttpManger;
 import com.minlu.fosterpig.manager.ThreadManager;
 import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.StringUtils;
+import com.minlu.fosterpig.util.ToastUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
 
 import org.json.JSONArray;
@@ -49,6 +50,7 @@ public class AllSiteFragment extends BaseFragment<AllSiteBean> implements SwipeR
     private MyExpandableListViewAdapter myExpandableListViewAdapter;
     private String mResultString;
     private boolean requestDataIsSuccess;
+    private int text=0;
 
     @Override
     protected void onSubClassOnCreateView() {
@@ -155,12 +157,14 @@ public class AllSiteFragment extends BaseFragment<AllSiteBean> implements SwipeR
     }
 
     private void analysisJsonDate() {
-        // TODO 测试数据
-        try {
-            InputStream is = getActivity().getAssets().open("textJson2.txt");
-            mResultString = readTextFromSDcard(is);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (text == 0) {
+            // TODO 测试数据
+            try {
+                InputStream is = getActivity().getAssets().open("textJson2.txt");
+                mResultString = readTextFromSDcard(is);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         // TODO 测试数据
 
@@ -234,34 +238,16 @@ public class AllSiteFragment extends BaseFragment<AllSiteBean> implements SwipeR
             mRefreshThread = new Runnable() {
                 @Override
                 public void run() {
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    // 请求网络数据
-                    mAllAreaData.clear();
-                    ArrayList<String> list1 = new ArrayList<>();
-                    list1.add("测试");
-                    list1.add("测试");
-                    list1.add("测试");
-                    list1.add("测试");
-                    list1.add("测试");
-                    list1.add("测试");
-                    ArrayList<String> list2 = new ArrayList<>();
-                    list2.add("测试");
-                    list2.add("测试");
-                    list2.add("测试");
-                    list2.add("测试");
-                    list2.add("测试");
-                    list2.add("测试");
-//                    mAllAreaData.add(list1);
-//                    mAllAreaData.add(list2);
-
+                    text++;
+                    requestData();
                     ViewsUitls.runInMainThread(new Runnable() {
                         @Override
                         public void run() {
-                            myExpandableListViewAdapter.notifyDataSetChanged();
+                            if (requestDataIsSuccess) {
+                                myExpandableListViewAdapter.notifyDataSetChanged();
+                            } else {
+                                ToastUtil.showToast(ViewsUitls.getContext(), "刷新失败");
+                            }
                             swipeRefreshLayout.setRefreshing(false);
                         }
                     });
