@@ -350,12 +350,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private void analysisDataJSON() {
 
         // TODO 测试数据
-   /* try {
+    try {
             InputStream is = getAssets().open("textJson.txt");
             mResultJSON = readTextFromSDcard(is);
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
         // TODO 测试数据
         // 解析json数据
         System.out.println("解析数据: " + mResultJSON);
@@ -372,7 +372,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
                     mAllFacilityData = informationList.length();// 每次准备解析数组数据，就将数组的长度赋值给mAllFacilityData
                     mAllWarnFacilityData = 0f;// 每次准备解析数组数据，就将报警设备数清零
-                    System.out.println(mAllFacilityData);
                     for (int i = 0; i < informationList.length(); i++) {
 
                         JSONObject singleInformation = informationList.getJSONObject(i);
@@ -402,7 +401,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
                         // 延迟时间，给ui更新
                         try {
-                            Thread.sleep(10000 / informationList.length());
+                            Thread.sleep((int) (mAllFacilityData * 15) / informationList.length());
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
