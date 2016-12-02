@@ -1,5 +1,6 @@
 package com.minlu.fosterpig.holder;
 
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -83,8 +84,9 @@ public class WarnHolder extends BaseHolder<MainAllInformation> {
                 break;
             default:// 市电 p
                 isShowPowerSupply(true);
-                mLeftImage.setImageResource(R.mipmap.small_icon_warn_power_supply);
+                mLeftImage.setImageResource(R.mipmap.small_icon_normal_power_supply);
                 mPowerSupplyAddress.setText(mData.getAreaName() + "-" + mData.getSiteName() + "-市电" + (mData.getFacilityType() - 3));
+                mPowerSupplyAddress.setTextColor(ContextCompat.getColor(ViewsUitls.getContext(),R.color.black));
                 if (mData.getFacilityValue() == 0) {
                     mBrokenLink.setVisibility(View.VISIBLE);
                 } else {

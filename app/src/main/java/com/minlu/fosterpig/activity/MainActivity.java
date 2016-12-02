@@ -2,9 +2,13 @@ package com.minlu.fosterpig.activity;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.ContextCompat;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +67,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private TextView mAmmoniaWarn;
     private TextView mTemperatureWarn;
     private TextView mHumidityWarn;
-    private TextView mPowerSupplyWarn;
+    //    private TextView mPowerSupplyWarn;
     private String mResultJSON;
 
     private float mAllFacilityData = 0f;
@@ -87,6 +91,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private List<MainAllInformation> mAllTemperatureWarnData = new ArrayList<>();
     private List<MainAllInformation> mAllHumidityWarnData = new ArrayList<>();
     private List<MainAllInformation> mAllPowerSupplyWarnData = new ArrayList<>();
+
+    private final static int[] sizeTable = {9, 99, 999, 9999, 99999, 999999, 9999999,
+            99999999, 999999999, Integer.MAX_VALUE};
+
+    private static int sizeOfInt(int x) {
+        for (int i = 0; ; i++)
+            if (x <= sizeTable[i])
+                return i + 1;
+    }
 
     @Override
     public void update(int distinguishNotified, int position, int cancelOrderBid) {
@@ -216,7 +229,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mAmmoniaWarn = (TextView) view.findViewById(R.id.tv_item_ammonia_warn_number);
         mTemperatureWarn = (TextView) view.findViewById(R.id.tv_item_temperature_warn_number);
         mHumidityWarn = (TextView) view.findViewById(R.id.tv_item_humidity_warn_number);
-        mPowerSupplyWarn = (TextView) view.findViewById(R.id.tv_item_power_supply_warn_number);
+//        mPowerSupplyWarn = (TextView) view.findViewById(R.id.tv_item_power_supply_warn_number);
 
         // 四个条目的点击事件
         RelativeLayout mItemAmmonia = (RelativeLayout) view.findViewById(R.id.rl_item_ammonia);
@@ -269,7 +282,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 }
                 break;
             case R.id.rl_item_power_supply:
-                if (mPowerSupplyWarn.getVisibility() == View.VISIBLE) {
+                if (mPowerSupplyWarnNumber > 0) {
                     mainSkipToWarn(StringsFiled.MAIN_TO_WARN_POWER_SUPPLY);
                 }
                 break;
@@ -358,8 +371,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     myHandler.sendEmptyMessage(StringsFiled.STOP_LOADING_BUT_NO_CLICK);
 
                     mAllFacilityData = informationList.length();// 每次准备解析数组数据，就将数组的长度赋值给mAllFacilityData
-                    System.out.println("======================mAllFacilityData: " + mAllFacilityData);
                     mAllWarnFacilityData = 0f;// 每次准备解析数组数据，就将报警设备数清零
+                    System.out.println(mAllFacilityData);
                     for (int i = 0; i < informationList.length(); i++) {
 
                         JSONObject singleInformation = informationList.getJSONObject(i);
@@ -466,10 +479,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 }
                 break;
             default:// 市电 p
+                mAllFacilityData--;// 市电的数据从分母中去除
                 mFacilityName = "市电通道" + (facilityType - 3);
                 mPowerSupplyAllNumber++;
                 if (facilityValue == 0) {
-                    mAllWarnFacilityData++; // 市电的报警
+//                    mAllWarnFacilityData++; // 市电的报警
                     mPowerSupplyWarnNumber++;
                     singleIsWarn = true;
                     mAllPowerSupplyWarnData.add(mainAllInformation);
@@ -550,12 +564,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         } else {
             mHumidityWarn.setVisibility(View.INVISIBLE);
         }
-        if (mPowerSupplyWarnNumber > 0) {
+    /*    if (mPowerSupplyWarnNumber > 0) {
             mPowerSupplyWarn.setVisibility(View.VISIBLE);
             mPowerSupplyWarn.setText("" + mPowerSupplyWarnNumber);
         } else {
             mPowerSupplyWarn.setVisibility(View.INVISIBLE);
-        }
+        }*/
     }
 
     private void setFourItemAllNumber() {
@@ -563,7 +577,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mAmmoniaMonitor.setText("氨气[" + mAmmoniaAllNumber + "]");
         mHumidityMonitor.setText("湿度[" + mHumidityAllNumber + "]");
         mTemperatureMonitor.setText("温度[" + mTemperatureAllNumber + "]");
-        mPowerSupplyMonitor.setText("市电[" + mPowerSupplyAllNumber + "]");
+        mPowerSupplyMonitor.setText("市电[" + mPowerSupplyWarnNumber + "/" + mPowerSupplyAllNumber + "]");
+
+        setPowerSupplyMonitorTextColor();
+    }
+
+    private void setPowerSupplyMonitorTextColor() {
+        SpannableStringBuilder builder = new SpannableStringBuilder(mPowerSupplyMonitor.getText().toString());
+        ForegroundColorSpan redSpan = new ForegroundColorSpan(Color.RED);
+        builder.setSpan(redSpan, 3, MainActivity.sizeOfInt(mPowerSupplyWarnNumber) + 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mPowerSupplyMonitor.setText(builder);
     }
 
     private void updateSafeProcessResult() {

@@ -146,11 +146,11 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 monitorAddress.setText(facilityDetail.getSiteName() + "-市电" + (facilityDetail.getFacilityType() - 3));
                 if (facilityDetail.getIsWarn() == -1 && facilityDetail.getDataValue() == 0) {
                     imageIcon.setImageResource(R.mipmap.small_icon_warn_power_supply);
-                    isPowerOn.setVisibility(View.VISIBLE);
+                    isPowerOn.setImageResource(R.mipmap.broken_link);
                     monitorAddress.setTextColor(ContextCompat.getColor(ViewsUitls.getContext(), R.color.red));
                 } else {
                     imageIcon.setImageResource(R.mipmap.small_icon_normal_power_supply);
-                    isPowerOn.setVisibility(View.INVISIBLE);
+                    isPowerOn.setImageResource(R.mipmap.link);
                     monitorAddress.setTextColor(ContextCompat.getColor(ViewsUitls.getContext(), R.color.black));
                 }
                 break;
