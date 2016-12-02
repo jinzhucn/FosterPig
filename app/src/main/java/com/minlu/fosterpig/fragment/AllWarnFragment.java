@@ -145,6 +145,11 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
                         if (singleInformation.has("police")) {
                             isWarn = singleInformation.optInt("police");// 0报警1不报警 市电没有这个字段
                         }
+                        // TODO 开始报警的时间
+                        String startWarnTime = "---";
+                        if (singleInformation.has("startWarnTime")) {
+                            startWarnTime = singleInformation.optString("startWarnTime");
+                        }
                         String siteName = singleInformation.optString("dtuName");
                         String facilityName = singleInformation.optString("lmuName");
                         String areaName = singleInformation.optString("stationName");
@@ -152,7 +157,7 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
                         int facilityId = singleInformation.optInt("lmuId");
                         int areaId = singleInformation.optInt("stationId");
                         if (facilityType < 4 && isWarn == 0) {
-                            allInformation.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn));
+                            allInformation.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn,startWarnTime));
                         }
                     }
                     requestDataIsSuccess = true;

@@ -367,6 +367,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                             isWarn = singleInformation.optInt("police");// 0报警1不报警 市电没有这个字段
                         }
 
+                        String startWarnTime = "---";
+                        if (singleInformation.has("startWarnTime")) {
+                            startWarnTime = singleInformation.optString("startWarnTime");
+                        }
                         String siteName = singleInformation.optString("dtuName");
                         String facilityName = singleInformation.optString("lmuName");
                         String areaName = singleInformation.optString("stationName");
@@ -375,7 +379,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         int areaId = singleInformation.optInt("stationId");
 
                         // 下面是对数据进行处理，发到ui进行更新
-                        disposeDataToUI(facilityType, facilityValue, isWarn, siteName, areaName, facilityName, siteId, facilityId, areaId, i);
+                        disposeDataToUI(facilityType, facilityValue, isWarn, siteName, areaName, facilityName, siteId, facilityId, areaId, i, startWarnTime);
 
                         // 延迟时间，给ui更新
                         try {
@@ -407,7 +411,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     private void disposeDataToUI(int facilityType, double facilityValue, int isWarn, String siteName,
-                                 String areaName, String facilityName, int siteId, int facilityId, int areaId, int i) {
+                                 String areaName, String facilityName, int siteId, int facilityId, int areaId, int i, String startWarnTime) {
+        MainAllInformation mainAllInformation = new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn, startWarnTime);
         mAreaName = areaName;
         mSiteName = siteName;
         switch (facilityType) {
@@ -421,7 +426,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     mAllWarnFacilityData++; // 温湿氨的报警
                     mAmmoniaWarnNumber++;
                     singleIsWarn = true;
-                    mAllAmmoniaWarnData.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn));
+                    mAllAmmoniaWarnData.add(mainAllInformation);
                 } else {
                     singleIsWarn = false;
                 }
@@ -437,7 +442,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     mAllWarnFacilityData++; // 温湿氨的报警
                     mTemperatureWarnNumber++;
                     singleIsWarn = true;
-                    mAllTemperatureWarnData.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn));
+                    mAllTemperatureWarnData.add(mainAllInformation);
                 } else {
                     singleIsWarn = false;
                 }
@@ -449,7 +454,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     mAllWarnFacilityData++; // 温湿氨的报警
                     mHumidityWarnNumber++;
                     singleIsWarn = true;
-                    mAllHumidityWarnData.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn));
+                    mAllHumidityWarnData.add(mainAllInformation);
                 } else {
                     singleIsWarn = false;
                 }
@@ -461,7 +466,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     mAllWarnFacilityData++; // 市电的报警
                     mPowerSupplyWarnNumber++;
                     singleIsWarn = true;
-                    mAllPowerSupplyWarnData.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn));
+                    mAllPowerSupplyWarnData.add(mainAllInformation);
                 } else {
                     singleIsWarn = false;
                 }

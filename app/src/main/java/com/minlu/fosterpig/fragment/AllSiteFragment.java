@@ -50,7 +50,6 @@ public class AllSiteFragment extends BaseFragment<AllSiteBean> implements SwipeR
     private MyExpandableListViewAdapter myExpandableListViewAdapter;
     private String mResultString;
     private boolean requestDataIsSuccess;
-    private int text=0;
 
     @Override
     protected void onSubClassOnCreateView() {
@@ -157,14 +156,12 @@ public class AllSiteFragment extends BaseFragment<AllSiteBean> implements SwipeR
     }
 
     private void analysisJsonDate() {
-        if (text == 0) {
-            // TODO 测试数据
-            try {
-                InputStream is = getActivity().getAssets().open("textJson2.txt");
-                mResultString = readTextFromSDcard(is);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        // TODO 测试数据
+        try {
+            InputStream is = getActivity().getAssets().open("textJson2.txt");
+            mResultString = readTextFromSDcard(is);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         // TODO 测试数据
 
@@ -238,7 +235,6 @@ public class AllSiteFragment extends BaseFragment<AllSiteBean> implements SwipeR
             mRefreshThread = new Runnable() {
                 @Override
                 public void run() {
-                    text++;
                     requestData();
                     ViewsUitls.runInMainThread(new Runnable() {
                         @Override

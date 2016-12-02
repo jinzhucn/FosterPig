@@ -95,6 +95,7 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject singleWarnData = jsonArray.getJSONObject(i);
 
+
                 double facilityValue = singleWarnData.optDouble("facilityValue");
                 int facilityType = singleWarnData.optInt("facilityType");
                 int isWarn = singleWarnData.optInt("isWarn");
@@ -104,7 +105,12 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
                 String siteName = singleWarnData.optString("siteName");
                 String facilityName = singleWarnData.optString("facilityName");
                 String areaName = singleWarnData.optString("areaName");
-                list.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn));
+                // TODO 开始报警的时间
+                String startWarnTime = "---";
+                if (singleWarnData.has("startWarnTime")) {
+                    startWarnTime = singleWarnData.optString("startWarnTime");
+                }
+                list.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn,startWarnTime));
             }
         } catch (JSONException e) {
             e.printStackTrace();

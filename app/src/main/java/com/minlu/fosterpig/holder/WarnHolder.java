@@ -65,18 +65,21 @@ public class WarnHolder extends BaseHolder<MainAllInformation> {
                 mLeftImage.setImageResource(R.mipmap.small_icon_warn_ammonia);
                 mMonitorWarnNumber.setText(mData.getFacilityValue() + "ppm");
                 mMonitorAddress.setText(mData.getAreaName() + "-" + mData.getSiteName() + "-氨气");
+                mMonitorWarnTime.setText("报警时间:" + mData.getStartWarnTime());
                 break;
             case 2:// 2温度 t
                 isShowPowerSupply(false);
                 mLeftImage.setImageResource(R.mipmap.small_icon_warn_temperature);
                 mMonitorWarnNumber.setText(mData.getFacilityValue() + "℃");
                 mMonitorAddress.setText(mData.getAreaName() + "-" + mData.getSiteName() + "-温度");
+                mMonitorWarnTime.setText("报警时间:" + mData.getStartWarnTime());
                 break;
             case 3:// 3湿度 h
                 isShowPowerSupply(false);
                 mLeftImage.setImageResource(R.mipmap.small_icon_warn_humidity);
                 mMonitorWarnNumber.setText(mData.getFacilityValue() + "%");
                 mMonitorAddress.setText(mData.getAreaName() + "-" + mData.getSiteName() + "-湿度");
+                mMonitorWarnTime.setText("报警时间:" + mData.getStartWarnTime());
                 break;
             default:// 市电 p
                 isShowPowerSupply(true);

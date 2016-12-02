@@ -8,6 +8,7 @@ public class MainAllInformation {
     private String areaName;
     private String siteName;
     private String facilityName;
+    private String startWarnTime;
     private int siteId;
     private int facilityId;
     private int areaId;
@@ -15,7 +16,7 @@ public class MainAllInformation {
     private double facilityValue;
     private int isWarn;
 
-    public MainAllInformation(String areaName, String siteName, int siteId, String facilityName, int facilityId, int areaId, int facilityType, double facilityValue, int isWarn) {
+    public MainAllInformation(String areaName, String siteName, int siteId, String facilityName, int facilityId, int areaId, int facilityType, double facilityValue, int isWarn, String startWarnTime) {
         this.areaName = areaName;
         this.siteName = siteName;
         this.siteId = siteId;
@@ -25,6 +26,7 @@ public class MainAllInformation {
         this.facilityType = facilityType;
         this.facilityValue = facilityValue;
         this.isWarn = isWarn;
+        this.startWarnTime = startWarnTime;
     }
 
     public String getAreaName() {
@@ -97,5 +99,13 @@ public class MainAllInformation {
 
     public void setIsWarn(int isWarn) {
         this.isWarn = isWarn;
+    }
+
+    public String getStartWarnTime() {
+        return startWarnTime;
+    }
+
+    public void setStartWarnTime(String startWarnTime) {
+        this.startWarnTime = startWarnTime;
     }
 }
