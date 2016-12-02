@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.ContextCompat;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.minlu.fosterpig.IpFiled;
 import com.minlu.fosterpig.R;
@@ -195,6 +197,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         MyApplication.getSaveActivity().add(this);
 
         initContentView(view);
+
+        startRunPoint();
     }
 
     private void initContentView(View view) {
@@ -270,12 +274,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 }
                 break;
             case R.id.color_ful_ring_progress_view:
-
-                setLoadingVisibility(View.VISIBLE);
-                setIsInterruptTouch(true);
-                // 点击圆环开始请求网络
-                requestAllMonitorInformation();
-
+                startRunPoint();
                 break;
             case R.id.iv_title_three_line:
                 Intent trueTimeIntent = new Intent(getApplicationContext(), TrueTimeDataActivity.class);
@@ -290,6 +289,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
 
 
+    }
+
+    private void startRunPoint() {
+        setLoadingVisibility(View.VISIBLE);
+        setIsInterruptTouch(true);
+        // 点击圆环开始请求网络
+        requestAllMonitorInformation();
     }
 
     private void mainSkipToWarn(String mainToWarn) {
@@ -601,5 +607,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         MySubject.getInstance().del(this);
         MyApplication.getSaveActivity().remove(this);
+    }
+
+    private long firstTime = 0;
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                long secondTime = System.currentTimeMillis();
+                if (secondTime - firstTime > 2000) {                                         //如果两次按键时间间隔大于2秒，则不退出
+                    Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                    firstTime = secondTime;//更新firstTime
+                    return true;
+                } else {                                                    //两次按键小于2秒时，退出应用
+                    System.exit(0);
+                }
+                break;
+        }
+        return super.onKeyUp(keyCode, event);
     }
 }
