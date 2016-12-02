@@ -1,0 +1,3790 @@
+{
+    "selectList": [
+        {
+            "areaName": "康乐畜牧",
+            "facilityDetails": [
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                }
+            ],
+            "facilitySum": 99,
+            "facilityWarnNumber": 54
+        },
+        {
+            "areaName": "东区",
+            "facilityDetails": [
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                }
+            ],
+            "facilitySum": 99,
+            "facilityWarnNumber": 54
+        },
+        {
+            "areaName": "西区",
+            "facilityDetails": [
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                }
+            ],
+            "facilitySum": 99,
+            "facilityWarnNumber": 54
+        },
+        {
+            "areaName": "猪舍24"
+        },
+        {
+            "areaName": "猪舍1",
+            "facilityDetails": [
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                }
+            ],
+            "facilitySum": 99,
+            "facilityWarnNumber": 54
+        },
+        {
+            "areaName": "猪舍21"
+        },
+        {
+            "areaName": "猪舍2",
+            "facilityDetails": [
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                }
+            ],
+            "facilitySum": 99,
+            "facilityWarnNumber": 54
+        },
+        {
+            "areaName": "猪舍12"
+        },
+        {
+            "areaName": "猪舍3",
+            "facilityDetails": [
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0.00,
+                    "facilityType": 1,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 15.99,
+                    "facilityType": 2,
+                    "isWarn": 1,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 51.86,
+                    "facilityType": 3,
+                    "isWarn": 0,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 4,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 5,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 6,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 7,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 8,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 9,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 1,
+                    "facilityType": 10,
+                    "siteName": "1号站点"
+                },
+                {
+                    "areaName": "西区",
+                    "dataValue": 0,
+                    "facilityType": 11,
+                    "siteName": "1号站点"
+                }
+            ],
+            "facilitySum": 99,
+            "facilityWarnNumber": 54
+        },
+        {
+            "areaName": "猪舍13"
+        },
+        {
+            "areaName": "猪舍14"
+        },
+        {
+            "areaName": "猪舍15"
+        }
+    ]
+}

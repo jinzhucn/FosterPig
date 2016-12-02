@@ -11,12 +11,22 @@ import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.adapter.MyExpandableListViewAdapter;
 import com.minlu.fosterpig.base.BaseFragment;
 import com.minlu.fosterpig.base.ContentPage;
+import com.minlu.fosterpig.bean.AllSiteBean;
+import com.minlu.fosterpig.bean.FacilityDetail;
 import com.minlu.fosterpig.http.OkHttpManger;
 import com.minlu.fosterpig.manager.ThreadManager;
 import com.minlu.fosterpig.util.SharedPreferencesUtil;
+import com.minlu.fosterpig.util.StringUtils;
 import com.minlu.fosterpig.util.ViewsUitls;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,15 +39,16 @@ import okhttp3.Response;
 /**
  * Created by user on 2016/11/23.
  */
-public class AllSiteFragment extends BaseFragment<ArrayList> implements SwipeRefreshLayout.OnRefreshListener {
+public class AllSiteFragment extends BaseFragment<AllSiteBean> implements SwipeRefreshLayout.OnRefreshListener {
 
-    private List<ArrayList> list;
+    private List<AllSiteBean> mAllAreaData;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ExpandableListView expandableListView;
     private int currentExpandGroup = -1;
     private Runnable mRefreshThread;
     private MyExpandableListViewAdapter myExpandableListViewAdapter;
     private String mResultString;
+    private boolean requestDataIsSuccess;
 
     @Override
     protected void onSubClassOnCreateView() {
@@ -62,7 +73,7 @@ public class AllSiteFragment extends BaseFragment<ArrayList> implements SwipeRef
         expandableListView = (ExpandableListView) inflate.findViewById(R.id.elv_all_site);
         expandableListView.setGroupIndicator(null);
 
-        myExpandableListViewAdapter = new MyExpandableListViewAdapter(list);
+        myExpandableListViewAdapter = new MyExpandableListViewAdapter(mAllAreaData);
         expandableListView.setAdapter(myExpandableListViewAdapter);
 
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -108,6 +119,16 @@ public class AllSiteFragment extends BaseFragment<ArrayList> implements SwipeRef
     @Override
     protected ContentPage.ResultState onLoad() {
 
+        requestData();
+
+        if (!requestDataIsSuccess) {
+            mAllAreaData = null;
+        }
+
+        return chat(mAllAreaData);
+    }
+
+    private void requestData() {
         OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
         RequestBody formBody = new FormBody.Builder().build();
 
@@ -129,30 +150,80 @@ public class AllSiteFragment extends BaseFragment<ArrayList> implements SwipeRef
             e.printStackTrace();
             System.out.println("=========================onFailure=============================");
             Log.i("okHttp_ERROE", "okHttp is request error");
+            requestDataIsSuccess = false;
         }
-
-
-
-
-        list = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
-            ArrayList<String> list1 = new ArrayList<>();
-            list1.add("测试");
-            list1.add("测试");
-            list1.add("测试");
-            list1.add("测试");
-            list1.add("测试");
-            list1.add("测试");
-            list.add(list1);
-        }
-
-
-        return chat(list);
     }
 
     private void analysisJsonDate() {
+        // TODO 测试数据
+        try {
+            InputStream is = getActivity().getAssets().open("textJson2.txt");
+            mResultString = readTextFromSDcard(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // TODO 测试数据
 
+        if (StringUtils.interentIsNormal(mResultString)) {
+            try {
+                JSONObject jsonObject = new JSONObject(mResultString);
+                if (jsonObject.has("selectList")) {
+                    JSONArray informationList = jsonObject.optJSONArray("selectList");
+                    if (mAllAreaData == null) {
+                        mAllAreaData = new ArrayList<>();
+                    } else {
+                        mAllAreaData.clear();
+                    }
+                    for (int i = 0; i < informationList.length(); i++) {
 
+                        JSONObject singleInformation = informationList.getJSONObject(i);
+
+                        String areaName = singleInformation.optString("areaName");
+
+                        List<FacilityDetail> facilityDetails = new ArrayList<>();
+                        int facilitySum = 0;
+                        int facilityWarnNumber = 0;// 如果走不进下面的判断就为0
+                        if (singleInformation.has("facilitySum") && singleInformation.optInt("facilitySum") > 0) {
+                            facilitySum = singleInformation.optInt("facilitySum");
+                            facilityWarnNumber = singleInformation.optInt("facilityWarnNumber");
+                            JSONArray allSiteData = singleInformation.optJSONArray("facilityDetails");
+                            for (int j = 0; j < allSiteData.length(); j++) {
+                                JSONObject singleData = allSiteData.getJSONObject(j);
+                                int isWarn = -1;
+                                if (singleData.has("isWarn")) {
+                                    isWarn = singleData.optInt("isWarn");
+                                }
+                                facilityDetails.add(new FacilityDetail(singleData.optDouble("dataValue"), singleData.optInt("facilityType"), isWarn, singleData.optString("siteName"), singleData.optString("areaName")));
+                            }
+                        }
+
+                        mAllAreaData.add(new AllSiteBean(areaName, facilitySum, facilityWarnNumber, facilityDetails));
+
+                    }
+                    requestDataIsSuccess = true;
+                    System.out.println();
+                } else {
+                    // 没有selectList这个字段说明服务器异常了
+                    requestDataIsSuccess = false;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            requestDataIsSuccess = false;
+        }
+
+    }
+
+    private String readTextFromSDcard(InputStream is) throws Exception {
+        InputStreamReader reader = new InputStreamReader(is);
+        BufferedReader bufferedReader = new BufferedReader(reader);
+        StringBuffer buffer = new StringBuffer("");
+        String str;
+        while ((str = bufferedReader.readLine()) != null) {
+            buffer.append(str);
+        }
+        return buffer.toString();
     }
 
     @Override
@@ -169,7 +240,7 @@ public class AllSiteFragment extends BaseFragment<ArrayList> implements SwipeRef
                         e.printStackTrace();
                     }
                     // 请求网络数据
-                    list.clear();
+                    mAllAreaData.clear();
                     ArrayList<String> list1 = new ArrayList<>();
                     list1.add("测试");
                     list1.add("测试");
@@ -184,8 +255,8 @@ public class AllSiteFragment extends BaseFragment<ArrayList> implements SwipeRef
                     list2.add("测试");
                     list2.add("测试");
                     list2.add("测试");
-                    list.add(list1);
-                    list.add(list2);
+//                    mAllAreaData.add(list1);
+//                    mAllAreaData.add(list2);
 
                     ViewsUitls.runInMainThread(new Runnable() {
                         @Override

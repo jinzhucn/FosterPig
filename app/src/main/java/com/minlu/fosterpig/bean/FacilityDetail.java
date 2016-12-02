@@ -5,25 +5,25 @@ package com.minlu.fosterpig.bean;
  */
 public class FacilityDetail {
 
-    private int dataValue;
+    private double dataValue;
     private int facilityType;
     private int isWarn;
     private String siteName;
     private String areaName;
 
-    public FacilityDetail(int dataValue, int facilityType, String siteName, String areaName, int isWarn) {
+    public FacilityDetail(double dataValue, int facilityType, int isWarn, String siteName, String areaName) {
         this.dataValue = dataValue;
         this.facilityType = facilityType;
+        this.isWarn = isWarn;
         this.siteName = siteName;
         this.areaName = areaName;
-        this.isWarn = isWarn;
     }
 
-    public int getDataValue() {
+    public double getDataValue() {
         return dataValue;
     }
 
-    public void setDataValue(int dataValue) {
+    public void setDataValue(double dataValue) {
         this.dataValue = dataValue;
     }
 
@@ -35,20 +35,20 @@ public class FacilityDetail {
         this.facilityType = facilityType;
     }
 
-    public String getSiteName() {
-        return siteName;
-    }
-
-    public void setSiteName(String siteName) {
-        this.siteName = siteName;
-    }
-
     public int getIsWarn() {
         return isWarn;
     }
 
     public void setIsWarn(int isWarn) {
         this.isWarn = isWarn;
+    }
+
+    public String getSiteName() {
+        return siteName;
+    }
+
+    public void setSiteName(String siteName) {
+        this.siteName = siteName;
     }
 
     public String getAreaName() {
