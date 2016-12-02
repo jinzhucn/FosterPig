@@ -265,7 +265,7 @@ public class AllSiteFragment extends BaseFragment<AllSiteBean> implements SwipeR
             ThreadManager.getInstance().cancel(mRefreshThread);
             mRefreshThread = null;
         }
-        if (swipeRefreshLayout.isRefreshing()) {
+        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
             System.out.println("还在刷新");
             swipeRefreshLayout.setRefreshing(false);
         }

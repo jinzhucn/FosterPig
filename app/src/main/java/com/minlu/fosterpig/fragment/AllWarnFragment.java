@@ -157,7 +157,7 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
                         int facilityId = singleInformation.optInt("lmuId");
                         int areaId = singleInformation.optInt("stationId");
                         if (facilityType < 4 && isWarn == 1) {
-                            allInformation.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn,startWarnTime));
+                            allInformation.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn, startWarnTime));
                         }
                     }
                     requestDataIsSuccess = true;
@@ -306,7 +306,7 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
             ThreadManager.getInstance().cancel(mRefreshThread);
             mRefreshThread = null;
         }
-        if (swipeRefreshLayout.isRefreshing()) {
+        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
             System.out.println("还在刷新");
             swipeRefreshLayout.setRefreshing(false);
         }

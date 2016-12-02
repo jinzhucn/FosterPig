@@ -69,7 +69,7 @@ public class SureWarnFragment extends BaseFragment<String> implements SwipeRefre
     private void requestData() {
         list = new ArrayList<>();
 
-        for (int i=0;i<10;i++){
+        for (int i = 0; i < 10; i++) {
             list.add("确认信息");
         }
 
@@ -91,7 +91,7 @@ public class SureWarnFragment extends BaseFragment<String> implements SwipeRefre
                     }
                     // 请求网络数据
                     list.clear();
-                    for (int i=0;i<10;i++){
+                    for (int i = 0; i < 10; i++) {
                         list.add("确认信息");
                     }
 
@@ -121,7 +121,7 @@ public class SureWarnFragment extends BaseFragment<String> implements SwipeRefre
             ThreadManager.getInstance().cancel(mRefreshThread);
             mRefreshThread = null;
         }
-        if (swipeRefreshLayout.isRefreshing()) {
+        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
             System.out.println("还在刷新");
             swipeRefreshLayout.setRefreshing(false);
         }
