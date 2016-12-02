@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.Toast;
 
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
@@ -17,6 +16,8 @@ import com.minlu.fosterpig.customview.swipelistview.SwipeMenu;
 import com.minlu.fosterpig.customview.swipelistview.SwipeMenuCreator;
 import com.minlu.fosterpig.customview.swipelistview.SwipeMenuItem;
 import com.minlu.fosterpig.customview.swipelistview.SwipeMenuListView;
+import com.minlu.fosterpig.observer.MySubject;
+import com.minlu.fosterpig.util.GsonTools;
 import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
 
@@ -122,10 +123,25 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
+                        MainAllInformation mainAllInformation = list.get(position);
+
                         list.remove(position);
                         mWarnAdapter.notifyDataSetChanged();
 
-                        Toast.makeText(ViewsUitls.getContext(), "Open", Toast.LENGTH_SHORT).show();
+                        switch (mainAllInformation.getFacilityType()) {
+                            case 1:// 氨气
+                                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_AMMONIA_JSON, GsonTools.createGsonString(list));
+                                MySubject.getInstance().operation(StringsFiled.OBSERVER_AMMONIA_SURE, -1, -1);
+                                break;
+                            case 2:// 温度
+                                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_TEMPERATURE_JSON, GsonTools.createGsonString(list));
+                                MySubject.getInstance().operation(StringsFiled.OBSERVER_TEMPERATURE_SURE, -1, -1);
+                                break;
+                            case 3:// 湿度
+                                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_HUMIDITY_JSON, GsonTools.createGsonString(list));
+                                MySubject.getInstance().operation(StringsFiled.OBSERVER_HUMIDITY_SURE, -1, -1);
+                                break;
+                        }
                         break;
                 }
                 // ★★★★★false : close the menu; true : not close the menu

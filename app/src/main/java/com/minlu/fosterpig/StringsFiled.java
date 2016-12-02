@@ -83,7 +83,14 @@ public class StringsFiled {
 
     public final static int SWIPE_REFRESH_BACKGROUND = Color.GREEN;
 
+    // 观察者模式的区分
     public final static int OBSERVER_MEDIA_PLAYER_PAUSE = 0;
 
     public final static int OBSERVER_MEDIA_PLAYER_IS_PLAYING = 1;
+
+    public final static int OBSERVER_AMMONIA_SURE = 2;
+
+    public final static int OBSERVER_TEMPERATURE_SURE = 3;
+
+    public final static int OBSERVER_HUMIDITY_SURE = 4;
 }
