@@ -11,17 +11,26 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat.Builder;
 import android.util.Log;
 
+import com.minlu.fosterpig.IpFiled;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.customview.MyMediaPlayer;
+import com.minlu.fosterpig.http.OkHttpManger;
 import com.minlu.fosterpig.observer.MySubject;
 import com.minlu.fosterpig.util.SharedPreferencesUtil;
-import com.minlu.fosterpig.util.StringUtils;
 import com.minlu.fosterpig.util.ViewsUitls;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class AlarmServicer extends Service {
 
@@ -67,30 +76,46 @@ public class AlarmServicer extends Service {
             @Override
             public void run() {
                 // TODO 请求一次网络看是否要报警
-                try {
-                    postBack = "在这里请求报警后的结果false";
+                OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
+                RequestBody formBody = new FormBody.Builder().build();
 
-                    if (StringUtils.interentIsNormal(postBack)) {
-                        if (postBack.contains("false")) {
+                String address = SharedPreferencesUtil.getString(
+                        ViewsUitls.getContext(), StringsFiled.IP_ADDRESS_PREFIX, "");
+
+                Request request = new Request.Builder()
+                        .url(address + IpFiled.MAIN_GET_ALL_INFORMATION)
+                        .post(formBody)
+                        .build();
+                try {
+                    Response response = okHttpClient.newCall(request).execute();
+                    if (response.isSuccessful()) {
+                        postBack = response.body().string();
+                        Log.i("okHttp_SUCCESS", postBack);
+                        JSONObject jsonObject = new JSONObject(postBack);
+                        if (jsonObject.has("allWranNumber")) {
+                            int allWarnNumber = jsonObject.optInt("allWranNumber");
+                            // TODO 测试用
+//                            allWarnNumber=2;
+                            // TODO 测试用
+                            if (allWarnNumber > 0) {
+                                isAlarm = true;
+                                msg = "请注意!现有" + allWarnNumber + "报警";
+                            } else {
+                                isAlarm = false;
+                                msg = "暂无报警信息";
+                            }
+                        } else {
                             isAlarm = false;
-                            msg = "暂无报警信息";
-                        } else if (postBack.contains("true")) {
-                            msg = postBack;// TODO 是否需要具体的报警信息
-                            isAlarm = true;
+                            msg = "报警信息,请求失败!";
                         }
-                    } else {
-                        // 网络请求失败
-                        isAlarm = false;
-                        msg = "报警信息,请求失败!";
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    System.out.println("=========================onFailure=============================");
+                    Log.i("okHttp_ERROE", "okHttp is request error");
+                    isAlarm = false;
+                    msg = "报警信息,请求失败!";
                 }
-
-                // TODO 测试用
-                msg = "dasdasdasd";
-                isAlarm = true;
-                // TODO 测试用
 
                 if (!SharedPreferencesUtil.getboolean(ViewsUitls.getContext(), StringsFiled.IS_ALLOW_SOUND_PLAY, false)) {
                     Log.v("alarm", "此时不允许报警播放，所以接下来判断时间间隔");

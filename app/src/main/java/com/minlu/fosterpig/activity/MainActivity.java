@@ -179,13 +179,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private void gistSafeNumberSetText() {
         if (mSafePercentNumber == 100) {
-            mSafeProcessResult.setText("您的系统很安全");
+            mSafeProcessResult.setText("您的系统很安全,点击安全指数重新检测");
         } else if (mSafePercentNumber >= 80 && mSafePercentNumber < 100) {
-            mSafeProcessResult.setText("安全等级良好");
+            mSafeProcessResult.setText("安全等级良好,点击安全指数重新检测");
         } else if (mSafePercentNumber < 80 && mSafePercentNumber >= 60) {
-            mSafeProcessResult.setText("安全等级及格");
+            mSafeProcessResult.setText("安全等级及格,点击安全指数重新检测");
         } else if (mSafePercentNumber < 60) {
-            mSafeProcessResult.setText("安全等级不及格");
+            mSafeProcessResult.setText("安全等级不及格,点击安全指数重新检测");
         }
     }
 
@@ -350,12 +350,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private void analysisDataJSON() {
 
         // TODO 测试数据
-    try {
+      /*  try {
             InputStream is = getAssets().open("textJson.txt");
             mResultJSON = readTextFromSDcard(is);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
         // TODO 测试数据
         // 解析json数据
         System.out.println("解析数据: " + mResultJSON);
@@ -401,7 +401,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
                         // 延迟时间，给ui更新
                         try {
-                            Thread.sleep((int) (mAllFacilityData * 15) / informationList.length());
+                            Thread.sleep((int) (mAllFacilityData * 20) / informationList.length());
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
