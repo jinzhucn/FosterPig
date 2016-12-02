@@ -100,7 +100,7 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
         switch (facilityDetail.getFacilityType()) {
             case 1:// 氨气
                 isShowPower(false);
-                if (facilityDetail.getIsWarn() == 0) {
+                if (facilityDetail.getIsWarn() == 1) {
                     setItemStyle(R.mipmap.small_icon_warn_ammonia, ContextCompat.getColor(ViewsUitls.getContext(), R.color.red),
                             ContextCompat.getColor(ViewsUitls.getContext(), R.color.red),
                             facilityDetail.getDataValue() + "ppm",
@@ -115,7 +115,7 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 break;
             case 2:// 温度
                 isShowPower(false);
-                if (facilityDetail.getIsWarn() == 0) {
+                if (facilityDetail.getIsWarn() == 1) {
                     setItemStyle(R.mipmap.small_icon_warn_temperature, ContextCompat.getColor(ViewsUitls.getContext(), R.color.red),
                             ContextCompat.getColor(ViewsUitls.getContext(), R.color.red),
                             facilityDetail.getDataValue() + "℃",
@@ -129,7 +129,7 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                 break;
             case 3:// 湿度
                 isShowPower(false);
-                if (facilityDetail.getIsWarn() == 0) {
+                if (facilityDetail.getIsWarn() == 1) {
                     setItemStyle(R.mipmap.small_icon_warn_humidity, ContextCompat.getColor(ViewsUitls.getContext(), R.color.red),
                             ContextCompat.getColor(ViewsUitls.getContext(), R.color.red),
                             facilityDetail.getDataValue() + "%",

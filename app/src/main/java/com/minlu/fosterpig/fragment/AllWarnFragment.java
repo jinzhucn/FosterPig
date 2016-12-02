@@ -117,12 +117,12 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
 
     private void analysisJsonDate() {
         // TODO 测试数据
-        try {
+/*        try {
             InputStream is = getActivity().getAssets().open("textJson.txt");
             mResultString = readTextFromSDcard(is);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
         // TODO 测试数据
 
         if (StringUtils.interentIsNormal(mResultString)) {
@@ -156,7 +156,7 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
                         int siteId = singleInformation.optInt("dtuId");
                         int facilityId = singleInformation.optInt("lmuId");
                         int areaId = singleInformation.optInt("stationId");
-                        if (facilityType < 4 && isWarn == 0) {
+                        if (facilityType < 4 && isWarn == 1) {
                             allInformation.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn,startWarnTime));
                         }
                     }

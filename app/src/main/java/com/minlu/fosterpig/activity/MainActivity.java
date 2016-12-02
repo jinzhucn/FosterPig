@@ -350,12 +350,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private void analysisDataJSON() {
 
         // TODO 测试数据
-        try {
+   /* try {
             InputStream is = getAssets().open("textJson.txt");
             mResultJSON = readTextFromSDcard(is);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
         // TODO 测试数据
         // 解析json数据
         System.out.println("解析数据: " + mResultJSON);
@@ -436,12 +436,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mSiteName = siteName;
         switch (facilityType) {
             case 1:// 1氨气 a
-                if (i == 0) {
-                    System.out.println("=================for循环为0，进入switch，case为1，是氨气================");
-                }
                 mFacilityName = "氨气传感器";
                 mAmmoniaAllNumber++;
-                if (isWarn == 0) {
+                if (isWarn == 1) {
                     mAllWarnFacilityData++; // 温湿氨的报警
                     mAmmoniaWarnNumber++;
                     singleIsWarn = true;
@@ -449,15 +446,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 } else {
                     singleIsWarn = false;
                 }
-                if (i == 0) {
-                    System.out.println(mFacilityName + " 氨气总数:" + mAmmoniaAllNumber + " 设备总数: " + mAllWarnFacilityData + " 氨气报警数: " + mAmmoniaWarnNumber + " 集合长度:" + mAllAmmoniaWarnData.size());
-                    System.out.println("=================for循环为0，进入switch，case为1，是氨气，完成了数据处理================");
-                }
                 break;
             case 2:// 2温度 t
                 mFacilityName = "温度传感器";
                 mTemperatureAllNumber++;
-                if (isWarn == 0) {
+                if (isWarn == 1) {
                     mAllWarnFacilityData++; // 温湿氨的报警
                     mTemperatureWarnNumber++;
                     singleIsWarn = true;
@@ -469,7 +462,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             case 3:// 3湿度 h
                 mFacilityName = "湿度传感器";
                 mHumidityAllNumber++;
-                if (isWarn == 0) {
+                if (isWarn == 1) {
                     mAllWarnFacilityData++; // 温湿氨的报警
                     mHumidityWarnNumber++;
                     singleIsWarn = true;

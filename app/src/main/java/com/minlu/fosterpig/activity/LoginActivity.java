@@ -71,8 +71,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         //设置ip
-        SharedPreferencesUtil.saveStirng(getApplicationContext(), StringsFiled.IP_ADDRESS_PREFIX,
-                "http://" + "192.168.1.35:8083");
+        SharedPreferencesUtil.saveStirng(getApplicationContext(), StringsFiled.IP_ADDRESS_PREFIX, "http://" + "192.168.1.35:8083");
 
         //创建数据库操作对象
         mySQLiteOpenHelper = new MySQLiteOpenHelper(ViewsUitls.getContext());
