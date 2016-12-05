@@ -67,7 +67,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private TextView mAmmoniaWarn;
     private TextView mTemperatureWarn;
     private TextView mHumidityWarn;
-    //    private TextView mPowerSupplyWarn;
+    private TextView mPowerSupplyWarn;
     private String mResultJSON;
 
     private float mAllFacilityData = 0f;
@@ -131,6 +131,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 gistSafeNumberSetText();
 
                 mHumidityWarnNumber--;
+                updateFourItem();
+                break;
+
+            case StringsFiled.OBSERVER_POWER_SUPPLY_SURE:
+                mAllWarnFacilityData--;
+                countGetSafeValue();
+                updateRingProgress();
+                gistSafeNumberSetText();
+
+                mPowerSupplyWarnNumber--;
                 updateFourItem();
                 break;
         }
@@ -229,7 +239,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mAmmoniaWarn = (TextView) view.findViewById(R.id.tv_item_ammonia_warn_number);
         mTemperatureWarn = (TextView) view.findViewById(R.id.tv_item_temperature_warn_number);
         mHumidityWarn = (TextView) view.findViewById(R.id.tv_item_humidity_warn_number);
-//        mPowerSupplyWarn = (TextView) view.findViewById(R.id.tv_item_power_supply_warn_number);
+        mPowerSupplyWarn = (TextView) view.findViewById(R.id.tv_item_power_supply_warn_number);
 
         // 四个条目的点击事件
         RelativeLayout mItemAmmonia = (RelativeLayout) view.findViewById(R.id.rl_item_ammonia);
@@ -350,17 +360,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private void analysisDataJSON() {
 
         // TODO 测试数据
-      /*  try {
+        try {
             InputStream is = getAssets().open("textJson.txt");
             mResultJSON = readTextFromSDcard(is);
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
         // TODO 测试数据
         // 解析json数据
         System.out.println("解析数据: " + mResultJSON);
         try {
-            JSONObject allInformation = new JSONObject(mResultJSON);
+            JSONObject jsonObject = new JSONObject(mResultJSON);
+            JSONObject allInformation = jsonObject.optJSONObject("mapList");
             if (allInformation.has("selectList")) {
                 JSONArray informationList = allInformation.optJSONArray("selectList");
                 if (informationList.length() > 0) {
@@ -382,7 +393,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         // 获取是否报警
                         int isWarn = -1;
                         if (singleInformation.has("police")) {
-                            isWarn = singleInformation.optInt("police");// 0报警1不报警 市电没有这个字段
+                            isWarn = singleInformation.optInt("police");// 1报警0不报警 市电没有这个字段
                         }
 
                         String startWarnTime = "---";
@@ -409,6 +420,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         myHandler.sendEmptyMessage(StringsFiled.MAIN_DISPOSE_DATA_TO_UI);
                     }
 
+                    System.out.println();
                     SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_AMMONIA_JSON, GsonTools.createGsonString(mAllAmmoniaWarnData));
                     SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_TEMPERATURE_JSON, GsonTools.createGsonString(mAllTemperatureWarnData));
                     SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_HUMIDITY_JSON, GsonTools.createGsonString(mAllHumidityWarnData));
@@ -471,11 +483,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 }
                 break;
             default:// 市电 p
-                mAllFacilityData--;// 市电的数据从分母中去除
                 mFacilityName = "市电通道" + (facilityType - 3);
                 mPowerSupplyAllNumber++;
-                if (facilityValue == 0) {
-//                    mAllWarnFacilityData++; // 市电的报警
+                if (isWarn == 1) {
+                    mAllWarnFacilityData++; // 市电的报警
                     mPowerSupplyWarnNumber++;
                     singleIsWarn = true;
                     mAllPowerSupplyWarnData.add(mainAllInformation);
@@ -556,12 +567,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         } else {
             mHumidityWarn.setVisibility(View.INVISIBLE);
         }
-    /*    if (mPowerSupplyWarnNumber > 0) {
+        if (mPowerSupplyWarnNumber > 0) {
             mPowerSupplyWarn.setVisibility(View.VISIBLE);
             mPowerSupplyWarn.setText("" + mPowerSupplyWarnNumber);
         } else {
             mPowerSupplyWarn.setVisibility(View.INVISIBLE);
-        }*/
+        }
     }
 
     private void setFourItemAllNumber() {
@@ -569,9 +580,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mAmmoniaMonitor.setText("氨气[" + mAmmoniaAllNumber + "]");
         mHumidityMonitor.setText("湿度[" + mHumidityAllNumber + "]");
         mTemperatureMonitor.setText("温度[" + mTemperatureAllNumber + "]");
-        mPowerSupplyMonitor.setText("市电[" + mPowerSupplyWarnNumber + "/" + mPowerSupplyAllNumber + "]");
+        mPowerSupplyMonitor.setText("市电[" + mPowerSupplyAllNumber + "]");// mPowerSupplyWarnNumber + "/" +
 
-        setPowerSupplyMonitorTextColor();
+//        setPowerSupplyMonitorTextColor();
     }
 
     private void setPowerSupplyMonitorTextColor() {

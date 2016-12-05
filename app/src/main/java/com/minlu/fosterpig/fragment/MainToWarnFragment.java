@@ -19,6 +19,7 @@ import com.minlu.fosterpig.customview.swipelistview.SwipeMenuListView;
 import com.minlu.fosterpig.observer.MySubject;
 import com.minlu.fosterpig.util.GsonTools;
 import com.minlu.fosterpig.util.SharedPreferencesUtil;
+import com.minlu.fosterpig.util.StringUtils;
 import com.minlu.fosterpig.util.ViewsUitls;
 
 import org.json.JSONArray;
@@ -78,12 +79,10 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
                 analysisDataJSON(SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_HUMIDITY_JSON, ""));
                 break;
             case StringsFiled.MAIN_TO_WARN_VALUE_POWER_SUPPLY:
-                isHaveSwipeMenu = false;
+                isHaveSwipeMenu = true;
                 analysisDataJSON(SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_POWER_SUPPLY_JSON, ""));
                 break;
         }
-
-
         return chat(list);
     }
 
@@ -94,7 +93,6 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
             JSONArray jsonArray = new JSONArray(jsonData);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject singleWarnData = jsonArray.getJSONObject(i);
-
 
                 double facilityValue = singleWarnData.optDouble("facilityValue");
                 int facilityType = singleWarnData.optInt("facilityType");
@@ -108,9 +106,12 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
                 // TODO 开始报警的时间
                 String startWarnTime = "---";
                 if (singleWarnData.has("startWarnTime")) {
-                    startWarnTime = singleWarnData.optString("startWarnTime");
+                    String time = singleWarnData.optString("startWarnTime");
+                    if (!StringUtils.isEmpty(time)) {
+                        startWarnTime = time;
+                    }
                 }
-                list.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn,startWarnTime));
+                list.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn, startWarnTime));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -146,6 +147,10 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
                             case 3:// 湿度
                                 SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_HUMIDITY_JSON, GsonTools.createGsonString(list));
                                 MySubject.getInstance().operation(StringsFiled.OBSERVER_HUMIDITY_SURE, -1, -1);
+                                break;
+                            default:// 市电
+                                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_POWER_SUPPLY_JSON, GsonTools.createGsonString(list));
+                                MySubject.getInstance().operation(StringsFiled.OBSERVER_POWER_SUPPLY_SURE, -1, -1);
                                 break;
                         }
                         break;

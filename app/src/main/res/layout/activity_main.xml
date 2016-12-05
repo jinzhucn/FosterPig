@@ -229,12 +229,12 @@
                     android:text="市电[0]" />
             </LinearLayout>
 
-        <!--    <TextView
+            <TextView
                 android:id="@+id/tv_item_power_supply_warn_number"
                 style="@style/main_bottom_item_red_round_style"
                 android:layout_alignTop="@id/ll_item_power_supply"
                 android:layout_toRightOf="@id/ll_item_power_supply"
-                android:text="1" />-->
+                android:text="1" />
         </RelativeLayout>
 
     </LinearLayout>
