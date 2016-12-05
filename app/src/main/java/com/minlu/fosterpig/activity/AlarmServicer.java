@@ -75,7 +75,6 @@ public class AlarmServicer extends Service {
 
             @Override
             public void run() {
-                // TODO 请求一次网络看是否要报警
                 OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
                 RequestBody formBody = new FormBody.Builder().build();
 
@@ -92,10 +91,11 @@ public class AlarmServicer extends Service {
                         postBack = response.body().string();
                         Log.i("okHttp_SUCCESS", postBack);
                         JSONObject jsonObject = new JSONObject(postBack);
-                        if (jsonObject.has("allWranNumber")) {
+                        JSONObject object = jsonObject.optJSONObject("mapList");
+                        if (object.has("allWranNumber")) {
                             int allWarnNumber = jsonObject.optInt("allWranNumber");
                             // TODO 测试用
-//                            allWarnNumber=2;
+                            allWarnNumber=2;
                             // TODO 测试用
                             if (allWarnNumber > 0) {
                                 isAlarm = true;
@@ -145,7 +145,7 @@ public class AlarmServicer extends Service {
                 startNotification();
             }
         };
-        timer.schedule(timerTask, 0, 10000);
+        timer.schedule(timerTask, 0, 20000);
 
         return super.onStartCommand(intent, flags, startId);
     }
