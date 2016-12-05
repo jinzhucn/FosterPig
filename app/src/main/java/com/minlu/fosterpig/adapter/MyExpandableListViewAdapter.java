@@ -101,14 +101,12 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
             case 1:// 氨气
                 isShowPower(false);
                 if (facilityDetail.getIsWarn() == 1) {
-                    setItemStyle(R.mipmap.small_icon_warn_ammonia, ContextCompat.getColor(ViewsUitls.getContext(), R.color.red),
-                            ContextCompat.getColor(ViewsUitls.getContext(), R.color.red),
+                    setItemStyle(R.mipmap.small_icon_warn_ammonia, R.color.red, R.color.red,
                             facilityDetail.getDataValue() + "ppm",
                             facilityDetail.getSiteName() + "-氨气");
 
                 } else {
-                    setItemStyle(R.mipmap.small_icon_normal_ammonia, ContextCompat.getColor(ViewsUitls.getContext(), R.color.black),
-                            ContextCompat.getColor(ViewsUitls.getContext(), R.color.black),
+                    setItemStyle(R.mipmap.small_icon_normal_ammonia, R.color.black, R.color.black,
                             facilityDetail.getDataValue() + "ppm",
                             facilityDetail.getSiteName() + "-氨气");
                 }
@@ -116,13 +114,11 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
             case 2:// 温度
                 isShowPower(false);
                 if (facilityDetail.getIsWarn() == 1) {
-                    setItemStyle(R.mipmap.small_icon_warn_temperature, ContextCompat.getColor(ViewsUitls.getContext(), R.color.red),
-                            ContextCompat.getColor(ViewsUitls.getContext(), R.color.red),
+                    setItemStyle(R.mipmap.small_icon_warn_temperature, R.color.red, R.color.red,
                             facilityDetail.getDataValue() + "℃",
                             facilityDetail.getSiteName() + "-温度");
                 } else {
-                    setItemStyle(R.mipmap.small_icon_normal_temperature, ContextCompat.getColor(ViewsUitls.getContext(), R.color.black),
-                            ContextCompat.getColor(ViewsUitls.getContext(), R.color.black),
+                    setItemStyle(R.mipmap.small_icon_normal_temperature, R.color.black, R.color.black,
                             facilityDetail.getDataValue() + "℃",
                             facilityDetail.getSiteName() + "-温度");
                 }
@@ -130,28 +126,33 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
             case 3:// 湿度
                 isShowPower(false);
                 if (facilityDetail.getIsWarn() == 1) {
-                    setItemStyle(R.mipmap.small_icon_warn_humidity, ContextCompat.getColor(ViewsUitls.getContext(), R.color.red),
-                            ContextCompat.getColor(ViewsUitls.getContext(), R.color.red),
+                    setItemStyle(R.mipmap.small_icon_warn_humidity, R.color.red, R.color.red,
                             facilityDetail.getDataValue() + "%",
                             facilityDetail.getSiteName() + "-湿度");
                 } else {
-                    setItemStyle(R.mipmap.small_icon_normal_humidity, ContextCompat.getColor(ViewsUitls.getContext(), R.color.black),
-                            ContextCompat.getColor(ViewsUitls.getContext(), R.color.black),
+                    setItemStyle(R.mipmap.small_icon_normal_humidity, R.color.black, R.color.black,
                             facilityDetail.getDataValue() + "%",
                             facilityDetail.getSiteName() + "-湿度");
                 }
                 break;
             default:// 市电
                 isShowPower(true);
-                monitorAddress.setText(facilityDetail.getSiteName() + "-市电" + (facilityDetail.getFacilityType() - 3));
-                if (facilityDetail.getIsWarn() == -1 && facilityDetail.getDataValue() == 0) {
+                if (facilityDetail.getIsWarn() != -1) {
+                    monitorAddress.setText(facilityDetail.getSiteName() + "-市电" + (facilityDetail.getFacilityType() - 3));
+                } else {
+                    monitorAddress.setText("isWarn没有值");
+                }
+                if (facilityDetail.getIsWarn() == 1) {
                     imageIcon.setImageResource(R.mipmap.small_icon_warn_power_supply);
-                    isPowerOn.setImageResource(R.mipmap.broken_link);
                     monitorAddress.setTextColor(ContextCompat.getColor(ViewsUitls.getContext(), R.color.red));
                 } else {
                     imageIcon.setImageResource(R.mipmap.small_icon_normal_power_supply);
-                    isPowerOn.setImageResource(R.mipmap.link);
                     monitorAddress.setTextColor(ContextCompat.getColor(ViewsUitls.getContext(), R.color.black));
+                }
+                if (facilityDetail.getDataValue() == 0) {
+                    isPowerOn.setImageResource(R.mipmap.broken_link);
+                } else {
+                    isPowerOn.setImageResource(R.mipmap.link);
                 }
                 break;
         }
@@ -164,8 +165,8 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
         imageIcon.setImageResource(icon);
         warnNumber.setText(text1);
         monitorAddress.setText(text2);
-        warnNumber.setTextColor(textColor1);
-        monitorAddress.setTextColor(textColor2);
+        warnNumber.setTextColor(ContextCompat.getColor(ViewsUitls.getContext(), textColor1));
+        monitorAddress.setTextColor(ContextCompat.getColor(ViewsUitls.getContext(), textColor2));
     }
 
     private void isShowPower(boolean isShow) {
