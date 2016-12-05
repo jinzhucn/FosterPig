@@ -221,7 +221,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         initContentView(view);
 
-        startRunPoint();
+//        startRunPoint();
     }
 
     private void initContentView(View view) {

@@ -117,19 +117,20 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
 
     private void analysisJsonDate() {
         // TODO 测试数据
-/*        try {
+        try {
             InputStream is = getActivity().getAssets().open("textJson.txt");
             mResultString = readTextFromSDcard(is);
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
         // TODO 测试数据
 
         if (StringUtils.interentIsNormal(mResultString)) {
             try {
                 JSONObject jsonObject = new JSONObject(mResultString);
-                if (jsonObject.has("selectList")) {
-                    JSONArray informationList = jsonObject.optJSONArray("selectList");
+                JSONObject object = jsonObject.optJSONObject("mapList");
+                if (object.has("selectList")) {
+                    JSONArray informationList = object.optJSONArray("selectList");
                     if (allInformation == null) {
                         allInformation = new ArrayList<>();
                     } else {
@@ -148,7 +149,10 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
                         // TODO 开始报警的时间
                         String startWarnTime = "---";
                         if (singleInformation.has("startWarnTime")) {
-                            startWarnTime = singleInformation.optString("startWarnTime");
+                            String time = singleInformation.optString("startWarnTime");
+                            if (!StringUtils.isEmpty(time)) {
+                                startWarnTime = time;
+                            }
                         }
                         String siteName = singleInformation.optString("dtuName");
                         String facilityName = singleInformation.optString("lmuName");
@@ -156,7 +160,7 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
                         int siteId = singleInformation.optInt("dtuId");
                         int facilityId = singleInformation.optInt("lmuId");
                         int areaId = singleInformation.optInt("stationId");
-                        if (facilityType < 4 && isWarn == 1) {
+                        if ( isWarn == 1) {
                             allInformation.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn, startWarnTime));
                         }
                     }
