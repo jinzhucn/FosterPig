@@ -359,12 +359,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private void analysisDataJSON() {
 
         // TODO 测试数据
-        try {
+  /*      try {
             InputStream is = getAssets().open("textJson.txt");
             mResultJSON = readTextFromSDcard(is);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
         // TODO 测试数据
         // 解析json数据
         System.out.println("解析数据: " + mResultJSON);
@@ -406,8 +406,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         int facilityId = singleInformation.optInt("lmuId");
                         int areaId = singleInformation.optInt("stationId");
 
+                        int mainId = -1;
+                        if (singleInformation.has("id")) {
+                            mainId = singleInformation.optInt("id");
+                        }
                         // 下面是对数据进行处理，发到ui进行更新
-                        disposeDataToUI(facilityType, facilityValue, isWarn, siteName, areaName, facilityName, siteId, facilityId, areaId, i, startWarnTime);
+                        disposeDataToUI(mainId, facilityType, facilityValue, isWarn, siteName, areaName, facilityName, siteId, facilityId, areaId, i, startWarnTime);
 
                         // 延迟时间，给ui更新
                         try {
@@ -439,9 +443,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
     }
 
-    private void disposeDataToUI(int facilityType, double facilityValue, int isWarn, String siteName,
+    private void disposeDataToUI(int mainId, int facilityType, double facilityValue, int isWarn, String siteName,
                                  String areaName, String facilityName, int siteId, int facilityId, int areaId, int i, String startWarnTime) {
-        MainAllInformation mainAllInformation = new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn, startWarnTime);
+        MainAllInformation mainAllInformation = new MainAllInformation(mainId, areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn, startWarnTime);
         mAreaName = areaName;
         mSiteName = siteName;
         switch (facilityType) {

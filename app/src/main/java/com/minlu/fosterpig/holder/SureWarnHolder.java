@@ -20,6 +20,7 @@ public class SureWarnHolder extends BaseHolder<AlreadySureWarn> {
     private TextView mMonitorWarnTime;
     private TextView mMonitorWarnNumber;
     private TextView mSureWarnTime;
+    private ImageView mRightView;
 
     @Override
     public View initView() {
@@ -31,6 +32,7 @@ public class SureWarnHolder extends BaseHolder<AlreadySureWarn> {
         mMonitorWarnTime = (TextView) inflate.findViewById(R.id.tv_sure_warn_monitor_warn_time);
         mMonitorWarnNumber = (TextView) inflate.findViewById(R.id.tv_sure_warn_monitor_warn_number);
         mSureWarnTime = (TextView) inflate.findViewById(R.id.tv_sure_warn_time);
+        mRightView = (ImageView) inflate.findViewById(R.id.iv_item_sure_warn_right_image);
 
         return inflate;
     }
@@ -61,16 +63,19 @@ public class SureWarnHolder extends BaseHolder<AlreadySureWarn> {
         int imageResource = R.mipmap.ic_launcher;
         switch (mData.getType()) {
             case 1:
+                setIsShowRightImage(false);
                 facilityName = "氨气";
                 imageResource = R.mipmap.small_icon_normal_ammonia;
                 mMonitorWarnNumber.setText(mData.getValue() + "ppm");
                 break;
             case 2:
+                setIsShowRightImage(false);
                 facilityName = "温度";
                 imageResource = R.mipmap.small_icon_normal_temperature;
                 mMonitorWarnNumber.setText(mData.getValue() + "℃");
                 break;
             case 3:
+                setIsShowRightImage(false);
                 facilityName = "湿度";
                 imageResource = R.mipmap.small_icon_normal_humidity;
                 mMonitorWarnNumber.setText(mData.getValue() + "%");
@@ -78,15 +83,26 @@ public class SureWarnHolder extends BaseHolder<AlreadySureWarn> {
             default:
                 facilityName = "市电" + (mData.getType() - 3);
                 imageResource = R.mipmap.small_icon_normal_power_supply;
+                setIsShowRightImage(true);
                 if (mData.getValue() == 0) {
-                    mMonitorWarnNumber.setText("断");
+                    mRightView.setImageResource(R.mipmap.broken_link);
                 }
                 if (mData.getValue() == 1) {
-                    mMonitorWarnNumber.setText("通");
+                    mRightView.setImageResource(R.mipmap.link);
                 }
                 break;
         }
         mMonitorAddress.setText(mData.getAreaName() + "-" + mData.getStationName() + "-" + facilityName);
         mLeftImage.setImageResource(imageResource);
+    }
+
+    private void setIsShowRightImage(boolean isShowRightImage) {
+        if (isShowRightImage) {
+            mMonitorWarnNumber.setVisibility(View.GONE);
+            mRightView.setVisibility(View.VISIBLE);
+        } else {
+            mMonitorWarnNumber.setVisibility(View.VISIBLE);
+            mRightView.setVisibility(View.GONE);
+        }
     }
 }

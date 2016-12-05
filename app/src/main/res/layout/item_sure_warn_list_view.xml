@@ -65,6 +65,17 @@
         android:textColor="@color/red"
         android:textSize="18dp" />
 
+    <ImageView
+        android:id="@+id/iv_item_sure_warn_right_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv_sure_warn_monitor_address"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/iv_item_sure_warn_left_image"
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/link"
+        android:visibility="gone" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.01dp"
