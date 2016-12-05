@@ -11,14 +11,24 @@ import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.adapter.SureWarnAdapter;
 import com.minlu.fosterpig.base.BaseFragment;
 import com.minlu.fosterpig.base.ContentPage;
+import com.minlu.fosterpig.bean.AlreadySureWarn;
 import com.minlu.fosterpig.http.OkHttpManger;
 import com.minlu.fosterpig.manager.ThreadManager;
 import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.StringUtils;
+import com.minlu.fosterpig.util.ToastUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -29,8 +39,8 @@ import okhttp3.Response;
 /**
  * Created by user on 2016/11/23.
  */
-public class SureWarnFragment extends BaseFragment<String> implements SwipeRefreshLayout.OnRefreshListener {
-    private ArrayList<String> list;
+public class SureWarnFragment extends BaseFragment<AlreadySureWarn> implements SwipeRefreshLayout.OnRefreshListener {
+    private List<AlreadySureWarn> allAlreadySureWarn;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ListView listView;
     private SureWarnAdapter sureWarnAdapter;
@@ -52,7 +62,7 @@ public class SureWarnFragment extends BaseFragment<String> implements SwipeRefre
         swipeRefreshLayout = (SwipeRefreshLayout) inflate.findViewById(R.id.swipe_refresh_list_view_no_swipe_menu);
         listView = (ListView) inflate.findViewById(R.id.have_swipe_refresh_list_view);
 
-        sureWarnAdapter = new SureWarnAdapter(list);
+        sureWarnAdapter = new SureWarnAdapter(allAlreadySureWarn);
         listView.setAdapter(sureWarnAdapter);
 
 
@@ -77,13 +87,16 @@ public class SureWarnFragment extends BaseFragment<String> implements SwipeRefre
     protected ContentPage.ResultState onLoad() {
 
         requestData();
-
-        return chat(list);
+        if (!requestDataIsSuccess) {
+            allAlreadySureWarn = null;
+        }
+        return chat(allAlreadySureWarn);
     }
 
     private void requestData() {
         OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
-        RequestBody formBody = new FormBody.Builder().add("dtuId", "0").add("selectDate", "").add("start", "0").add("limit", "20").build();
+        // start查询数据的起点  limit要查多少条数据
+        RequestBody formBody = new FormBody.Builder().add("dtuId", "0").add("selectDate", "").add("start", "0").add("limit", "10").build();
 
         String address = SharedPreferencesUtil.getString(
                 ViewsUitls.getContext(), StringsFiled.IP_ADDRESS_PREFIX, "");
@@ -109,19 +122,59 @@ public class SureWarnFragment extends BaseFragment<String> implements SwipeRefre
 
     private void analysisJsonDate() {
 
+        // TODO 测试数据
+        try {
+            InputStream is = getActivity().getAssets().open("textJson3.txt");
+            mResultString = readTextFromSDcard(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // TODO 测试数据
+
         if (StringUtils.interentIsNormal(mResultString)) {
-            System.out.println("mResultString: " + mResultString);
-
-
-
-
-
+            try {
+                JSONObject object = new JSONObject(mResultString);
+                if (object.has("hisAlamList")) {
+                    JSONArray jsonArray = object.optJSONArray("hisAlamList");
+                    if (allAlreadySureWarn == null) {
+                        allAlreadySureWarn = new ArrayList<>();
+                    } else {
+                        allAlreadySureWarn.clear();
+                    }
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject singleInformation = jsonArray.getJSONObject(i);
+                        allAlreadySureWarn.add(new AlreadySureWarn(singleInformation.optString("alarmTime"),
+                                singleInformation.optString("handleTime"),
+                                singleInformation.optString("areaName"),
+                                singleInformation.optString("stationName"),
+                                singleInformation.optInt("type"),
+                                singleInformation.optDouble("value")));
+                    }
+                    requestDataIsSuccess = true;
+                } else {
+                    // 没有selectList这个字段说明服务器异常了
+                    requestDataIsSuccess = false;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         } else {
             requestDataIsSuccess = false;
         }
 
     }
 
+
+    private String readTextFromSDcard(InputStream is) throws Exception {
+        InputStreamReader reader = new InputStreamReader(is);
+        BufferedReader bufferedReader = new BufferedReader(reader);
+        StringBuffer buffer = new StringBuffer("");
+        String str;
+        while ((str = bufferedReader.readLine()) != null) {
+            buffer.append(str);
+        }
+        return buffer.toString();
+    }
 
     @Override
     public void onRefresh() {
@@ -131,22 +184,24 @@ public class SureWarnFragment extends BaseFragment<String> implements SwipeRefre
             mRefreshThread = new Runnable() {
                 @Override
                 public void run() {
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    // 请求网络数据
-                    list.clear();
-                    for (int i = 0; i < 10; i++) {
-                        list.add("确认信息");
-                    }
-
-
+                    requestData();
                     ViewsUitls.runInMainThread(new Runnable() {
                         @Override
                         public void run() {
-                            sureWarnAdapter.notifyDataSetChanged();
+                            if (requestDataIsSuccess) {
+                          /*      sureWarnAdapter=null;
+                                sureWarnAdapter = new SureWarnAdapter(allAlreadySureWarn);
+                                listView.setAdapter(sureWarnAdapter);*/
+
+                                sureWarnAdapter.notifyDataSetChanged();
+//                                MoreHolder moreHolder = (MoreHolder) sureWarnAdapter.getMoreHolder();
+
+//                                moreHolder.setRelfshData(MoreHolder.HAS_MORE, allAlreadySureWarn.size() + 1);
+
+
+                            } else {
+                                ToastUtil.showToast(ViewsUitls.getContext(), "刷新失败");
+                            }
                             swipeRefreshLayout.setRefreshing(false);
                         }
                     });

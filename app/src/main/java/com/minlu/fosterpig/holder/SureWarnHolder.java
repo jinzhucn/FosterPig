@@ -6,12 +6,14 @@ import android.widget.TextView;
 
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.base.BaseHolder;
+import com.minlu.fosterpig.bean.AlreadySureWarn;
+import com.minlu.fosterpig.util.StringUtils;
 import com.minlu.fosterpig.util.ViewsUitls;
 
 /**
  * Created by user on 2016/11/22.
  */
-public class SureWarnHolder extends BaseHolder<String> {
+public class SureWarnHolder extends BaseHolder<AlreadySureWarn> {
 
     private ImageView mLeftImage;
     private TextView mMonitorAddress;
@@ -34,8 +36,57 @@ public class SureWarnHolder extends BaseHolder<String> {
     }
 
     @Override
-    public void setRelfshData(String mData, int postion) {
+    public void setRelfshData(AlreadySureWarn mData, int postion) {
 
-        mMonitorWarnNumber.setText(postion + "");
+        String alarmTime = mData.getAlarmTime();
+        if (alarmTime.length() > 2) {
+            alarmTime = alarmTime.substring(2, alarmTime.length());
+        }
+        if (StringUtils.isEmpty(alarmTime)) {
+            mMonitorWarnTime.setText("报警:---");
+        } else {
+            mMonitorWarnTime.setText("报警:" + alarmTime);
+        }
+        String handleTime = mData.getHandleTime();
+        if (handleTime.length() > 2) {
+            handleTime = handleTime.substring(2, handleTime.length());
+        }
+        if (StringUtils.isEmpty(handleTime)) {
+            mSureWarnTime.setText("确认:---");
+        } else {
+            mSureWarnTime.setText("确认:" + handleTime);
+        }
+
+        String facilityName = "";
+        int imageResource = R.mipmap.ic_launcher;
+        switch (mData.getType()) {
+            case 1:
+                facilityName = "氨气";
+                imageResource = R.mipmap.small_icon_normal_ammonia;
+                mMonitorWarnNumber.setText(mData.getValue() + "ppm");
+                break;
+            case 2:
+                facilityName = "温度";
+                imageResource = R.mipmap.small_icon_normal_temperature;
+                mMonitorWarnNumber.setText(mData.getValue() + "℃");
+                break;
+            case 3:
+                facilityName = "湿度";
+                imageResource = R.mipmap.small_icon_normal_humidity;
+                mMonitorWarnNumber.setText(mData.getValue() + "%");
+                break;
+            default:
+                facilityName = "市电" + (mData.getType() - 3);
+                imageResource = R.mipmap.small_icon_normal_power_supply;
+                if (mData.getValue() == 0) {
+                    mMonitorWarnNumber.setText("断");
+                }
+                if (mData.getValue() == 1) {
+                    mMonitorWarnNumber.setText("通");
+                }
+                break;
+        }
+        mMonitorAddress.setText(mData.getAreaName() + "-" + mData.getStationName() + "-" + facilityName);
+        mLeftImage.setImageResource(imageResource);
     }
 }

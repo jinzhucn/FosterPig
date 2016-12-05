@@ -22,7 +22,7 @@
         android:layout_alignTop="@id/iv_item_sure_warn_left_image"
         android:layout_toRightOf="@id/iv_item_sure_warn_left_image"
         android:text="#2猪舍安琪点"
-        android:textColor="@color/red"
+        android:textColor="@color/black"
         android:textSize="17dp" />
 
 
