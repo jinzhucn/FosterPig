@@ -57,8 +57,6 @@ public class AlarmServicer extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        SharedPreferencesUtil.saveboolean(ViewsUitls.getContext(), StringsFiled.ALARM_SERVICE_ALREADY_OPEN, true);
-
         // 通知栏准备
         initNotification();
         // 多媒体播放准备
@@ -228,7 +226,6 @@ public class AlarmServicer extends Service {
             mNotificationManager.cancel(100);
         }
 
-        SharedPreferencesUtil.saveboolean(ViewsUitls.getContext(), StringsFiled.ALARM_SERVICE_ALREADY_OPEN, false);
         super.onDestroy();
     }
 }

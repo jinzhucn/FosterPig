@@ -1,9 +1,12 @@
 package com.minlu.fosterpig.util;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.view.View;
 
 import com.minlu.fosterpig.base.MyApplication;
+
+import java.util.List;
 
 public class ViewsUitls {
 
@@ -46,6 +49,29 @@ public class ViewsUitls {
             // 在子线程，post给主线程
             MyApplication.getHanlder().post(task);
         }
+    }
+
+    /**
+     * 判断某个服务是否正在运行的方法
+     *
+     * @param serviceName 是包名+服务的类名（例如：net.loonggg.testbackstage.TestService）
+     * @return true代表正在运行，false代表服务没有正在运行
+     */
+    public static boolean isServiceWork(String serviceName) {
+        boolean isWork = false;
+        ActivityManager systemService = (ActivityManager) getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningServiceInfo> runningServices = systemService.getRunningServices(40);
+        if (runningServices.size() <= 0) {
+            return false;
+        }
+        for (int i = 0; i < runningServices.size(); i++) {
+            String setviceName = runningServices.get(i).service.getClassName().toString();
+            if (setviceName.equals(serviceName)) {
+                isWork = true;
+                break;
+            }
+        }
+        return isWork;
     }
 
 }
