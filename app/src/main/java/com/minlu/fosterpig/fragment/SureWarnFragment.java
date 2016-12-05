@@ -65,7 +65,6 @@ public class SureWarnFragment extends BaseFragment<AlreadySureWarn> implements S
         sureWarnAdapter = new SureWarnAdapter(allAlreadySureWarn);
         listView.setAdapter(sureWarnAdapter);
 
-
         //改变加载显示的颜色
         swipeRefreshLayout.setColorSchemeColors(StringsFiled.SWIPE_REFRESH_FIRST_ROUND_COLOR, StringsFiled.SWIPE_REFRESH_SECOND_ROUND_COLOR, StringsFiled.SWIPE_REFRESH_THIRD_ROUND_COLOR);
         //设置背景颜色
@@ -189,16 +188,7 @@ public class SureWarnFragment extends BaseFragment<AlreadySureWarn> implements S
                         @Override
                         public void run() {
                             if (requestDataIsSuccess) {
-                          /*      sureWarnAdapter=null;
-                                sureWarnAdapter = new SureWarnAdapter(allAlreadySureWarn);
-                                listView.setAdapter(sureWarnAdapter);*/
-
                                 sureWarnAdapter.notifyDataSetChanged();
-//                                MoreHolder moreHolder = (MoreHolder) sureWarnAdapter.getMoreHolder();
-
-//                                moreHolder.setRelfshData(MoreHolder.HAS_MORE, allAlreadySureWarn.size() + 1);
-
-
                             } else {
                                 ToastUtil.showToast(ViewsUitls.getContext(), "刷新失败");
                             }
