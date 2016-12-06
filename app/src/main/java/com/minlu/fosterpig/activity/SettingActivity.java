@@ -41,8 +41,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
         mSwitch = (ImageView) view.findViewById(R.id.iv_setting_switch);
         mSwitch.setOnClickListener(this);
-        View aboutUs = view.findViewById(R.id.ll_setting_about_us);
-        aboutUs.setOnClickListener(this);
+        // TODO 关于我们
+//        View aboutUs = view.findViewById(R.id.ll_setting_about_us);
+//        aboutUs.setOnClickListener(this);
         View versionInformation = view.findViewById(R.id.ll_setting_version_information);
         versionInformation.setOnClickListener(this);
         Button mLogout = (Button) view.findViewById(R.id.bt_setting_logout);
@@ -54,10 +55,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
 
         switch (v.getId()) {
-
-            case R.id.ll_setting_about_us:
-                startActivity(new Intent(ViewsUitls.getContext(), AboutUsActivity.class));
-                break;
+            // TODO 关于我们
+//            case R.id.ll_setting_about_us:
+//                startActivity(new Intent(ViewsUitls.getContext(), AboutUsActivity.class));
+//                break;
             case R.id.ll_setting_version_information:
                 startActivity(new Intent(ViewsUitls.getContext(), VersionActivity.class));
                 break;

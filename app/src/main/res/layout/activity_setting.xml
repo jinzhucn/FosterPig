@@ -22,7 +22,7 @@
             android:src="@mipmap/setting_switch_close" />
     </LinearLayout>
 
-    <View
+   <!-- <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/thin_gray" />
@@ -43,7 +43,7 @@
         <ImageView
             style="@style/setting_item_left_right_image_style"
             android:src="@mipmap/setting_to_right" />
-    </LinearLayout>
+    </LinearLayout>-->
 
     <View
         android:layout_width="match_parent"
