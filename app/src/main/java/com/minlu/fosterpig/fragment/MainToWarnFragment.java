@@ -143,6 +143,7 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
                 switch (index) {
                     case 0:
                         MainAllInformation mainAllInformation = list.get(position);
+                        final int facilityType = mainAllInformation.getFacilityType();
                         int mainId = mainAllInformation.getMainId();
                         System.out.println("mainId: " + mainId);
 
@@ -153,6 +154,8 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
                                     list.remove(position);
                                     mWarnAdapter.notifyDataSetChanged();
                                     ToastUtil.showToast(ViewsUitls.getContext(), "确认报警成功");
+                                    // 对存储的数据源进行修改，以及与主界面互动
+                                    amendDataSource(facilityType);
                                 } else {
                                     ToastUtil.showToast(ViewsUitls.getContext(), "确认报警失败");
                                 }
@@ -160,25 +163,6 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
                             }
                         });
 
-                        // 对存储的数据源进行修改，以及与主界面互动
-                        switch (mainAllInformation.getFacilityType()) {
-                            case 1:// 氨气
-                                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_AMMONIA_JSON, GsonTools.createGsonString(list));
-                                MySubject.getInstance().operation(StringsFiled.OBSERVER_AMMONIA_SURE, -1, -1);
-                                break;
-                            case 2:// 温度
-                                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_TEMPERATURE_JSON, GsonTools.createGsonString(list));
-                                MySubject.getInstance().operation(StringsFiled.OBSERVER_TEMPERATURE_SURE, -1, -1);
-                                break;
-                            case 3:// 湿度
-                                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_HUMIDITY_JSON, GsonTools.createGsonString(list));
-                                MySubject.getInstance().operation(StringsFiled.OBSERVER_HUMIDITY_SURE, -1, -1);
-                                break;
-                            default:// 市电
-                                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_POWER_SUPPLY_JSON, GsonTools.createGsonString(list));
-                                MySubject.getInstance().operation(StringsFiled.OBSERVER_POWER_SUPPLY_SURE, -1, -1);
-                                break;
-                        }
                         break;
                 }
                 // ★★★★★false : close the menu; true : not close the menu
@@ -208,6 +192,27 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
                 System.out.println("setOnSwipeListener+onSwipeEnd: " + position);
             }
         });
+    }
+
+    private void amendDataSource(int facilityType) {
+        switch (facilityType) {
+            case 1:// 氨气
+                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_AMMONIA_JSON, GsonTools.createGsonString(list));
+                MySubject.getInstance().operation(StringsFiled.OBSERVER_AMMONIA_SURE, -1, -1);
+                break;
+            case 2:// 温度
+                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_TEMPERATURE_JSON, GsonTools.createGsonString(list));
+                MySubject.getInstance().operation(StringsFiled.OBSERVER_TEMPERATURE_SURE, -1, -1);
+                break;
+            case 3:// 湿度
+                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_HUMIDITY_JSON, GsonTools.createGsonString(list));
+                MySubject.getInstance().operation(StringsFiled.OBSERVER_HUMIDITY_SURE, -1, -1);
+                break;
+            default:// 市电
+                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_POWER_SUPPLY_JSON, GsonTools.createGsonString(list));
+                MySubject.getInstance().operation(StringsFiled.OBSERVER_POWER_SUPPLY_SURE, -1, -1);
+                break;
+        }
     }
 
     @NonNull
