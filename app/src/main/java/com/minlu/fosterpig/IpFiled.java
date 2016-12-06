@@ -15,6 +15,6 @@ public class IpFiled {
 
     public final static String ALL_ALREADY_SURE_WARN = IP + "historyPoliceDate.html";
 
-    public final static String IS_OK_ORDER = IP + "outBespeak";
+    public final static String REQUEST_SURE_WARN = IP + "cancleAlarm.html";
 
 }

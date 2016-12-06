@@ -9,6 +9,7 @@ import android.view.View;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.adapter.WarnAdapter;
+import com.minlu.fosterpig.base.BaseActivity;
 import com.minlu.fosterpig.base.BaseFragment;
 import com.minlu.fosterpig.base.ContentPage;
 import com.minlu.fosterpig.bean.MainAllInformation;
@@ -17,6 +18,8 @@ import com.minlu.fosterpig.customview.swipelistview.SwipeMenuCreator;
 import com.minlu.fosterpig.customview.swipelistview.SwipeMenuItem;
 import com.minlu.fosterpig.customview.swipelistview.SwipeMenuListView;
 import com.minlu.fosterpig.observer.MySubject;
+import com.minlu.fosterpig.request.RequestResult;
+import com.minlu.fosterpig.request.RequestSureWarn;
 import com.minlu.fosterpig.util.GsonTools;
 import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.StringUtils;
@@ -38,6 +41,7 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
     private WarnAdapter mWarnAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private boolean isHaveSwipeMenu;
+    private BaseActivity mActivity;
 
     @Override
     protected void onSubClassOnCreateView() {
@@ -46,6 +50,7 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
 
     @Override
     protected View onCreateSuccessView() {
+        mActivity = (BaseActivity) getActivity();
 
         View inflate = ViewsUitls.inflate(R.layout.layout_swipe_menu_listview);
 
@@ -140,10 +145,16 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
                         int mainId = mainAllInformation.getMainId();
                         System.out.println("mainId: " + mainId);
 
+                        RequestSureWarn.requestSureWarn(mainId, mActivity, new RequestResult() {
+                            @Override
+                            public void onResponse(boolean result) {// 此处是主线程，根据结果进行不同的处理
+
+
+                            }
+                        });
 
                         list.remove(position);
                         mWarnAdapter.notifyDataSetChanged();
-
 
                         switch (mainAllInformation.getFacilityType()) {
                             case 1:// 氨气
