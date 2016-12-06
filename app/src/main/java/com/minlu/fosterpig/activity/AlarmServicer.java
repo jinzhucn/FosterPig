@@ -99,7 +99,7 @@ public class AlarmServicer extends Service implements Observers {
                             // TODO 测试用
                             if (allWarnNumber > 0) {
                                 isAlarm = true;
-                                msg = "请注意!现有" + allWarnNumber + "报警";
+                                msg = "请注意!现有" + allWarnNumber + "报警,触摸可显示具体报警信息";
                             } else {
                                 isAlarm = false;
                                 msg = "暂无报警信息";
@@ -140,12 +140,14 @@ public class AlarmServicer extends Service implements Observers {
                             isStart = 0;
                         }
                     }
+                } else {
+                    msg = "暂无系统报警";
                 }
                 mBuilder.setContentText(msg);
                 startNotification();
             }
         };
-        timer.schedule(timerTask, 0, 20000);
+        timer.schedule(timerTask, 0, 15000);
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -216,6 +218,7 @@ public class AlarmServicer extends Service implements Observers {
     @Override
     public void onDestroy() {
 
+        System.out.println("服务结束了");
         myMediaPlayer.stop();
         myMediaPlayer.release();
         MySubject.getInstance().del(myMediaPlayer);

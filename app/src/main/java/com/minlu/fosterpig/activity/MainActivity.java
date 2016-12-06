@@ -650,7 +650,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     firstTime = secondTime;//更新firstTime
                     return true;
                 } else {                                                    //两次按键小于2秒时，退出应用
-                    System.exit(0);
+                    Intent home = new Intent(Intent.ACTION_MAIN);
+                    home.addCategory(Intent.CATEGORY_HOME);
+                    startActivity(home);
                 }
                 break;
         }
