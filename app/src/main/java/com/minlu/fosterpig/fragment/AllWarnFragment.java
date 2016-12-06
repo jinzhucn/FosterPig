@@ -5,12 +5,12 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.Toast;
 
 import com.minlu.fosterpig.IpFiled;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.adapter.AllWarnAdapter;
+import com.minlu.fosterpig.base.BaseActivity;
 import com.minlu.fosterpig.base.BaseFragment;
 import com.minlu.fosterpig.base.ContentPage;
 import com.minlu.fosterpig.bean.MainAllInformation;
@@ -20,6 +20,8 @@ import com.minlu.fosterpig.customview.swipelistview.SwipeMenuItem;
 import com.minlu.fosterpig.customview.swipelistview.SwipeMenuListView;
 import com.minlu.fosterpig.http.OkHttpManger;
 import com.minlu.fosterpig.manager.ThreadManager;
+import com.minlu.fosterpig.request.RequestResult;
+import com.minlu.fosterpig.request.RequestSureWarn;
 import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.StringUtils;
 import com.minlu.fosterpig.util.ToastUtil;
@@ -53,6 +55,7 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
     private String mResultString;
 
     private boolean requestDataIsSuccess;
+    private BaseActivity mActivity;
 
     @Override
     protected void onSubClassOnCreateView() {
@@ -61,6 +64,8 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
 
     @Override
     protected View onCreateSuccessView() {
+        mActivity = (BaseActivity) getActivity();
+
         View inflate = ViewsUitls.inflate(R.layout.layout_swipe_menu_listview);
 
         swipeRefreshLayout = (SwipeRefreshLayout) inflate.findViewById(R.id.swipe_refresh_list_view_have_swipe_menu);
@@ -265,17 +270,26 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
 
         mListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
-            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+            public boolean onMenuItemClick(final int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
                         MainAllInformation mainAllInformation = allInformation.get(position);
                         int mainId = mainAllInformation.getMainId();
                         System.out.println("mainId: " + mainId);
 
-                        allInformation.remove(position);
-                        mAllWarnAdapter.notifyDataSetChanged();
+                        RequestSureWarn.requestSureWarn(mainId, mActivity, new RequestResult() {
+                            @Override
+                            public void onResponse(boolean result) {// 此处是主线程，根据结果进行不同的处理
+                                if (result) {
+                                    allInformation.remove(position);
+                                    mAllWarnAdapter.notifyDataSetChanged();
+                                    ToastUtil.showToast(ViewsUitls.getContext(), "确认报警成功");
+                                } else {
+                                    ToastUtil.showToast(ViewsUitls.getContext(), "确认报警失败");
+                                }
+                            }
+                        });
 
-                        Toast.makeText(ViewsUitls.getContext(), "Open", Toast.LENGTH_SHORT).show();
                         break;
                 }
                 // ★★★★★false : close the menu; true : not close the menu

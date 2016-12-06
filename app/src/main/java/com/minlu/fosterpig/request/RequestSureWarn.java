@@ -31,6 +31,7 @@ public class RequestSureWarn {
         baseActivity.setIsInterruptTouch(true);
         // 开启请求网络
         OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
+        System.out.println("确认报警传递的字段id为: " + mainId);
         RequestBody formBody = new FormBody.Builder().add("id", "" + mainId).build();
         String address = SharedPreferencesUtil.getString(
                 ViewsUitls.getContext(), StringsFiled.IP_ADDRESS_PREFIX, "");
@@ -59,6 +60,7 @@ public class RequestSureWarn {
                 String string = null;
                 try {
                     string = response.body().string();
+                    System.out.println("确认报警结果: " + string);
                 } catch (IOException e) {
                     e.printStackTrace();
                     ViewsUitls.runInMainThread(new Runnable() {

@@ -23,6 +23,7 @@ import com.minlu.fosterpig.request.RequestSureWarn;
 import com.minlu.fosterpig.util.GsonTools;
 import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.StringUtils;
+import com.minlu.fosterpig.util.ToastUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
 
 import org.json.JSONArray;
@@ -138,7 +139,7 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
 
         mListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
-            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+            public boolean onMenuItemClick(final int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
                         MainAllInformation mainAllInformation = list.get(position);
@@ -148,14 +149,18 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
                         RequestSureWarn.requestSureWarn(mainId, mActivity, new RequestResult() {
                             @Override
                             public void onResponse(boolean result) {// 此处是主线程，根据结果进行不同的处理
-
+                                if (result) {
+                                    list.remove(position);
+                                    mWarnAdapter.notifyDataSetChanged();
+                                    ToastUtil.showToast(ViewsUitls.getContext(), "确认报警成功");
+                                } else {
+                                    ToastUtil.showToast(ViewsUitls.getContext(), "确认报警失败");
+                                }
 
                             }
                         });
 
-                        list.remove(position);
-                        mWarnAdapter.notifyDataSetChanged();
-
+                        // 对存储的数据源进行修改，以及与主界面互动
                         switch (mainAllInformation.getFacilityType()) {
                             case 1:// 氨气
                                 SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_AMMONIA_JSON, GsonTools.createGsonString(list));
