@@ -120,7 +120,6 @@ public class SureWarnFragment extends BaseFragment<AlreadySureWarn> implements S
     }
 
     private void analysisJsonDate() {
-
         // TODO 测试数据
 //        try {
 //            InputStream is = getActivity().getAssets().open("textJson3.txt");
