@@ -96,12 +96,12 @@ public class SureWarnAdapter extends MyBaseAdapter<AlreadySureWarn> {
 
     private void parseJson() {
         // TODO 测试数据
-//        try {
-//            InputStream is = ViewsUitls.getContext().getAssets().open("textJson3.txt");
-//            mResultString = readTextFromSDcard(is);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            InputStream is = ViewsUitls.getContext().getAssets().open("textJson3.txt");
+            mResultString = readTextFromSDcard(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // TODO 测试数据
         Log.i("okHttp_SUCCESS", mResultString);
         if (StringUtils.interentIsNormal(mResultString)) {

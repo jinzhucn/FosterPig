@@ -122,12 +122,12 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
 
     private void analysisJsonDate() {
         // TODO 测试数据
-//        try {
-//            InputStream is = getActivity().getAssets().open("textJson.txt");
-//            mResultString = readTextFromSDcard(is);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            InputStream is = getActivity().getAssets().open("textJson.txt");
+            mResultString = readTextFromSDcard(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // TODO 测试数据
 
         if (StringUtils.interentIsNormal(mResultString)) {
