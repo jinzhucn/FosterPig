@@ -95,7 +95,7 @@ public class AlarmServicer extends Service implements Observers {
                         if (object.has("allWranNumber")) {
                             int allWarnNumber = jsonObject.optInt("allWranNumber");
                             // TODO 测试数据
-                            allWarnNumber = 2;
+//                            allWarnNumber = 2;
                             // TODO 测试数据
                             if (allWarnNumber > 0) {
                                 isAlarm = true;
