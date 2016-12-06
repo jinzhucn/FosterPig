@@ -359,12 +359,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private void analysisDataJSON() {
 
         // TODO 测试数据
-        try {
-            InputStream is = getAssets().open("textJson.txt");
-            mResultJSON = readTextFromSDcard(is);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            InputStream is = getAssets().open("textJson.txt");
+//            mResultJSON = readTextFromSDcard(is);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         // TODO 测试数据
         // 解析json数据
         System.out.println("解析数据: " + mResultJSON);

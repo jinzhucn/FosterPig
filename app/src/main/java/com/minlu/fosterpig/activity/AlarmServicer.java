@@ -94,9 +94,9 @@ public class AlarmServicer extends Service implements Observers {
                         JSONObject object = jsonObject.optJSONObject("mapList");
                         if (object.has("allWranNumber")) {
                             int allWarnNumber = jsonObject.optInt("allWranNumber");
-                            // TODO 测试用
-                            allWarnNumber = 2;
-                            // TODO 测试用
+                            // TODO 测试数据
+//                            allWarnNumber = 2;
+                            // TODO 测试数据
                             if (allWarnNumber > 0) {
                                 isAlarm = true;
                                 msg = "请注意!现有" + allWarnNumber + "报警,触摸可显示具体报警信息";

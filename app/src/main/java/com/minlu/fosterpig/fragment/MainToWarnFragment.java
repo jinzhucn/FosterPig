@@ -109,7 +109,7 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
                 String siteName = singleWarnData.optString("siteName");
                 String facilityName = singleWarnData.optString("facilityName");
                 String areaName = singleWarnData.optString("areaName");
-                // TODO 开始报警的时间
+                // 开始报警的时间
                 String startWarnTime = "---";
                 if (singleWarnData.has("startWarnTime")) {
                     String time = singleWarnData.optString("startWarnTime");

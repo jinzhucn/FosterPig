@@ -122,12 +122,12 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
 
     private void analysisJsonDate() {
         // TODO 测试数据
-        try {
-            InputStream is = getActivity().getAssets().open("textJson.txt");
-            mResultString = readTextFromSDcard(is);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            InputStream is = getActivity().getAssets().open("textJson.txt");
+//            mResultString = readTextFromSDcard(is);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         // TODO 测试数据
 
         if (StringUtils.interentIsNormal(mResultString)) {
@@ -151,7 +151,6 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
                         if (singleInformation.has("police")) {
                             isWarn = singleInformation.optInt("police");// 0报警1不报警 市电没有这个字段
                         }
-                        // TODO 开始报警的时间
                         String startWarnTime = "---";
                         if (singleInformation.has("startWarnTime")) {
                             String time = singleInformation.optString("startWarnTime");
