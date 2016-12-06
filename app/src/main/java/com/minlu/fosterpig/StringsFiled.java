@@ -95,4 +95,6 @@ public class StringsFiled {
     public final static int OBSERVER_HUMIDITY_SURE = 4;
 
     public final static int OBSERVER_POWER_SUPPLY_SURE = 5;
+
+    public final static int OBSERVER_UPDATE_NOTIFICATION = 6;
 }

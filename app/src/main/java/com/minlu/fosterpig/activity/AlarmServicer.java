@@ -17,6 +17,7 @@ import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.customview.MyMediaPlayer;
 import com.minlu.fosterpig.http.OkHttpManger;
 import com.minlu.fosterpig.observer.MySubject;
+import com.minlu.fosterpig.observer.Observers;
 import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
 
@@ -32,7 +33,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class AlarmServicer extends Service {
+public class AlarmServicer extends Service implements Observers {
 
     private NotificationManager mNotificationManager;
     private MyMediaPlayer myMediaPlayer;
@@ -56,6 +57,7 @@ public class AlarmServicer extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        MySubject.getInstance().add(this);
 
         // 通知栏准备
         initNotification();
@@ -93,7 +95,7 @@ public class AlarmServicer extends Service {
                         if (object.has("allWranNumber")) {
                             int allWarnNumber = jsonObject.optInt("allWranNumber");
                             // TODO 测试用
-                            allWarnNumber=2;
+                            allWarnNumber = 2;
                             // TODO 测试用
                             if (allWarnNumber > 0) {
                                 isAlarm = true;
@@ -217,6 +219,7 @@ public class AlarmServicer extends Service {
         myMediaPlayer.stop();
         myMediaPlayer.release();
         MySubject.getInstance().del(myMediaPlayer);
+        MySubject.getInstance().del(this);
         if (timer != null)
             timer.cancel();
         timer = null;
@@ -227,5 +230,13 @@ public class AlarmServicer extends Service {
         }
 
         super.onDestroy();
+    }
+
+    @Override
+    public void update(int distinguishNotified, int position, int cancelOrderBid) {
+        if (distinguishNotified == StringsFiled.OBSERVER_UPDATE_NOTIFICATION) {
+            mBuilder.setContentText("暂无系统报警");
+            startNotification();
+        }
     }
 }
