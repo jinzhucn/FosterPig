@@ -160,8 +160,14 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
                         int siteId = singleInformation.optInt("dtuId");
                         int facilityId = singleInformation.optInt("lmuId");
                         int areaId = singleInformation.optInt("stationId");
-                        if ( isWarn == 1) {
-                            allInformation.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn, startWarnTime));
+
+                        int mainId = -1;
+                        if (singleInformation.has("id")) {
+                            mainId = singleInformation.optInt("id");
+                        }
+
+                        if (isWarn == 1) {
+                            allInformation.add(new MainAllInformation(mainId, areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn, startWarnTime));
                         }
                     }
                     requestDataIsSuccess = true;
@@ -262,6 +268,10 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
+                        MainAllInformation mainAllInformation = allInformation.get(position);
+                        int mainId = mainAllInformation.getMainId();
+                        System.out.println("mainId: " + mainId);
+
                         allInformation.remove(position);
                         mAllWarnAdapter.notifyDataSetChanged();
 

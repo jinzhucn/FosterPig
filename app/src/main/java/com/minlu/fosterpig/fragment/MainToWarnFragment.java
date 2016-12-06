@@ -111,7 +111,13 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
                         startWarnTime = time;
                     }
                 }
-                list.add(new MainAllInformation(areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn, startWarnTime));
+
+                int mainId = -1;
+                if (singleWarnData.has("id")) {
+                    mainId = singleWarnData.optInt("id");
+                }
+
+                list.add(new MainAllInformation(mainId, areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn, startWarnTime));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -131,9 +137,13 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
                 switch (index) {
                     case 0:
                         MainAllInformation mainAllInformation = list.get(position);
+                        int mainId = mainAllInformation.getMainId();
+                        System.out.println("mainId: " + mainId);
+
 
                         list.remove(position);
                         mWarnAdapter.notifyDataSetChanged();
+
 
                         switch (mainAllInformation.getFacilityType()) {
                             case 1:// 氨气
