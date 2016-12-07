@@ -28,5 +28,10 @@
             android:launchMode="singleTop" />
 
         <service android:name=".activity.AlarmServicer" />
+        <receiver android:name=".receiver.AlarmReceiver">
+            <intent-filter>
+                <action android:name="com.alarm.receiver" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

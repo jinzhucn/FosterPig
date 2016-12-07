@@ -178,10 +178,10 @@ public class AlarmServicer extends Service implements Observers {
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mBuilder = new Builder(this);
         // //PendingIntent 跳转动作
-        Intent intent2 = new Intent(ViewsUitls.getContext(),
-                NotificationToWarnActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
-                intent2, 0);
+        Intent intent2 = new Intent();
+        intent2.setAction("com.alarm.receiver");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
+                intent2, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setSmallIcon(R.mipmap.ic_launcher).setTicker("系统警报")
                 .setContentTitle("系统警报")
                 .setContentText("当报警声响起，请点击通知栏进入设置页面关闭")
