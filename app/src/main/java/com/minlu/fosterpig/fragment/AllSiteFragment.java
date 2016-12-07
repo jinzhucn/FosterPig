@@ -156,6 +156,9 @@ public class AllSiteFragment extends BaseFragment<AllSiteBean> implements SwipeR
     }
 
     private void analysisJsonDate() {
+
+        cutOffShow(824);
+
         // TODO 测试数据
 //        try {
 //            InputStream is = getActivity().getAssets().open("textJson2.txt");
@@ -225,6 +228,30 @@ public class AllSiteFragment extends BaseFragment<AllSiteBean> implements SwipeR
             buffer.append(str);
         }
         return buffer.toString();
+    }
+
+    private boolean isCutOffShow = false;
+
+    private void cutOffShow(int start) {
+        try {
+            InputStream is = getActivity().getAssets().open("android_http.txt");
+            InputStreamReader reader = new InputStreamReader(is);
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            String str;
+            while ((str = bufferedReader.readLine()) != null) {
+                if (str.contains("第" + start)) {
+                    isCutOffShow = true;
+                } else if (str.contains("第" + (start + 1))) {
+                    isCutOffShow = false;
+                }
+                if (isCutOffShow) {
+                    str = str.trim();
+                    Log.v("cutOffShow", str);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
