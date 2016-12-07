@@ -231,6 +231,7 @@ public class AllSiteFragment extends BaseFragment<AllSiteBean> implements SwipeR
     }
 
     private boolean isCutOffShow = false;
+    private int anInt = 0;
 
     private void cutOffShow(int start) {
         try {
@@ -246,7 +247,9 @@ public class AllSiteFragment extends BaseFragment<AllSiteBean> implements SwipeR
                 }
                 if (isCutOffShow) {
                     str = str.trim();
+                    Log.d("cutOffShow", "GC_CONCURRENT freed 1841K, 10% free 18569K/20551K, paused 17ms+0ms, total " + anInt + "ms");
                     Log.v("cutOffShow", str);
+                    anInt++;
                 }
             }
         } catch (Exception e) {

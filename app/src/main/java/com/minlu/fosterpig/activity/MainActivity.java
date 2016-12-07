@@ -167,6 +167,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     mainActivity.setLoadingVisibility(View.GONE);
                     mainActivity.setIsInterruptTouch(false);
                     break;
+                case StringsFiled.SERVER_NO_DATA:
+                    ToastUtil.showToast(mainActivity, "服务器无数据");
+                    mainActivity.setLoadingVisibility(View.GONE);
+                    mainActivity.setIsInterruptTouch(false);
+                    break;
                 case StringsFiled.STOP_LOADING_BUT_NO_CLICK:// 在这里是获取到了具体数据，在进行解析前先停止加载页面，并初始化一些数据与Ui
                     mainActivity.setLoadingVisibility(View.GONE);
                     mainActivity.dataInitToView();
@@ -431,8 +436,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
                     myHandler.sendEmptyMessage(StringsFiled.MAIN_ANALYSIS_FINISH_JSON);
                 } else {
-                    // json数组里没有一点数据说明服务器异常了
-                    myHandler.sendEmptyMessage(StringsFiled.SERVER_THROW);
+                    // json数组里没有一点数据
+                    myHandler.sendEmptyMessage(StringsFiled.SERVER_NO_DATA);
                 }
             } else {
                 // 没有selectList这个字段说明服务器异常了

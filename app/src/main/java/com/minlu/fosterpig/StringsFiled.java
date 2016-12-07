@@ -27,7 +27,7 @@ public class StringsFiled {
 
     public final static String MAIN_TO_WARN_POWER_SUPPLY = "main_to_warn_power_supply";
 
-    public final static String MAIN_TO_WARN_POWER_SUPPLY_JSON= "main_to_warn_power_supply_json";
+    public final static String MAIN_TO_WARN_POWER_SUPPLY_JSON = "main_to_warn_power_supply_json";
 
     public final static String TAG_OPEN_ALL_SITE_FRAGMENT = "all_site";
 
@@ -47,9 +47,7 @@ public class StringsFiled {
 
     public final static String IS_AUTO_LOGIN = "is_auto_login";
 
-    public static final String ALARM_SERVICE_ALREADY_OPEN = "alarm_service_already_open";
-
-   // 在main界面中的hundle
+    // 在main界面中的hundle
     public final static int SERVER_OUTAGE = 0;// 服务器宕机
 
     public final static int SERVER_THROW = 1;// 服务器异常
@@ -59,6 +57,8 @@ public class StringsFiled {
     public final static int MAIN_ANALYSIS_FINISH_JSON = 3;
 
     public final static int MAIN_DISPOSE_DATA_TO_UI = 4;
+
+    public static final int SERVER_NO_DATA = 5;
     // 在main界面中的hundle
 
     public final static int MAIN_TO_WARN_VALUE_AMMONIA = 0;// 氨气报警信息
