@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
-
 import com.minlu.fosterpig.FragmentFactory;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
@@ -15,7 +14,6 @@ import com.minlu.fosterpig.fragment.AllSiteFragment;
 import com.minlu.fosterpig.fragment.AllWarnFragment;
 import com.minlu.fosterpig.fragment.SureWarnFragment;
 import com.minlu.fosterpig.util.ViewsUitls;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,37 +54,45 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
         if (savedInstanceState == null) {// 第一次进入该界面，需要通过add来进行展示Fragment
             System.out.println("第一次进入该界面，需要通过add来进行展示Fragment");
             // mFromFragment为空的情况下
-            amendClickStyle(StringsFiled.SELECT_ALL_SITE_TAB, 1, "");
+            amendClickStyle(StringsFiled.SELECT_ALL_SITE_TAB, 1, StringsFiled.TAG_OPEN_ALL_SITE_FRAGMENT);
         } else {
             System.out.println("第二次+++++++++++++++++++++++++++++");
             mAllSiteFragment = (AllSiteFragment) getSupportFragmentManager().findFragmentByTag(StringsFiled.TAG_OPEN_ALL_SITE_FRAGMENT);
             mAllWarnFragment = (AllWarnFragment) getSupportFragmentManager().findFragmentByTag(StringsFiled.TAG_OPEN_WARN_INFORMATION_FRAGMENT);
             mSureWarnFragment = (SureWarnFragment) getSupportFragmentManager().findFragmentByTag(StringsFiled.TAG_OPEN_SURE_WARN_FRAGMENT);
 
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
-            // 所有站点的Tab对应的Fragment必须显示
+            // 给工厂添加所有实例
             if (mAllSiteFragment != null) {
-                fragmentTransaction.show(mAllSiteFragment);
+                System.out.println("mAllSiteFragment");
+                FragmentFactory.fragments[0] = mAllSiteFragment;
             } else {
-                mAllSiteFragment = new AllSiteFragment();
-                fragmentTransaction.add(R.id.fl_select_true_time, mAllSiteFragment, StringsFiled.TAG_OPEN_ALL_SITE_FRAGMENT);
+                FragmentFactory.fragments[0] = new AllSiteFragment();
             }
-            // 走完上面的if else判断后mAllSiteFragment必定有值
-            FragmentFactory.fragments[0] = mAllSiteFragment;
-            mFromFragment = mAllSiteFragment;
-            alreadyPress = 1; // 防止再次点击所有站点的Tab
-
-
-            // 下面两个TAB对应的Fragment必须隐藏起来
             if (mAllWarnFragment != null) {
                 FragmentFactory.fragments[1] = mAllWarnFragment;
-                fragmentTransaction.hide(mAllWarnFragment);
+                System.out.println("mAllWarnFragment");
+            } else {
+                FragmentFactory.fragments[1] = new AllWarnFragment();
             }
             if (mSureWarnFragment != null) {
+                System.out.println("mSureWarnFragment");
                 FragmentFactory.fragments[2] = mSureWarnFragment;
-                fragmentTransaction.hide(mSureWarnFragment);
+            } else {
+                FragmentFactory.fragments[2] = new SureWarnFragment();
             }
+
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+            if (FragmentFactory.fragments[0].isAdded()) {
+                System.out.println("被add过了");
+                fragmentTransaction.show(FragmentFactory.fragments[0]).hide(FragmentFactory.fragments[1]).hide(FragmentFactory.fragments[2]);
+            } else {
+                System.out.println("没有add过");
+                fragmentTransaction.add(R.id.fl_select_true_time, FragmentFactory.fragments[0], StringsFiled.TAG_OPEN_ALL_SITE_FRAGMENT).hide(FragmentFactory.fragments[1]).hide(FragmentFactory.fragments[2]);
+            }
+
+            mFromFragment = FragmentFactory.fragments[0];
+            alreadyPress = 1; // 防止再次点击所有站点的Tab
 
             fragmentTransaction.commit();
         }
@@ -166,23 +172,29 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
 
         BaseFragment baseFragment = FragmentFactory.create(toFragment - 1);
 
-        if (mFromFragment != baseFragment) {
+        System.out.println("第" + toFragment + "个Tab");
 
+        if (mFromFragment != baseFragment) {
+            System.out.println("与上一个Tab不一样");
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
             if (!baseFragment.isAdded()) {    // 先判断是否被add过
+                System.out.println("需要显示的tab没有被add");
                 // 设置要传送的数据
                 Bundle bundle = new Bundle();
                 bundle.putInt(StringsFiled.OPEN_FRAGMENT_BUNDLE_KEY, bundleValue);
                 baseFragment.setArguments(bundle);
 
                 if (mFromFragment == null) {
+                    System.out.println("当前tab为空");
                     transaction.add(R.id.fl_select_true_time, baseFragment, tag).commit(); // 第一次进入本页面，直接add到Activity中
                 } else {
+                    System.out.println("当前的tab不为空");
                     transaction.hide(mFromFragment).add(R.id.fl_select_true_time, baseFragment, tag).commit(); // 隐藏当前的fragment，add下一个到Activity中
                 }
 
             } else {
+                System.out.println("需要显示的tab已经被add");
                 transaction.hide(mFromFragment).show(baseFragment).commit(); // 隐藏当前的fragment，显示下一个
             }
 
