@@ -3,6 +3,8 @@ package com.minlu.fosterpig.fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.minlu.fosterpig.IpFiled;
@@ -64,6 +66,23 @@ public class SureWarnFragment extends BaseFragment<AlreadySureWarn> implements S
 
         sureWarnAdapter = new SureWarnAdapter(allAlreadySureWarn);
         listView.setAdapter(sureWarnAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println("点击了条目 position: " + position + " lissize: " + allAlreadySureWarn.size());
+                ViewGroup viewGroup = (ViewGroup) view;
+                if (position == allAlreadySureWarn.size() && viewGroup.getChildAt(0).getVisibility() == View.GONE) {
+                    System.out.println("加载更多的条目");
+
+                    viewGroup.getChildAt(1).setVisibility(View.GONE);
+                    viewGroup.getChildAt(0).setVisibility(View.VISIBLE);
+
+                    sureWarnAdapter.loadMore();
+                    listView.setSelection(position);
+                }
+            }
+        });
 
         //改变加载显示的颜色
         swipeRefreshLayout.setColorSchemeColors(StringsFiled.SWIPE_REFRESH_FIRST_ROUND_COLOR, StringsFiled.SWIPE_REFRESH_SECOND_ROUND_COLOR, StringsFiled.SWIPE_REFRESH_THIRD_ROUND_COLOR);

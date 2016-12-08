@@ -34,14 +34,14 @@ public class MoreHolder extends BaseHolder<Integer> {
         View view = ViewsUitls.inflate(R.layout.layout_load_more);
         hasMore = (LinearLayout) view.findViewById(R.id.has_more);
         moreError = (TextView) view.findViewById(R.id.more_error);
-        moreError.setOnClickListener(new View.OnClickListener() {
+      /*  moreError.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("加载失败后，重新点击加载更多");
                 setRelfshData(HAS_MORE, -1);
                 adapter.loadMore();
             }
-        });
+        });*/
         return view;
     }
 
