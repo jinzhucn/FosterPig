@@ -27,14 +27,6 @@ public class CookiesManager implements CookieJar {
     public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
         System.out.println("saveFromResponse++++++++++++++++++++++++++");
 
-        System.out.println("fragment: " + url.fragment());
-        System.out.println("host: " + url.host());
-        System.out.println("password: " + url.password());
-        System.out.println("query: " + url.query());
-        System.out.println("scheme: " + url.scheme());
-        System.out.println("username: " + url.username());
-        System.out.println("pathSegments: " + url.pathSegments());
-
         if (cookies != null && cookies.size() > 0) {
             for (Cookie item : cookies) {
                 cookieStore.add(url, item);
@@ -53,14 +45,6 @@ public class CookiesManager implements CookieJar {
     @Override
     public List<Cookie> loadForRequest(HttpUrl url) {
         System.out.println("loadForRequest=======================");
-
-        System.out.println("fragment: " + url.fragment());
-        System.out.println("host: " + url.host());
-        System.out.println("password: " + url.password());
-        System.out.println("query: " + url.query());
-        System.out.println("scheme: " + url.scheme());
-        System.out.println("username: " + url.username());
-        System.out.println("pathSegments: " + url.pathSegments());
 
 //        if (!url.pathSegments().contains("login")) {
         List<Cookie> cookies = cookieStore.get(url);

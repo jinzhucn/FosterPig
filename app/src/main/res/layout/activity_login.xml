@@ -14,20 +14,18 @@
         android:src="@mipmap/login_top" />
 
     <EditText
-        android:singleLine="true"
-        android:maxLines="1"
-        android:layout_marginTop="12dp"
         android:id="@+id/login_user"
         style="@style/editText_child"
         android:layout_below="@+id/iv_login_top_logo"
+        android:layout_marginTop="12dp"
         android:drawableLeft="@mipmap/login_user"
         android:drawableStart="@mipmap/login_user"
         android:hint="@string/login_hit_user"
+        android:maxLines="1"
+        android:singleLine="true"
         android:textColor="@color/black" />
 
     <EditText
-        android:singleLine="true"
-        android:maxLines="1"
         android:id="@+id/login_password"
         style="@style/editText_child"
         android:layout_below="@id/login_user"
@@ -36,10 +34,11 @@
         android:drawableStart="@mipmap/login_password"
         android:hint="@string/login_hit_password"
         android:inputType="textPassword"
+        android:maxLines="1"
+        android:singleLine="true"
         android:textColor="@color/black" />
 
     <CheckBox
-        android:drawablePadding="6dp"
         android:id="@+id/cb_login_remember_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,9 +49,10 @@
         android:button="@null"
         android:checked="false"
         android:drawableLeft="@drawable/selector_login_radiobutton_bg"
+        android:drawablePadding="6dp"
         android:text="@string/login_remember_password"
-        android:textSize="18dp"
         android:textColor="@color/white"
+        android:textSize="18dp"
         android:textStyle="bold" />
 
     <Button
@@ -64,17 +64,18 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/selector_login_button"
         android:text="@string/login_button"
+        android:textSize="20dp"
         android:textColor="@color/white"
         android:textStyle="bold" />
 
     <TextView
+        android:textSize="12dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/login_bottom_text_margin_bottom"
         android:text="@string/login_foot"
-        android:textColor="@color/white"
-        android:textStyle="bold" />
+        android:textColor="@color/white" />
 
 </RelativeLayout>
