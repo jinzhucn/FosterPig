@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -25,10 +24,7 @@ import com.minlu.fosterpig.util.ViewsUitls;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -127,14 +123,6 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
             mEtUser.setText(mHistoryUser);
             mEtPassWord.setText(mHistoryPassWord);
         }
-
-        mBLogin.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                cutOffShow(Integer.parseInt(mEtUser.getText().toString().trim()));
-                return false;
-            }
-        });
     }
 
 
@@ -246,32 +234,5 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         }
         SharedPreferencesUtil.saveboolean(ViewsUitls.getContext(),
                 StringsFiled.IS_AUTO_LOGIN, mRbRemember.isChecked());
-    }
-
-    private boolean isCutOffShow = false;
-    private int anInt = 0;
-
-    private void cutOffShow(int start) {
-        try {
-            InputStream is = getAssets().open("android_http.txt");
-            InputStreamReader reader = new InputStreamReader(is);
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            String str;
-            while ((str = bufferedReader.readLine()) != null) {
-                if (str.contains("第" + start)) {
-                    isCutOffShow = true;
-                } else if (str.contains("第" + (start + 1))) {
-                    isCutOffShow = false;
-                }
-                if (isCutOffShow) {
-                    str = str.trim();
-                    Log.d("cutOffShow", "GC_CONCURRENT freed 1841K, 10% free 18569K/20551K, paused 17ms+0ms, total " + anInt + "ms");
-                    Log.v("cutOffShow", str);
-                    anInt++;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
