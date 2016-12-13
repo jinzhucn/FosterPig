@@ -93,7 +93,7 @@ public class AlarmServicer extends Service implements Observers {
                         JSONObject jsonObject = new JSONObject(postBack);
                         JSONObject object = jsonObject.optJSONObject("mapList");
                         if (object.has("allWranNumber")) {
-                            int allWarnNumber = jsonObject.optInt("allWranNumber");
+                            int allWarnNumber = object.optInt("allWranNumber");
                             // TODO 测试数据
 //                            allWarnNumber = 2;
                             // TODO 测试数据

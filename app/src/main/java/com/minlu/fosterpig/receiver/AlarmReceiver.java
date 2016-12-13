@@ -28,7 +28,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             // 暂停了报警声音，就必须把循序播放-暂停前的if判断改为false
             SharedPreferencesUtil.saveboolean(ViewsUitls.getContext(), StringsFiled.IS_ALLOW_SOUND_PLAY, false);
             // 并记录暂停报警声音一段时间后具体可以继续开启报警声音的时间
-            SharedPreferencesUtil.saveLong(ViewsUitls.getContext(), StringsFiled.IS_ALLOW_SOUND_PLAY_TIME, System.currentTimeMillis() + 20000);
+            SharedPreferencesUtil.saveLong(ViewsUitls.getContext(), StringsFiled.IS_ALLOW_SOUND_PLAY_TIME, System.currentTimeMillis() + StringsFiled.ALARM_INTERVAL_TIME);
         }
         Intent toWarn = new Intent(ViewsUitls.getContext(), NotificationToWarnActivity.class);
         toWarn.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
