@@ -3,10 +3,8 @@ package com.minlu.fosterpig.request;
 import android.view.View;
 
 import com.minlu.fosterpig.IpFiled;
-import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.base.BaseActivity;
 import com.minlu.fosterpig.http.OkHttpManger;
-import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.ToastUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
 
@@ -33,13 +31,11 @@ public class RequestSureWarn {
         OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
         System.out.println("确认报警传递的字段id为: " + mainId);
         RequestBody formBody = new FormBody.Builder().add("id", "" + mainId).build();
-        String address = SharedPreferencesUtil.getString(
-                ViewsUitls.getContext(), StringsFiled.IP_ADDRESS_PREFIX, "");
         Request request = new Request.Builder()
-                .url(address + IpFiled.REQUEST_SURE_WARN)
+                .url(IpFiled.REQUEST_SURE_WARN)
                 .post(formBody)
                 .build();
-        System.out.println(address + IpFiled.REQUEST_SURE_WARN);
+        System.out.println(IpFiled.REQUEST_SURE_WARN);
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

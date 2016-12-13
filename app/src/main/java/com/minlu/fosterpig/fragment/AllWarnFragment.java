@@ -22,7 +22,6 @@ import com.minlu.fosterpig.http.OkHttpManger;
 import com.minlu.fosterpig.manager.ThreadManager;
 import com.minlu.fosterpig.request.RequestResult;
 import com.minlu.fosterpig.request.RequestSureWarn;
-import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.StringUtils;
 import com.minlu.fosterpig.util.ToastUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
@@ -97,12 +96,8 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
     private void requestData() {
         OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
         RequestBody formBody = new FormBody.Builder().build();
-
-        String address = SharedPreferencesUtil.getString(
-                ViewsUitls.getContext(), StringsFiled.IP_ADDRESS_PREFIX, "");
-
         Request request = new Request.Builder()
-                .url(address + IpFiled.MAIN_GET_ALL_INFORMATION)
+                .url(IpFiled.MAIN_GET_ALL_INFORMATION)
                 .post(formBody)
                 .build();
         try {

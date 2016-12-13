@@ -144,14 +144,9 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
         RequestBody formBody = new FormBody.Builder().add("username", userName)
                 .add("password", passWord).build();
-
-        String address = SharedPreferencesUtil.getString(
-                ViewsUitls.getContext(), StringsFiled.IP_ADDRESS_PREFIX, "");
-
-        System.out.println(address + IpFiled.LOGIN);
-
+        System.out.println(IpFiled.LOGIN);
         Request request = new Request.Builder()
-                .url(address + IpFiled.LOGIN)
+                .url(IpFiled.LOGIN)
                 .post(formBody)
                 .build();
 

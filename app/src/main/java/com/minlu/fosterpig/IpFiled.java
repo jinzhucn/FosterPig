@@ -5,7 +5,7 @@ package com.minlu.fosterpig;
  */
 public class IpFiled {
 
-    public final static String IP = "/ess.web3.0/";
+    public final static String IP = "http://192.168.1.30:8085/ess.web3.0/";
 
     public final static String LOGIN = IP + "loginForm.html";
 

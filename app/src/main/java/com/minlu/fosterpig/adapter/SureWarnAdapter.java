@@ -4,15 +4,12 @@ package com.minlu.fosterpig.adapter;
 import android.util.Log;
 
 import com.minlu.fosterpig.IpFiled;
-import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.base.BaseHolder;
 import com.minlu.fosterpig.base.MyBaseAdapter;
 import com.minlu.fosterpig.bean.AlreadySureWarn;
 import com.minlu.fosterpig.holder.SureWarnHolder;
 import com.minlu.fosterpig.http.OkHttpManger;
-import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.StringUtils;
-import com.minlu.fosterpig.util.ViewsUitls;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,12 +68,8 @@ public class SureWarnAdapter extends MyBaseAdapter<AlreadySureWarn> {
         OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
         // start查询数据的起点  limit要查多少条数据
         RequestBody formBody = new FormBody.Builder().add("dtuId", "0").add("selectDate", "").add("start", "" + (page * 10)).add("limit", "10").build();
-
-        String address = SharedPreferencesUtil.getString(
-                ViewsUitls.getContext(), StringsFiled.IP_ADDRESS_PREFIX, "");
-
         Request request = new Request.Builder()
-                .url(address + IpFiled.ALL_ALREADY_SURE_WARN)
+                .url(IpFiled.ALL_ALREADY_SURE_WARN)
                 .post(formBody)
                 .build();
         try {

@@ -16,7 +16,6 @@ import com.minlu.fosterpig.base.ContentPage;
 import com.minlu.fosterpig.bean.AlreadySureWarn;
 import com.minlu.fosterpig.http.OkHttpManger;
 import com.minlu.fosterpig.manager.ThreadManager;
-import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.StringUtils;
 import com.minlu.fosterpig.util.ToastUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
@@ -115,12 +114,8 @@ public class SureWarnFragment extends BaseFragment<AlreadySureWarn> implements S
         OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
         // start查询数据的起点  limit要查多少条数据
         RequestBody formBody = new FormBody.Builder().add("dtuId", "0").add("selectDate", "").add("start", "0").add("limit", "10").build();
-
-        String address = SharedPreferencesUtil.getString(
-                ViewsUitls.getContext(), StringsFiled.IP_ADDRESS_PREFIX, "");
-
         Request request = new Request.Builder()
-                .url(address + IpFiled.ALL_ALREADY_SURE_WARN)
+                .url(IpFiled.ALL_ALREADY_SURE_WARN)
                 .post(formBody)
                 .build();
         try {
