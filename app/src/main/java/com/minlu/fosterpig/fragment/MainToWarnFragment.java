@@ -144,10 +144,7 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
                     case 0:
                         MainAllInformation mainAllInformation = list.get(position);
                         final int facilityType = mainAllInformation.getFacilityType();
-                        int mainId = mainAllInformation.getMainId();
-                        System.out.println("mainId: " + mainId);
-
-                        RequestSureWarn.requestSureWarn(mainId, mActivity, new RequestResult() {
+                        RequestSureWarn.requestSureWarn(mainAllInformation, mActivity, new RequestResult() {
                             @Override
                             public void onResponse(boolean result) {// 此处是主线程，根据结果进行不同的处理
                                 if (result) {

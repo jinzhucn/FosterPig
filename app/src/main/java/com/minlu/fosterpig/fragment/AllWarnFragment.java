@@ -268,10 +268,7 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
                 switch (index) {
                     case 0:
                         MainAllInformation mainAllInformation = allInformation.get(position);
-                        int mainId = mainAllInformation.getMainId();
-                        System.out.println("mainId: " + mainId);
-
-                        RequestSureWarn.requestSureWarn(mainId, mActivity, new RequestResult() {
+                        RequestSureWarn.requestSureWarn(mainAllInformation, mActivity, new RequestResult() {
                             @Override
                             public void onResponse(boolean result) {// 此处是主线程，根据结果进行不同的处理
                                 if (result) {
