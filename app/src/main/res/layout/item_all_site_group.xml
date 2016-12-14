@@ -25,7 +25,7 @@
             android:id="@+id/tv_all_site_group_site_all_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="[总数88 , 报警 : 88]"
+            android:text="[ 总数 : 88 , 报警 : 88 ]"
             android:textColor="@color/black"
             android:textSize="20dp" />
     </LinearLayout>

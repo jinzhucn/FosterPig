@@ -190,7 +190,7 @@ public class AllSiteFragment extends BaseFragment<AllSiteBean> implements SwipeR
                                 if (singleData.has("isWarn")) {
                                     isWarn = singleData.optInt("isWarn");
                                 }
-                                facilityDetails.add(new FacilityDetail(singleData.optDouble("dataValue"), singleData.optInt("facilityType"), isWarn, singleData.optString("siteName"), singleData.optString("areaName")));
+                                facilityDetails.add(new FacilityDetail(singleData.optInt("status"), singleData.optDouble("dataValue"), singleData.optInt("facilityType"), isWarn, singleData.optString("siteName"), singleData.optString("areaName")));
                             }
                         }
 

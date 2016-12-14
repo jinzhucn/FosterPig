@@ -10,13 +10,23 @@ public class FacilityDetail {
     private int isWarn;
     private String siteName;
     private String areaName;
+    private int isHandle;
 
-    public FacilityDetail(double dataValue, int facilityType, int isWarn, String siteName, String areaName) {
+    public FacilityDetail(int isHandle, double dataValue, int facilityType, int isWarn, String siteName, String areaName) {
+        this.isHandle = isHandle;
         this.dataValue = dataValue;
         this.facilityType = facilityType;
         this.isWarn = isWarn;
         this.siteName = siteName;
         this.areaName = areaName;
+    }
+
+    public int getIsHandle() {
+        return isHandle;
+    }
+
+    public void setIsHandle(int isHandle) {
+        this.isHandle = isHandle;
     }
 
     public double getDataValue() {

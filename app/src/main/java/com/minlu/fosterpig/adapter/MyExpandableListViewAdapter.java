@@ -24,6 +24,7 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
     private TextView warnNumber;
     private ImageView imageIcon;
     private ImageView isPowerOn;
+//    private ImageView isHandle;
 
     public MyExpandableListViewAdapter(List<AllSiteBean> list) {
         this.groups = list;
@@ -81,7 +82,7 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
         TextView siteWarnAllNumber = (TextView) inflate.findViewById(R.id.tv_all_site_group_site_all_number);
 
         siteName.setText(groups.get(groupPosition).getAreaName());
-        siteWarnAllNumber.setText("[总数" + groups.get(groupPosition).getFacilitySum() + " , 报警 : " + groups.get(groupPosition).getFacilityWarnNumber() + "]");
+        siteWarnAllNumber.setText("[ 总数 : " + groups.get(groupPosition).getFacilitySum() + " , 报警 : " + groups.get(groupPosition).getFacilityWarnNumber() + " ]");
 
         return inflate;
     }
@@ -95,44 +96,71 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
         warnNumber = (TextView) inflate.findViewById(R.id.tv_all_site_child_monitor_warn_number);
         imageIcon = (ImageView) inflate.findViewById(R.id.iv_all_site_child_item_left_image);
         isPowerOn = (ImageView) inflate.findViewById(R.id.iv_all_site_child_power_supply_is_open);
+//        isHandle = (ImageView) inflate.findViewById(R.id.iv_all_site_child_is_handle);
 
         FacilityDetail facilityDetail = groups.get(groupPosition).getFacilityDetails().get(childPosition);
         switch (facilityDetail.getFacilityType()) {
             case 1:// 氨气
                 isShowPower(false);
                 if (facilityDetail.getIsWarn() == 1) {
-                    setItemStyle(R.mipmap.small_icon_warn_ammonia, R.color.red, R.color.red,
-                            facilityDetail.getDataValue() + "ppm",
-                            facilityDetail.getSiteName() + "-氨气");
-
+                    if (facilityDetail.getIsHandle() == 1) {
+                        setItemStyle(R.mipmap.small_icon_normal_ammonia, R.color.loading_background_thin_gray, R.color.loading_background_thin_gray,
+                                facilityDetail.getDataValue() + "ppm",
+                                facilityDetail.getSiteName() + "-氨气");
+//                        isHandle.setVisibility(View.VISIBLE);
+                    } else {
+                        setItemStyle(R.mipmap.small_icon_warn_ammonia, R.color.red, R.color.red,
+                                facilityDetail.getDataValue() + "ppm",
+                                facilityDetail.getSiteName() + "-氨气");
+//                        isHandle.setVisibility(View.GONE);
+                    }
                 } else {
                     setItemStyle(R.mipmap.small_icon_normal_ammonia, R.color.black, R.color.black,
                             facilityDetail.getDataValue() + "ppm",
                             facilityDetail.getSiteName() + "-氨气");
+//                    isHandle.setVisibility(View.GONE);
                 }
                 break;
             case 2:// 温度
                 isShowPower(false);
                 if (facilityDetail.getIsWarn() == 1) {
-                    setItemStyle(R.mipmap.small_icon_warn_temperature, R.color.red, R.color.red,
-                            facilityDetail.getDataValue() + "℃",
-                            facilityDetail.getSiteName() + "-温度");
+                    if (facilityDetail.getIsHandle() == 1) {
+                        setItemStyle(R.mipmap.small_icon_normal_temperature, R.color.loading_background_thin_gray, R.color.loading_background_thin_gray,
+                                facilityDetail.getDataValue() + "℃",
+                                facilityDetail.getSiteName() + "-温度");
+//                        isHandle.setVisibility(View.VISIBLE);
+                    } else {
+                        setItemStyle(R.mipmap.small_icon_warn_temperature, R.color.red, R.color.red,
+                                facilityDetail.getDataValue() + "℃",
+                                facilityDetail.getSiteName() + "-温度");
+//                        isHandle.setVisibility(View.GONE);
+                    }
                 } else {
                     setItemStyle(R.mipmap.small_icon_normal_temperature, R.color.black, R.color.black,
                             facilityDetail.getDataValue() + "℃",
                             facilityDetail.getSiteName() + "-温度");
+//                    isHandle.setVisibility(View.GONE);
                 }
                 break;
             case 3:// 湿度
                 isShowPower(false);
                 if (facilityDetail.getIsWarn() == 1) {
-                    setItemStyle(R.mipmap.small_icon_warn_humidity, R.color.red, R.color.red,
-                            facilityDetail.getDataValue() + "%",
-                            facilityDetail.getSiteName() + "-湿度");
+                    if (facilityDetail.getIsHandle() == 1) {
+                        setItemStyle(R.mipmap.small_icon_normal_humidity, R.color.loading_background_thin_gray, R.color.loading_background_thin_gray,
+                                facilityDetail.getDataValue() + "%",
+                                facilityDetail.getSiteName() + "-湿度");
+//                        isHandle.setVisibility(View.VISIBLE);
+                    } else {
+                        setItemStyle(R.mipmap.small_icon_warn_humidity, R.color.red, R.color.red,
+                                facilityDetail.getDataValue() + "%",
+                                facilityDetail.getSiteName() + "-湿度");
+//                        isHandle.setVisibility(View.GONE);
+                    }
                 } else {
                     setItemStyle(R.mipmap.small_icon_normal_humidity, R.color.black, R.color.black,
                             facilityDetail.getDataValue() + "%",
                             facilityDetail.getSiteName() + "-湿度");
+//                    isHandle.setVisibility(View.GONE);
                 }
                 break;
             default:// 市电
@@ -143,24 +171,34 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                     monitorAddress.setText("isWarn没有值");
                 }
                 if (facilityDetail.getIsWarn() == 1) {
-                    imageIcon.setImageResource(R.mipmap.small_icon_warn_power_supply);
-                    monitorAddress.setTextColor(ContextCompat.getColor(ViewsUitls.getContext(), R.color.red));
+                    if (facilityDetail.getIsHandle() == 1) {
+                        imageIcon.setImageResource(R.mipmap.small_icon_normal_power_supply);
+                        monitorAddress.setTextColor(ContextCompat.getColor(ViewsUitls.getContext(), R.color.loading_background_thin_gray));
+                        if (facilityDetail.getDataValue() == 0) {
+                            isPowerOn.setImageResource(R.mipmap.broken_link_normal);
+                        } else {
+                            isPowerOn.setImageResource(R.mipmap.link_normal);
+                        }
+//                        isHandle.setVisibility(View.VISIBLE);
+                    } else {
+                        imageIcon.setImageResource(R.mipmap.small_icon_warn_power_supply);
+                        monitorAddress.setTextColor(ContextCompat.getColor(ViewsUitls.getContext(), R.color.red));
+                        if (facilityDetail.getDataValue() == 0) {
+                            isPowerOn.setImageResource(R.mipmap.broken_link_warn);
+                        } else {
+                            isPowerOn.setImageResource(R.mipmap.link_warn);
+                        }
+//                        isHandle.setVisibility(View.GONE);
+                    }
                 } else {
                     imageIcon.setImageResource(R.mipmap.small_icon_normal_power_supply);
                     monitorAddress.setTextColor(ContextCompat.getColor(ViewsUitls.getContext(), R.color.black));
-                }
-                if (facilityDetail.getDataValue() == 0) {
-                    if (facilityDetail.getIsWarn() == 1) {
-                        isPowerOn.setImageResource(R.mipmap.broken_link_warn);
-                    } else {
+                    if (facilityDetail.getDataValue() == 0) {
                         isPowerOn.setImageResource(R.mipmap.broken_link_normal);
-                    }
-                } else {
-                    if (facilityDetail.getIsWarn() == 1) {
-                        isPowerOn.setImageResource(R.mipmap.link_warn);
                     } else {
                         isPowerOn.setImageResource(R.mipmap.link_normal);
                     }
+//                    isHandle.setVisibility(View.GONE);
                 }
                 break;
         }
