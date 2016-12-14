@@ -85,10 +85,10 @@ public class SureWarnHolder extends BaseHolder<AlreadySureWarn> {
                 imageResource = R.mipmap.small_icon_normal_power_supply;
                 setIsShowRightImage(true);
                 if (mData.getValue() == 0) {
-                    mRightView.setImageResource(R.mipmap.broken_link);
+                    mRightView.setImageResource(R.mipmap.broken_link_warn);
                 }
                 if (mData.getValue() == 1) {
-                    mRightView.setImageResource(R.mipmap.link);
+                    mRightView.setImageResource(R.mipmap.link_normal);
                 }
                 break;
         }

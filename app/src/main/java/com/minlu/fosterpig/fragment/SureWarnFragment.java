@@ -113,7 +113,7 @@ public class SureWarnFragment extends BaseFragment<AlreadySureWarn> implements S
     private void requestData() {
         OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
         // start查询数据的起点  limit要查多少条数据
-        RequestBody formBody = new FormBody.Builder().add("dtuId", "0").add("selectDate", "").add("start", "0").add("limit", "10").build();
+        RequestBody formBody = new FormBody.Builder().add("dtuId", "0").add("judgeTotal", "" + -1).add("stationid", "" + -1).add("selectDate", "").add("start", "0").add("limit", "10").build();
         Request request = new Request.Builder()
                 .url(IpFiled.ALL_ALREADY_SURE_WARN)
                 .post(formBody)

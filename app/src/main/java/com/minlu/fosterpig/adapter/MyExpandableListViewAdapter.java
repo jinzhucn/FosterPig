@@ -150,9 +150,17 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
                     monitorAddress.setTextColor(ContextCompat.getColor(ViewsUitls.getContext(), R.color.black));
                 }
                 if (facilityDetail.getDataValue() == 0) {
-                    isPowerOn.setImageResource(R.mipmap.broken_link);
+                    if (facilityDetail.getIsWarn() == 1) {
+                        isPowerOn.setImageResource(R.mipmap.broken_link_warn);
+                    } else {
+                        isPowerOn.setImageResource(R.mipmap.broken_link_normal);
+                    }
                 } else {
-                    isPowerOn.setImageResource(R.mipmap.link);
+                    if (facilityDetail.getIsWarn() == 1) {
+                        isPowerOn.setImageResource(R.mipmap.link_warn);
+                    } else {
+                        isPowerOn.setImageResource(R.mipmap.link_normal);
+                    }
                 }
                 break;
         }

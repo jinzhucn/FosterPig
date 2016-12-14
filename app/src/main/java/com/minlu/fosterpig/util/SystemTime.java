@@ -18,6 +18,13 @@ public class SystemTime {
         return formatTime.substring(0, 10) + "/" + formatTime.substring(11, 16);
     }
 
+    public static String getSureWarnTime() {
+        long currentTimeMillis = System.currentTimeMillis();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        String formatTime = simpleDateFormat.format(new Date(currentTimeMillis));
+        return formatTime;
+    }
+
     public static String getCustomTimer(long customTime) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         String formatTime = simpleDateFormat.format(new Date(customTime));

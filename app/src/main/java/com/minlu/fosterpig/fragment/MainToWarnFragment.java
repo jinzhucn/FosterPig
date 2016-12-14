@@ -12,6 +12,7 @@ import com.minlu.fosterpig.adapter.WarnAdapter;
 import com.minlu.fosterpig.base.BaseActivity;
 import com.minlu.fosterpig.base.BaseFragment;
 import com.minlu.fosterpig.base.ContentPage;
+import com.minlu.fosterpig.bean.AlreadySureWarn;
 import com.minlu.fosterpig.bean.MainAllInformation;
 import com.minlu.fosterpig.customview.swipelistview.SwipeMenu;
 import com.minlu.fosterpig.customview.swipelistview.SwipeMenuCreator;
@@ -23,6 +24,7 @@ import com.minlu.fosterpig.request.RequestSureWarn;
 import com.minlu.fosterpig.util.GsonTools;
 import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.StringUtils;
+import com.minlu.fosterpig.util.SystemTime;
 import com.minlu.fosterpig.util.ToastUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
 
@@ -38,7 +40,8 @@ import java.util.List;
  */
 public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
 
-    private List<MainAllInformation> list = new ArrayList<>();
+    private List<MainAllInformation> mainAllInformations = new ArrayList<>();
+    private List<AlreadySureWarn> alreadySureWarns = new ArrayList<>();
     private WarnAdapter mWarnAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private BaseActivity mActivity;
@@ -58,7 +61,7 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
         swipeRefreshLayout.setEnabled(false);
 
         SwipeMenuListView mListView = (SwipeMenuListView) inflate.findViewById(R.id.swipe_menu_list_view);
-        mWarnAdapter = new WarnAdapter(list);
+        mWarnAdapter = new WarnAdapter(mainAllInformations);
         mListView.setAdapter(mWarnAdapter);
 
         setSwipeMenuAttribute(mListView);
@@ -71,22 +74,26 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
         switch (getBundleValue()) {
             case StringsFiled.MAIN_TO_WARN_VALUE_AMMONIA:
                 analysisDataJSON(SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_AMMONIA_JSON, ""));
+                analysisDataJSONTwo(SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_ALREADY_WARN_AMMONIA_JSON, ""));
                 break;
             case StringsFiled.MAIN_TO_WARN_VALUE_TEMPERATURE:
                 analysisDataJSON(SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_TEMPERATURE_JSON, ""));
+                analysisDataJSONTwo(SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_ALREADY_WARN_TEMPERATURE_JSON, ""));
                 break;
             case StringsFiled.MAIN_TO_WARN_VALUE_HUMIDITY:
                 analysisDataJSON(SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_HUMIDITY_JSON, ""));
+                analysisDataJSONTwo(SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_ALREADY_WARN_HUMIDITY_JSON, ""));
                 break;
             case StringsFiled.MAIN_TO_WARN_VALUE_POWER_SUPPLY:
                 analysisDataJSON(SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_POWER_SUPPLY_JSON, ""));
+                analysisDataJSONTwo(SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_ALREADY_WARN_POWER_SUPPLY_JSON, ""));
                 break;
         }
-        return chat(list);
+        return chat(mainAllInformations);
     }
 
     private void analysisDataJSON(String jsonData) {
-        list.clear();
+        mainAllInformations.clear();
         try {
             JSONArray jsonArray = new JSONArray(jsonData);
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -115,7 +122,41 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
                     mainId = singleWarnData.optInt("mainId");
                 }
 
-                list.add(new MainAllInformation(mainId, areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn, startWarnTime));
+                mainAllInformations.add(new MainAllInformation(mainId, areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn, startWarnTime));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.out.println(jsonData);
+    }
+
+    private void analysisDataJSONTwo(String jsonData) {
+        alreadySureWarns.clear();
+        try {
+            JSONArray jsonArray = new JSONArray(jsonData);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject singleAlreadyWarnData = jsonArray.getJSONObject(i);
+
+                double value = singleAlreadyWarnData.optDouble("value");
+                int type = singleAlreadyWarnData.optInt("type");
+                String stationName = singleAlreadyWarnData.optString("stationName");
+                String areaName = singleAlreadyWarnData.optString("areaName");
+                // 开始报警的时间
+                String alarmTime = "---";
+                if (singleAlreadyWarnData.has("alarmTime")) {
+                    String time = singleAlreadyWarnData.optString("alarmTime");
+                    if (!StringUtils.isEmpty(time)) {
+                        alarmTime = time;
+                    }
+                }
+                String handleTime = "---";
+                if (singleAlreadyWarnData.has("handleTime")) {
+                    String time = singleAlreadyWarnData.optString("handleTime");
+                    if (!StringUtils.isEmpty(time)) {
+                        handleTime = time;
+                    }
+                }
+                alreadySureWarns.add(new AlreadySureWarn(alarmTime, handleTime, stationName, areaName, type, value));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -134,13 +175,20 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
             public boolean onMenuItemClick(final int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        MainAllInformation mainAllInformation = list.get(position);
+                        MainAllInformation mainAllInformation = mainAllInformations.get(position);
                         final int facilityType = mainAllInformation.getFacilityType();
                         RequestSureWarn.requestSureWarn(mainAllInformation, mActivity, new RequestResult() {
                             @Override
                             public void onResponse(boolean result) {// 此处是主线程，根据结果进行不同的处理
                                 if (result) {
-                                    list.remove(position);
+                                    MainAllInformation singleInformation = mainAllInformations.get(position);
+                                    alreadySureWarns.add(0, new AlreadySureWarn(singleInformation.getStartWarnTime(),
+                                            SystemTime.getSureWarnTime(),
+                                            singleInformation.getSiteName(),
+                                            singleInformation.getAreaName(),
+                                            singleInformation.getFacilityType(),
+                                            singleInformation.getFacilityValue()));
+                                    mainAllInformations.remove(singleInformation);
                                     mWarnAdapter.notifyDataSetChanged();
                                     ToastUtil.showToast(ViewsUitls.getContext(), "确认报警成功");
                                     // 对存储的数据源进行修改，以及与主界面互动
@@ -186,19 +234,23 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
     private void amendDataSource(int facilityType) {
         switch (facilityType) {
             case 1:// 氨气
-                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_AMMONIA_JSON, GsonTools.createGsonString(list));
+                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_AMMONIA_JSON, GsonTools.createGsonString(mainAllInformations));
+                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_ALREADY_WARN_AMMONIA_JSON, GsonTools.createGsonString(alreadySureWarns));
                 MySubject.getInstance().operation(StringsFiled.OBSERVER_AMMONIA_SURE, -1, -1);
                 break;
             case 2:// 温度
-                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_TEMPERATURE_JSON, GsonTools.createGsonString(list));
+                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_TEMPERATURE_JSON, GsonTools.createGsonString(mainAllInformations));
+                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_ALREADY_WARN_TEMPERATURE_JSON, GsonTools.createGsonString(alreadySureWarns));
                 MySubject.getInstance().operation(StringsFiled.OBSERVER_TEMPERATURE_SURE, -1, -1);
                 break;
             case 3:// 湿度
-                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_HUMIDITY_JSON, GsonTools.createGsonString(list));
+                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_HUMIDITY_JSON, GsonTools.createGsonString(mainAllInformations));
+                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_ALREADY_WARN_HUMIDITY_JSON, GsonTools.createGsonString(alreadySureWarns));
                 MySubject.getInstance().operation(StringsFiled.OBSERVER_HUMIDITY_SURE, -1, -1);
                 break;
             default:// 市电
-                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_POWER_SUPPLY_JSON, GsonTools.createGsonString(list));
+                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_POWER_SUPPLY_JSON, GsonTools.createGsonString(mainAllInformations));
+                SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_ALREADY_WARN_POWER_SUPPLY_JSON, GsonTools.createGsonString(alreadySureWarns));
                 MySubject.getInstance().operation(StringsFiled.OBSERVER_POWER_SUPPLY_SURE, -1, -1);
                 break;
         }

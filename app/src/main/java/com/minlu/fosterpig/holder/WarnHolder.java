@@ -74,9 +74,9 @@ public class WarnHolder extends BaseHolder<MainAllInformation> {
                 mLeftImage.setImageResource(R.mipmap.small_icon_warn_power_supply);
                 mMonitorAddress.setText(mData.getAreaName() + "-" + mData.getSiteName() + "-市电" + (mData.getFacilityType() - 3));
                 if (mData.getFacilityValue() == 0) {
-                    mBrokenLink.setImageResource(R.mipmap.broken_link);
+                    mBrokenLink.setImageResource(R.mipmap.broken_link_warn);
                 } else {
-                    mBrokenLink.setImageResource(R.mipmap.link);
+                    mBrokenLink.setImageResource(R.mipmap.link_normal);
                 }
                 break;
         }
