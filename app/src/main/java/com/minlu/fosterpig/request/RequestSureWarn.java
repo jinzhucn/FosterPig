@@ -83,9 +83,9 @@ public class RequestSureWarn {
                 ViewsUitls.runInMainThread(new Runnable() {
                     @Override
                     public void run() {
+                        requestResult.onResponse(result);
                         baseActivity.setLoadingVisibility(View.GONE);
                         baseActivity.setIsInterruptTouch(false);
-                        requestResult.onResponse(result);
                     }
                 });
             }
