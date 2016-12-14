@@ -124,7 +124,6 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
 //            e.printStackTrace();
 //        }
         // TODO 测试数据
-
         if (StringUtils.interentIsNormal(mResultString)) {
             try {
                 JSONObject jsonObject = new JSONObject(mResultString);

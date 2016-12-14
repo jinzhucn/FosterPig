@@ -29,14 +29,12 @@ public class RequestSureWarn {
         baseActivity.setLoadingVisibility(View.VISIBLE);
         baseActivity.setIsInterruptTouch(true);
 
-        int facilityType = mainAllInformation.getFacilityType();
-        int facilityId = mainAllInformation.getFacilityId();
-        int siteId = mainAllInformation.getSiteId();
+        int mainId = mainAllInformation.getMainId();
 
         // 开启请求网络
         OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
-        System.out.println("确认报警传递的字段type: " + facilityType + " 站点Id: " + siteId + " 设备Id: " + facilityId);
-        RequestBody formBody = new FormBody.Builder().add("type", "" + facilityType).add("dtuid", "" + siteId).add("lmuid", "" + facilityId).build();
+        System.out.println("确认报警传递的字段id: " + mainId);
+        RequestBody formBody = new FormBody.Builder().add("id", "" + mainId).build();
         Request request = new Request.Builder()
                 .url(IpFiled.REQUEST_SURE_WARN)
                 .post(formBody)

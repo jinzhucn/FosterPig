@@ -93,7 +93,6 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
     }
 
     private void analysisDataJSON(String jsonData) {
-
         list.clear();
         try {
             JSONArray jsonArray = new JSONArray(jsonData);
@@ -119,8 +118,8 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
                 }
 
                 int mainId = -1;
-                if (singleWarnData.has("id")) {
-                    mainId = singleWarnData.optInt("id");
+                if (singleWarnData.has("mainId")) {
+                    mainId = singleWarnData.optInt("mainId");
                 }
 
                 list.add(new MainAllInformation(mainId, areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn, startWarnTime));
