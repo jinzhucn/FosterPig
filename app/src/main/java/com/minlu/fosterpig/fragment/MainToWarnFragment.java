@@ -41,7 +41,6 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
     private List<MainAllInformation> list = new ArrayList<>();
     private WarnAdapter mWarnAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private boolean isHaveSwipeMenu;
     private BaseActivity mActivity;
 
     @Override
@@ -62,9 +61,7 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
         mWarnAdapter = new WarnAdapter(list);
         mListView.setAdapter(mWarnAdapter);
 
-        if (isHaveSwipeMenu) {
-            setSwipeMenuAttribute(mListView);
-        }
+        setSwipeMenuAttribute(mListView);
 
         return inflate;
     }
@@ -73,19 +70,15 @@ public class MainToWarnFragment extends BaseFragment<MainAllInformation> {
     protected ContentPage.ResultState onLoad() {
         switch (getBundleValue()) {
             case StringsFiled.MAIN_TO_WARN_VALUE_AMMONIA:
-                isHaveSwipeMenu = true;
                 analysisDataJSON(SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_AMMONIA_JSON, ""));
                 break;
             case StringsFiled.MAIN_TO_WARN_VALUE_TEMPERATURE:
-                isHaveSwipeMenu = true;
                 analysisDataJSON(SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_TEMPERATURE_JSON, ""));
                 break;
             case StringsFiled.MAIN_TO_WARN_VALUE_HUMIDITY:
-                isHaveSwipeMenu = true;
                 analysisDataJSON(SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_HUMIDITY_JSON, ""));
                 break;
             case StringsFiled.MAIN_TO_WARN_VALUE_POWER_SUPPLY:
-                isHaveSwipeMenu = true;
                 analysisDataJSON(SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_POWER_SUPPLY_JSON, ""));
                 break;
         }
