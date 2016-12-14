@@ -5,6 +5,8 @@
 
     <dimen name="tap_far_left_right">20dp</dimen>
     <dimen name="tap_middle">10dp</dimen>
+    <dimen name="tap_far_left_right_two">40dp</dimen>
+    <dimen name="tap_middle_two">20dp</dimen>
     <dimen name="tap_text_padding">8dp</dimen>
 
     <dimen name="login_top_logo_margin_top">15dp</dimen>

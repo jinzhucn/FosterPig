@@ -23,6 +23,7 @@ import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.base.BaseActivity;
 import com.minlu.fosterpig.base.MyApplication;
+import com.minlu.fosterpig.bean.AlreadySureWarn;
 import com.minlu.fosterpig.bean.MainAllInformation;
 import com.minlu.fosterpig.customview.ColorfulRingProgressView;
 import com.minlu.fosterpig.http.OkHttpManger;
@@ -83,6 +84,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private int mTemperatureWarnNumber = 0;
     private int mHumidityWarnNumber = 0;
     private int mPowerSupplyWarnNumber = 0;
+
+    private int mAmmoniaAlreadyWarnNumber = 0;
+    private int mTemperatureAlreadyWarnNumber = 0;
+    private int mHumidityAlreadyWarnNumber = 0;
+    private int mPowerSupplyAlreadyWarnNumber = 0;
     private String mAreaName;
     private String mSiteName;
     private String mFacilityName;
@@ -91,6 +97,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private List<MainAllInformation> mAllTemperatureWarnData = new ArrayList<>();
     private List<MainAllInformation> mAllHumidityWarnData = new ArrayList<>();
     private List<MainAllInformation> mAllPowerSupplyWarnData = new ArrayList<>();
+
+    private List<AlreadySureWarn> mAllAmmoniaAlreadyWarnData = new ArrayList<>();
+    private List<AlreadySureWarn> mAllTemperatureAlreadyWarnData = new ArrayList<>();
+    private List<AlreadySureWarn> mAllHumidityAlreadyWarnData = new ArrayList<>();
+    private List<AlreadySureWarn> mAllPowerSupplyAlreadyWarnData = new ArrayList<>();
 
     private final static int[] sizeTable = {9, 99, 999, 9999, 99999, 999999, 9999999,
             99999999, 999999999, Integer.MAX_VALUE};
@@ -105,7 +116,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     public void update(int distinguishNotified, int position, int cancelOrderBid) {
         switch (distinguishNotified) {
             case StringsFiled.OBSERVER_AMMONIA_SURE:
-                mAllWarnFacilityData--;
+                mAllWarnFacilityData -= 0.5;
 
                 countGetSafeValue();// 这个是下面两个方法的前提
 
@@ -113,34 +124,38 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 gistSafeNumberSetText();
 
                 mAmmoniaWarnNumber--;
+                mAmmoniaAlreadyWarnNumber++;
                 updateFourItem();
                 break;
             case StringsFiled.OBSERVER_TEMPERATURE_SURE:
-                mAllWarnFacilityData--;
+                mAllWarnFacilityData -= 0.5;
                 countGetSafeValue();
                 updateRingProgress();
                 gistSafeNumberSetText();
 
                 mTemperatureWarnNumber--;
+                mTemperatureAlreadyWarnNumber++;
                 updateFourItem();
                 break;
             case StringsFiled.OBSERVER_HUMIDITY_SURE:
-                mAllWarnFacilityData--;
+                mAllWarnFacilityData -= 0.5;
                 countGetSafeValue();
                 updateRingProgress();
                 gistSafeNumberSetText();
 
                 mHumidityWarnNumber--;
+                mHumidityAlreadyWarnNumber++;
                 updateFourItem();
                 break;
 
             case StringsFiled.OBSERVER_POWER_SUPPLY_SURE:
-                mAllWarnFacilityData--;
+                mAllWarnFacilityData -= 0.5;
                 countGetSafeValue();
                 updateRingProgress();
                 gistSafeNumberSetText();
 
                 mPowerSupplyWarnNumber--;
+                mPowerSupplyAlreadyWarnNumber++;
                 updateFourItem();
                 break;
         }
@@ -281,22 +296,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         switch (v.getId()) {
             case R.id.rl_item_ammonia:
-                if (mAmmoniaWarn.getVisibility() == View.VISIBLE) {
+                if (mAmmoniaWarnNumber > 0 || mAmmoniaAlreadyWarnNumber > 0) {
                     mainSkipToWarn(StringsFiled.MAIN_TO_WARN_AMMONIA);
                 }
                 break;
             case R.id.rl_item_temperature:
-                if (mTemperatureWarn.getVisibility() == View.VISIBLE) {
+                if (mTemperatureWarnNumber > 0 || mTemperatureAlreadyWarnNumber > 0) {
                     mainSkipToWarn(StringsFiled.MAIN_TO_WARN_TEMPERATURE);
                 }
                 break;
             case R.id.rl_item_humidity:
-                if (mHumidityWarn.getVisibility() == View.VISIBLE) {
+                if (mHumidityWarnNumber > 0 || mHumidityAlreadyWarnNumber > 0) {
                     mainSkipToWarn(StringsFiled.MAIN_TO_WARN_HUMIDITY);
                 }
                 break;
             case R.id.rl_item_power_supply:
-                if (mPowerSupplyWarnNumber > 0) {
+                if (mPowerSupplyWarnNumber > 0 || mPowerSupplyAlreadyWarnNumber > 0) {
                     mainSkipToWarn(StringsFiled.MAIN_TO_WARN_POWER_SUPPLY);
                 }
                 break;
@@ -389,6 +404,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
                         JSONObject singleInformation = informationList.getJSONObject(i);
 
+//                       "status": 0未处理  1处理   endTime处理时间
+                        int handleStatus = singleInformation.optInt("status");
+                        String handleTime = singleInformation.optString("endTime");
+
                         int facilityType = singleInformation.optInt("type");//1氨气 2温度 3湿度 4市电通道一 。。。11市电通道八
                         double facilityValue = singleInformation.optDouble("value");// 市电的值0断1通  温湿氨气为double
 
@@ -414,7 +433,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                             mainId = singleInformation.optInt("id");
                         }
                         // 下面是对数据进行处理，发到ui进行更新
-                        disposeDataToUI(mainId, facilityType, facilityValue, isWarn, siteName, areaName, facilityName, siteId, facilityId, areaId, i, startWarnTime);
+                        disposeDataToUI(handleStatus, handleTime, mainId, facilityType, facilityValue, isWarn, siteName, areaName, facilityName, siteId, facilityId, areaId, i, startWarnTime);
 
                         // 延迟时间，给ui更新
                         try {
@@ -432,6 +451,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_HUMIDITY_JSON, GsonTools.createGsonString(mAllHumidityWarnData));
                     SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_WARN_POWER_SUPPLY_JSON, GsonTools.createGsonString(mAllPowerSupplyWarnData));
 
+                    SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_ALREADY_WARN_AMMONIA_JSON, GsonTools.createGsonString(mAllAmmoniaAlreadyWarnData));
+                    SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_ALREADY_WARN_TEMPERATURE_JSON, GsonTools.createGsonString(mAllTemperatureAlreadyWarnData));
+                    SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_ALREADY_WARN_HUMIDITY_JSON, GsonTools.createGsonString(mAllHumidityAlreadyWarnData));
+                    SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.MAIN_TO_ALREADY_WARN_POWER_SUPPLY_JSON, GsonTools.createGsonString(mAllPowerSupplyAlreadyWarnData));
+
                     myHandler.sendEmptyMessage(StringsFiled.MAIN_ANALYSIS_FINISH_JSON);
                 } else {
                     // json数组里没有一点数据
@@ -446,9 +470,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
     }
 
-    private void disposeDataToUI(int mainId, int facilityType, double facilityValue, int isWarn, String siteName,
+    private void disposeDataToUI(int handleStatus, String handleTime, int mainId, int facilityType, double facilityValue, int isWarn, String siteName,
                                  String areaName, String facilityName, int siteId, int facilityId, int areaId, int i, String startWarnTime) {
         MainAllInformation mainAllInformation = new MainAllInformation(mainId, areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn, startWarnTime);
+        AlreadySureWarn alreadySureWarn = new AlreadySureWarn(startWarnTime, handleTime, siteName, areaName, facilityType, facilityValue);
         mAreaName = areaName;
         mSiteName = siteName;
         switch (facilityType) {
@@ -456,10 +481,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 mFacilityName = "氨气传感器";
                 mAmmoniaAllNumber++;
                 if (isWarn == 1) {
-                    mAllWarnFacilityData++; // 温湿氨的报警
-                    mAmmoniaWarnNumber++;
                     singleIsWarn = true;
-                    mAllAmmoniaWarnData.add(mainAllInformation);
+                    if (handleStatus == 1) {
+                        mAllAmmoniaAlreadyWarnData.add(alreadySureWarn);
+                        mAllWarnFacilityData += 0.5;
+                        mAmmoniaAlreadyWarnNumber++;
+                    } else {
+                        mAllWarnFacilityData++; // 温湿氨的报警
+                        mAmmoniaWarnNumber++;
+                        mAllAmmoniaWarnData.add(mainAllInformation);
+                    }
                 } else {
                     singleIsWarn = false;
                 }
@@ -468,10 +499,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 mFacilityName = "温度传感器";
                 mTemperatureAllNumber++;
                 if (isWarn == 1) {
-                    mAllWarnFacilityData++; // 温湿氨的报警
-                    mTemperatureWarnNumber++;
                     singleIsWarn = true;
-                    mAllTemperatureWarnData.add(mainAllInformation);
+                    if (handleStatus == 1) {
+                        mAllTemperatureAlreadyWarnData.add(alreadySureWarn);
+                        mAllWarnFacilityData += 0.5;
+                        mTemperatureAlreadyWarnNumber++;
+                    } else {
+                        mAllWarnFacilityData++; // 温湿氨的报警
+                        mTemperatureWarnNumber++;
+                        mAllTemperatureWarnData.add(mainAllInformation);
+                    }
                 } else {
                     singleIsWarn = false;
                 }
@@ -480,10 +517,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 mFacilityName = "湿度传感器";
                 mHumidityAllNumber++;
                 if (isWarn == 1) {
-                    mAllWarnFacilityData++; // 温湿氨的报警
-                    mHumidityWarnNumber++;
                     singleIsWarn = true;
-                    mAllHumidityWarnData.add(mainAllInformation);
+                    if (handleStatus == 1) {
+                        mAllHumidityAlreadyWarnData.add(alreadySureWarn);
+                        mAllWarnFacilityData += 0.5;
+                        mHumidityAlreadyWarnNumber++;
+                    } else {
+                        mAllWarnFacilityData++; // 温湿氨的报警
+                        mHumidityWarnNumber++;
+                        mAllHumidityWarnData.add(mainAllInformation);
+                    }
                 } else {
                     singleIsWarn = false;
                 }
@@ -492,10 +535,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 mFacilityName = "市电通道" + (facilityType - 3);
                 mPowerSupplyAllNumber++;
                 if (isWarn == 1) {
-                    mAllWarnFacilityData++; // 市电的报警
-                    mPowerSupplyWarnNumber++;
                     singleIsWarn = true;
-                    mAllPowerSupplyWarnData.add(mainAllInformation);
+                    if (handleStatus == 1) {
+                        mAllPowerSupplyAlreadyWarnData.add(alreadySureWarn);
+                        mAllWarnFacilityData += 0.5;
+                        mPowerSupplyAlreadyWarnNumber++;
+                    } else {
+                        mAllWarnFacilityData++; // 市电的报警
+                        mPowerSupplyWarnNumber++;
+                        mAllPowerSupplyWarnData.add(mainAllInformation);
+                    }
                 } else {
                     singleIsWarn = false;
                 }
@@ -528,6 +577,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mHumidityWarnNumber = 0;
         mPowerSupplyWarnNumber = 0;
 
+        mAmmoniaAlreadyWarnNumber = 0;
+        mTemperatureAlreadyWarnNumber = 0;
+        mHumidityAlreadyWarnNumber = 0;
+        mPowerSupplyAlreadyWarnNumber = 0;
+
+
         singleIsWarn = false;
         mFacilityName = "";
         mAreaName = "";
@@ -540,6 +595,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mAllTemperatureWarnData.clear();
         mAllHumidityWarnData.clear();
         mAllPowerSupplyWarnData.clear();
+
+        mAllAmmoniaAlreadyWarnData.clear();
+        mAllTemperatureAlreadyWarnData.clear();
+        mAllHumidityAlreadyWarnData.clear();
+        mAllPowerSupplyAlreadyWarnData.clear();
     }
 
     private String readTextFromSDcard(InputStream is) throws Exception {

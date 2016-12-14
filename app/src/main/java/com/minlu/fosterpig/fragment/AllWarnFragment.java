@@ -164,8 +164,8 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
                         if (singleInformation.has("id")) {
                             mainId = singleInformation.optInt("id");
                         }
-
-                        if (isWarn == 1) {
+                        int handleStatus = singleInformation.optInt("status");
+                        if (isWarn == 1 && handleStatus == 0) {
                             allInformation.add(new MainAllInformation(mainId, areaName, siteName, siteId, facilityName, facilityId, areaId, facilityType, facilityValue, isWarn, startWarnTime));
                         }
                     }

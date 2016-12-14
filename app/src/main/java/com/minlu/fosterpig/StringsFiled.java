@@ -17,23 +17,35 @@ public class StringsFiled {
 
     public final static String MAIN_TO_WARN_AMMONIA_JSON = "main_to_warn_ammonia_json";
 
+    public final static String MAIN_TO_ALREADY_WARN_AMMONIA_JSON = "main_to_already_warn_ammonia_json";
+
     public final static String MAIN_TO_WARN_TEMPERATURE = "main_to_warn_temperature";
 
     public final static String MAIN_TO_WARN_TEMPERATURE_JSON = "main_to_warn_temperature_json";
+
+    public final static String MAIN_TO_ALREADY_WARN_TEMPERATURE_JSON = "main_to_already_warn_temperature_json";
 
     public final static String MAIN_TO_WARN_HUMIDITY = "main_to_warn_humidity";
 
     public final static String MAIN_TO_WARN_HUMIDITY_JSON = "main_to_warn_humidity_json";
 
+    public final static String MAIN_TO_ALREADY_WARN_HUMIDITY_JSON = "main_to_already_warn_humidity_json";
+
     public final static String MAIN_TO_WARN_POWER_SUPPLY = "main_to_warn_power_supply";
 
     public final static String MAIN_TO_WARN_POWER_SUPPLY_JSON = "main_to_warn_power_supply_json";
+
+    public final static String MAIN_TO_ALREADY_WARN_POWER_SUPPLY_JSON = "main_to_already_warn_power_supply_json";
 
     public final static String TAG_OPEN_ALL_SITE_FRAGMENT = "all_site";
 
     public final static String TAG_OPEN_WARN_INFORMATION_FRAGMENT = "warn_information";
 
     public final static String TAG_OPEN_SURE_WARN_FRAGMENT = "sure_warn";
+
+    public final static String TAG_OPEN_NO_SURE_FRAGMENT = "no_sure";
+
+    public final static String TAG_OPEN_ALREADY_SURE_FRAGMENT = "already_sure";
 
     public final static String INFORM_WARN = "inform_warn";
 
@@ -69,11 +81,13 @@ public class StringsFiled {
 
     public final static int MAIN_TO_WARN_VALUE_POWER_SUPPLY = 3;
 
+    //
     public final static int SELECT_WARN_INFORMATION_TAB = 3;// 所有的报警信息
 
     public final static int SELECT_ALL_SITE_TAB = 4;// 所有站点信息
 
     public final static int SELECT_SURE_WARN_INFORMATION_TAB = 5;// 已经确认的报警信息
+    //
 
     // TODO 刷新的动画颜色
     public final static int SWIPE_REFRESH_FIRST_ROUND_COLOR = Color.RED;
