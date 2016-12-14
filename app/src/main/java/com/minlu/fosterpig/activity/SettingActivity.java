@@ -63,7 +63,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 startActivity(new Intent(ViewsUitls.getContext(), VersionActivity.class));
                 break;
             case R.id.bt_setting_logout:
-
+                if (ViewsUitls.isServiceWork("com.minlu.fosterpig.activity.AlarmServicer")) {
+                    stopService(MyApplication.getIntentServicer());
+                }
                 SharedPreferencesUtil.saveboolean(ViewsUitls.getContext(), StringsFiled.IS_AUTO_LOGIN, false);
                 startActivity(new Intent(ViewsUitls.getContext(), LoginActivity.class));
                 List<Activity> saveActicity = MyApplication.getSaveActivity();
