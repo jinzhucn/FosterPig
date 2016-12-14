@@ -91,7 +91,7 @@ public class StringsFiled {
     public final static int SELECT_SURE_WARN_INFORMATION_TAB = 5;// 已经确认的报警信息
     //
 
-    // TODO 刷新的动画颜色
+    //  刷新的动画颜色
     public final static int SWIPE_REFRESH_FIRST_ROUND_COLOR = Color.RED;
 
     public final static int SWIPE_REFRESH_SECOND_ROUND_COLOR = Color.YELLOW;
@@ -100,7 +100,7 @@ public class StringsFiled {
 
     public final static int SWIPE_REFRESH_BACKGROUND = Color.GREEN;
 
-    // TODO 报警间隔时间
+    //  报警间隔时间
     public final static int ALARM_INTERVAL_TIME=20000;
 
     // 观察者模式的区分
