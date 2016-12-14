@@ -59,6 +59,8 @@ public class StringsFiled {
 
     public final static String IS_AUTO_LOGIN = "is_auto_login";
 
+    public final static String IS_SURE_WARN = "is_sure_warn";
+
     // 在main界面中的hundle
     public final static int SERVER_OUTAGE = 0;// 服务器宕机
 

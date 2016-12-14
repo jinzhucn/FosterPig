@@ -22,6 +22,7 @@ import com.minlu.fosterpig.http.OkHttpManger;
 import com.minlu.fosterpig.manager.ThreadManager;
 import com.minlu.fosterpig.request.RequestResult;
 import com.minlu.fosterpig.request.RequestSureWarn;
+import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.StringUtils;
 import com.minlu.fosterpig.util.ToastUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
@@ -275,6 +276,7 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
                                     allInformation.remove(position);
                                     mAllWarnAdapter.notifyDataSetChanged();
                                     ToastUtil.showToast(ViewsUitls.getContext(), "确认报警成功");
+                                    SharedPreferencesUtil.saveint(ViewsUitls.getContext(), StringsFiled.IS_SURE_WARN, 6);
                                 } else {
                                     ToastUtil.showToast(ViewsUitls.getContext(), "确认报警失败");
                                 }

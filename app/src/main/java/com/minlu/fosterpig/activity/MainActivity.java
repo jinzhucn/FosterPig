@@ -240,7 +240,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         initContentView(view);
 
+        SharedPreferencesUtil.saveint(ViewsUitls.getContext(), StringsFiled.IS_SURE_WARN, -1);
         startRunPoint();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        System.out.println("此时MainActivity在onResume生命期");
+        if (SharedPreferencesUtil.getint(ViewsUitls.getContext(), StringsFiled.IS_SURE_WARN, -1) > 0) {
+            startRunPoint();
+            SharedPreferencesUtil.saveint(ViewsUitls.getContext(), StringsFiled.IS_SURE_WARN, -1);
+        }
     }
 
     private void initContentView(View view) {
