@@ -308,22 +308,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         switch (v.getId()) {
             case R.id.rl_item_ammonia:
                 if (mAmmoniaWarnNumber > 0 || mAmmoniaAlreadyWarnNumber > 0) {
-                    mainSkipToWarn(StringsFiled.MAIN_TO_WARN_AMMONIA);
+                    mainSkipToWarn(StringsFiled.MAIN_TO_WARN_AMMONIA,"氨气报警");
                 }
                 break;
             case R.id.rl_item_temperature:
                 if (mTemperatureWarnNumber > 0 || mTemperatureAlreadyWarnNumber > 0) {
-                    mainSkipToWarn(StringsFiled.MAIN_TO_WARN_TEMPERATURE);
+                    mainSkipToWarn(StringsFiled.MAIN_TO_WARN_TEMPERATURE,"温度报警");
                 }
                 break;
             case R.id.rl_item_humidity:
                 if (mHumidityWarnNumber > 0 || mHumidityAlreadyWarnNumber > 0) {
-                    mainSkipToWarn(StringsFiled.MAIN_TO_WARN_HUMIDITY);
+                    mainSkipToWarn(StringsFiled.MAIN_TO_WARN_HUMIDITY,"湿度报警");
                 }
                 break;
             case R.id.rl_item_power_supply:
                 if (mPowerSupplyWarnNumber > 0 || mPowerSupplyAlreadyWarnNumber > 0) {
-                    mainSkipToWarn(StringsFiled.MAIN_TO_WARN_POWER_SUPPLY);
+                    mainSkipToWarn(StringsFiled.MAIN_TO_WARN_POWER_SUPPLY,"市电报警");
                 }
                 break;
             case R.id.color_ful_ring_progress_view:
@@ -351,10 +351,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         requestAllMonitorInformation();
     }
 
-    private void mainSkipToWarn(String mainToWarn) {
+    private void mainSkipToWarn(String mainToWarn,String title) {
         Intent intent = new Intent(getApplicationContext(), WarnActivity.class);
         intent.putExtra(StringsFiled.OPEN_FRAGMENT_BUNDLE_KEY, mainToWarn);
-        intent.putExtra(StringsFiled.ACTIVITY_TITLE, "报警信息");
+        intent.putExtra(StringsFiled.ACTIVITY_TITLE, title);
         startActivity(intent);
     }
 

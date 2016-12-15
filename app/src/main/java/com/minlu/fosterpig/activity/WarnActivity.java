@@ -11,6 +11,8 @@ import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.base.BaseActivity;
 import com.minlu.fosterpig.base.BaseFragment;
+import com.minlu.fosterpig.fragment.MainToAlreadyWarnFragment;
+import com.minlu.fosterpig.fragment.MainToWarnFragment;
 import com.minlu.fosterpig.util.ViewsUitls;
 
 import java.util.ArrayList;
@@ -25,6 +27,8 @@ public class WarnActivity extends BaseActivity implements View.OnClickListener {
     private List<TextView> mTextViews;
     private TextView mNoSure;
     private TextView mAlreadySure;
+    private MainToWarnFragment mNoSureFragment;
+    private MainToAlreadyWarnFragment mSureWarnFragment;
 
     @Override
     public void onCreateContent() {
@@ -65,6 +69,39 @@ public class WarnActivity extends BaseActivity implements View.OnClickListener {
             System.out.println("第一次进入该界面，需要通过add来进行展示Fragment");
             // mFromFragment为空的情况下
             tabSelectFragment(1, StringsFiled.TAG_OPEN_NO_SURE_FRAGMENT);
+        } else {
+            System.out.println("第二次+++++++++++++++++++++++++++++");
+            mNoSureFragment = (MainToWarnFragment) getSupportFragmentManager().findFragmentByTag(StringsFiled.TAG_OPEN_NO_SURE_FRAGMENT);
+            mSureWarnFragment = (MainToAlreadyWarnFragment) getSupportFragmentManager().findFragmentByTag(StringsFiled.TAG_OPEN_ALREADY_SURE_FRAGMENT);
+
+            // 给工厂添加所有实例
+            if (mNoSureFragment != null) {
+                System.out.println("mNoSureFragment");
+                FragmentFactory.fragments[3] = mNoSureFragment;
+            } else {
+                FragmentFactory.fragments[3] = new MainToWarnFragment();
+            }
+            if (mSureWarnFragment != null) {
+                FragmentFactory.fragments[4] = mSureWarnFragment;
+                System.out.println("mSureWarnFragment");
+            } else {
+                FragmentFactory.fragments[4] = new MainToAlreadyWarnFragment();
+            }
+
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+            if (FragmentFactory.fragments[3].isAdded()) {
+                System.out.println("被add过了");
+                fragmentTransaction.show(FragmentFactory.fragments[3]).hide(FragmentFactory.fragments[4]);
+            } else {
+                System.out.println("没有add过");
+                fragmentTransaction.add(R.id.fl_select_sure_or_no, FragmentFactory.fragments[3], StringsFiled.TAG_OPEN_NO_SURE_FRAGMENT).hide(FragmentFactory.fragments[4]);
+            }
+
+            mFromFragment = FragmentFactory.fragments[3];
+            alreadyPress = 1; // 防止再次点击所有站点的Tab
+
+            fragmentTransaction.commit();
         }
 
     }
@@ -72,15 +109,19 @@ public class WarnActivity extends BaseActivity implements View.OnClickListener {
     private void tabSelectFragment(int toFragment, String tag) {
         switch (getIntent().getStringExtra(StringsFiled.OPEN_FRAGMENT_BUNDLE_KEY)) {
             case StringsFiled.MAIN_TO_WARN_AMMONIA:
+                System.out.println("tabSelectFragment=======================氨气");
                 amendClickStyle(StringsFiled.MAIN_TO_WARN_VALUE_AMMONIA, toFragment, tag);
                 break;
             case StringsFiled.MAIN_TO_WARN_TEMPERATURE:
+                System.out.println("tabSelectFragment=======================温度");
                 amendClickStyle(StringsFiled.MAIN_TO_WARN_VALUE_TEMPERATURE, toFragment, tag);
                 break;
             case StringsFiled.MAIN_TO_WARN_HUMIDITY:
+                System.out.println("tabSelectFragment=======================湿度");
                 amendClickStyle(StringsFiled.MAIN_TO_WARN_VALUE_HUMIDITY, toFragment, tag);
                 break;
             case StringsFiled.MAIN_TO_WARN_POWER_SUPPLY:
+                System.out.println("tabSelectFragment=======================市电");
                 amendClickStyle(StringsFiled.MAIN_TO_WARN_VALUE_POWER_SUPPLY, toFragment, tag);
                 break;
         }
@@ -156,12 +197,14 @@ public class WarnActivity extends BaseActivity implements View.OnClickListener {
                 Bundle bundle = new Bundle();
                 bundle.putInt(StringsFiled.OPEN_FRAGMENT_BUNDLE_KEY, bundleValue);
                 baseFragment.setArguments(bundle);
+                System.out.println("bundleValue====="+bundleValue);
 
                 if (mFromFragment == null) {
                     System.out.println("当前tab为空");
                     transaction.add(R.id.fl_select_sure_or_no, baseFragment, tag).commit(); // 第一次进入本页面，直接add到Activity中
                 } else {
                     System.out.println("当前的tab不为空");
+                    System.out.println("tag========="+tag);
                     transaction.hide(mFromFragment).add(R.id.fl_select_sure_or_no, baseFragment, tag).commit(); // 隐藏当前的fragment，add下一个到Activity中
                 }
 
