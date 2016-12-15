@@ -94,14 +94,14 @@ public class StringsFiled {
     //  刷新的动画颜色
     public final static int SWIPE_REFRESH_FIRST_ROUND_COLOR = Color.RED;
 
-    public final static int SWIPE_REFRESH_SECOND_ROUND_COLOR = Color.YELLOW;
+    public final static int SWIPE_REFRESH_SECOND_ROUND_COLOR = Color.GREEN;
 
     public final static int SWIPE_REFRESH_THIRD_ROUND_COLOR = Color.BLUE;
 
-    public final static int SWIPE_REFRESH_BACKGROUND = Color.GREEN;
+    public final static int SWIPE_REFRESH_BACKGROUND = Color.WHITE; // 0xFF000000
 
     //  报警间隔时间
-    public final static int ALARM_INTERVAL_TIME=20000;
+    public final static int ALARM_INTERVAL_TIME = 20000;
 
     // 观察者模式的区分
     public final static int OBSERVER_MEDIA_PLAYER_PAUSE = 0;
