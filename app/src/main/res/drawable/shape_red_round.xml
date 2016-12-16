@@ -9,7 +9,7 @@
         android:height="28dp"
         android:width="28dp" />
     <!-- solid:设置颜色 -->
-    <solid android:color="@color/red" />
+    <solid android:color="@color/bu_ji_ge" />
 
     <!-- 还有多个属性看文档 查看  -->
 

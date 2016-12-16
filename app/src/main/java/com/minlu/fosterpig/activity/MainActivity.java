@@ -698,9 +698,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             mRingProgressView.setFgColorStart(ContextCompat.getColor(MainActivity.this, R.color.ji_ge));
             mPercent.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.ji_ge));
         } else if (mSafePercentNumber < 60) {
-            mRingProgressView.setFgColorEnd(ContextCompat.getColor(MainActivity.this, R.color.red));
-            mRingProgressView.setFgColorStart(ContextCompat.getColor(MainActivity.this, R.color.red));
-            mPercent.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.red));
+            mRingProgressView.setFgColorEnd(ContextCompat.getColor(MainActivity.this, R.color.bu_ji_ge));
+            mRingProgressView.setFgColorStart(ContextCompat.getColor(MainActivity.this, R.color.bu_ji_ge));
+            mPercent.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.bu_ji_ge));
         }
     }
 

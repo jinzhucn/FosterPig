@@ -5,7 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="white">#FFFFFF</color>
     <color name="loading_background_thin_gray">#66000000</color>
-    <color name="red">#FF0000</color>
+    <color name="red">#ff3939</color>
     <color name="thin_gray">#DADADA</color>
     <color name="main_bottom_item_text_color">#666666</color>
     <color name="black">#000</color>
@@ -15,4 +15,5 @@
     <color name="setting_logout">#EE2424</color>
     <color name="liang_hao">#008000</color>
     <color name="ji_ge">#FF5500</color>
+    <color name="bu_ji_ge">#ff3939</color>
 </resources>

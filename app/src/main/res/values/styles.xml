@@ -47,6 +47,8 @@
     </style>
 
     <style name="editText_parent">
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:paddingTop">2dp</item>
         <item name="android:paddingRight">15dp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@drawable/shape_editext_bg</item>
@@ -56,12 +58,12 @@
     </style>
     <style name="editText_child" parent="editText_parent">
         <item name="android:drawablePadding">15dp</item>
-        <item name="android:layout_marginRight">50dp</item>
-        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginRight">30dp</item>
+        <item name="android:layout_marginLeft">30dp</item>
     </style>
     <style name="login_in_padding">
-        <item name="android:layout_marginRight">50dp</item>
-        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginRight">30dp</item>
+        <item name="android:layout_marginLeft">30dp</item>
     </style>
 
     <style name="setting_item_ll_parent_style">
