@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -27,10 +26,7 @@ import com.minlu.fosterpig.util.ViewsUitls;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -207,7 +203,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                                 saveSuccessPassWardUserName();
                                 Intent mainActivity = new Intent(ViewsUitls.getContext(),
                                         MainActivity.class);
-                                mainActivity.putExtra(StringsFiled.ACTIVITY_TITLE,"康乐畜牧养猪场");
+                                mainActivity.putExtra(StringsFiled.ACTIVITY_TITLE, "康乐畜牧养猪场");
                                 startActivity(mainActivity);
                                 ToastUtil.showToast(LoginActivity.this, "登录成功");
                                 finish();
@@ -251,11 +247,11 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         SharedPreferencesUtil.saveboolean(ViewsUitls.getContext(),
                 StringsFiled.IS_AUTO_LOGIN, mRbRemember.isChecked());
     }
-
+/*
     private boolean isCutOffShow = false;
     private int anInt = 0;
 
-    private void cutOffShow(int start) {
+   private void cutOffShow(int start) {
         try {
             InputStream is = getAssets().open("android_http.txt");
             InputStreamReader reader = new InputStreamReader(is);
@@ -277,5 +273,5 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }
