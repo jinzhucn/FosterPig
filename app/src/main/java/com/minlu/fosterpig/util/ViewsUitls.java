@@ -2,6 +2,7 @@ package com.minlu.fosterpig.util;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.os.Build;
 import android.view.View;
 
 import com.minlu.fosterpig.base.MyApplication;
@@ -72,6 +73,21 @@ public class ViewsUitls {
             }
         }
         return isWork;
+    }
+
+
+    /*
+    * 返回true:  应用所在系统的Api Level大于等于参数传递过来的Api Level
+    * 返回false: 应用所在系统的Api Level小于参数传递过来的Api Level
+    * */
+    public static boolean systemSdkVersionIsBigThanParameter(int possibleSystemSdkVersion) {
+        // Build.VERSION_CODES.BASE; 这个是SDK中存储的各个版本对应的Api Level
+        // Build.VERSION.SDK_INT 获取的是应用所在系统的Api Level
+        if (Build.VERSION.SDK_INT >= possibleSystemSdkVersion) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
