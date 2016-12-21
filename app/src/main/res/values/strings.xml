@@ -5,4 +5,13 @@
     <string name="login_remember_password">自动登录</string>
     <string name="login_button">进入系统</string>
     <string name="login_foot">POWERED BY 明基物联  版权所有康乐畜牧</string>
+
+    <string name="text_ip">10.17.133.10</string>
+    <string name="text_port">8000</string>
+    <string name="text_user">admin</string>
+    <string name="text_password">12345</string>
+    <string name="text_btn_login_out">Logout</string>
+    <string name="text_btn_login">Login</string>
+    <string name="text_btn_stop">Stop</string>
+    <string name="text_btn_preview">Preview</string>
 </resources>
