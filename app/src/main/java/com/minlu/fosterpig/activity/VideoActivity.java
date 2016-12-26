@@ -22,7 +22,10 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 
 import com.hikvision.netsdk.ExceptionCallBack;
@@ -38,6 +41,9 @@ import com.minlu.fosterpig.util.ViewsUitls;
 
 import org.MediaPlayer.PlayM4.Player;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * <pre>
  *  ClassName  VideoActivity Class
@@ -46,7 +52,7 @@ import org.MediaPlayer.PlayM4.Player;
  * @author zhuzhenlei
  * @version V1.0
  */
-public class VideoActivity extends Activity implements Callback {
+public class VideoActivity extends Activity implements Callback, OnClickListener {
 
     private SurfaceView mSurfaceView = null;
 
@@ -67,6 +73,20 @@ public class VideoActivity extends Activity implements Callback {
     private int channelNumber;
     private int m_iPlaybackID = -1;
 
+    private LinearLayout mTrueTimeData;
+
+    private boolean isCanShowTrueTimeData = false;
+
+    private boolean isAlreadyShowTrueTimeData = true;
+
+    private int mTrueTimeDataWidth = -1;
+
+    private TranslateAnimation mShiftOut;
+    private TranslateAnimation mEnterInto;
+    private int keepTime = -1;
+    private TimerTask keepTimeTimerTask;
+    private Timer keepTimeTimer;
+
     /**
      * Called when the activity is first created.
      */
@@ -78,12 +98,12 @@ public class VideoActivity extends Activity implements Callback {
         setContentView(R.layout.activity_screen);
 
         if (!initeSdk()) {
-            this.finish();
+            goneLoad();
             return;
         }
 
         if (!initeActivity()) {
-            this.finish();
+            goneLoad();
             return;
         }
 
@@ -98,14 +118,18 @@ public class VideoActivity extends Activity implements Callback {
         ThreadManager.getInstance().execute(new Runnable() {
             @Override
             public void run() {
-                if (mLoginId < 0) {
-                    login();
-                }
-                if (mPlayID < 0) {
-                    previewStart();
-                }
+                loginStart();
             }
         });
+    }
+
+    private void loginStart() {
+        if (mLoginId < 0) {
+            login();
+            if (mLoginId >= 0 && mPlayID < 0) {
+                previewStart();
+            }
+        }
     }
 
     // TODO =============================================SurfaceView接口=====================================================
@@ -187,25 +211,23 @@ public class VideoActivity extends Activity implements Callback {
 
     // get controller instance
     private void findViews() {
-        mSurfaceView = (SurfaceView) findViewById(R.id.sv_player);
         mLoad = (LinearLayout) findViewById(R.id.ll_loading);
         mError = (LinearLayout) findViewById(R.id.ll_error);
+        mSurfaceView = (SurfaceView) findViewById(R.id.sv_player);
+        mTrueTimeData = (LinearLayout) findViewById(R.id.ll_video_true_time_data);
+        ViewTreeObserver viewTreeObserver = mTrueTimeData.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
-        mError.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (mLoginId < 0) { // 登录失败重新登录
-                    goneError();
-                    ThreadManager.getInstance().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            login();
-                            previewStart();
-                        }
-                    });
-                }
+            public void onGlobalLayout() {
+                mTrueTimeData.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                mTrueTimeDataWidth = mTrueTimeData.getWidth();
+                mShiftOut = new TranslateAnimation(0f, -mTrueTimeDataWidth - ViewsUitls.dptopx(6), 0f, 0f);
+                mEnterInto = new TranslateAnimation(-mTrueTimeDataWidth - ViewsUitls.dptopx(6), 0, 0f, 0f);
             }
         });
+        mError.setOnClickListener(this);
+        mSurfaceView.setOnClickListener(this);
     }
     //  =============================================初始化=====================================================
 
@@ -217,17 +239,20 @@ public class VideoActivity extends Activity implements Callback {
                 mLoginId = loginDevice();// 调用登录方法获取登录后返回的id
                 if (mLoginId < 0) {
                     Log.e(TAG, "登录返回的id小于0，登录失败!");
+                    goneLoad();
                     return;
                 }
                 // get instance of exception callback and set
                 ExceptionCallBack exceptionCallBack = getExceptionCallBack();
                 if (exceptionCallBack == null) {
                     Log.e(TAG, "创建ExceptionCallBack回调接口对象失败");
+                    goneLoad();
                     return;
                 }
 
                 if (!HCNetSDK.getInstance().NET_DVR_SetExceptionCallBack(exceptionCallBack)) {
                     Log.e(TAG, "将创建好的ExceptionCallBack回调接口设置进某个地方");
+                    goneLoad();
                     return;
                 }
                 Log.i(TAG, "登录成功");
@@ -254,25 +279,22 @@ public class VideoActivity extends Activity implements Callback {
         int iLogID = HCNetSDK.getInstance().NET_DVR_Login_V30(videoIP, videoPort, videoUser, videoPassWord, mNetDvrDeviceInfoV30);
         if (iLogID < 0) {
             Log.e(TAG, "NET_DVR_Login_V30登录方法失败!Err:" + HCNetSDK.getInstance().NET_DVR_GetLastError());
-            goneLoad();
             return -1;
         }
-        System.out.println();// TODO debug点
-        if (mNetDvrDeviceInfoV30.byChanNum > 0) {// 设备模拟通道个数
+        /*if (mNetDvrDeviceInfoV30.byChanNum > 0) {// 设备模拟通道个数
             mPlayChannel = mNetDvrDeviceInfoV30.byStartChan;// 模拟通道起始通道号
-//            m_iChanNum = mNetDvrDeviceInfoV30.byChanNum; // 设备模拟通道个数
+            m_iChanNum = mNetDvrDeviceInfoV30.byChanNum; // 设备模拟通道个数
         } else if (mNetDvrDeviceInfoV30.byIPChanNum > 0) {// 设备最大数字通道个数，低 8 位
             mPlayChannel = mNetDvrDeviceInfoV30.byStartDChan;// 起始数字通道号
-//            m_iChanNum = mNetDvrDeviceInfoV30.byIPChanNum + mNetDvrDeviceInfoV30.byHighDChanNum * 256;// 其中byHighDChanNum为数字通道个数，高 8 位
-        }
-        if (mNetDvrDeviceInfoV30.byChanNum > 0) {
+            m_iChanNum = mNetDvrDeviceInfoV30.byIPChanNum + mNetDvrDeviceInfoV30.byHighDChanNum * 256;// 其中byHighDChanNum为数字通道个数，高 8 位
+        }*/
+        /*if (mNetDvrDeviceInfoV30.byChanNum > 0) {
             mPlayChannel = mNetDvrDeviceInfoV30.byStartChan;
         } else if (mNetDvrDeviceInfoV30.byIPChanNum > 0) {
             mPlayChannel = mNetDvrDeviceInfoV30.byStartDChan;
-        }
-        System.out.println();
+        }*/
         // TODO 手动对视频的通道号进行设置
-//        mPlayChannel = channelNumber;
+        mPlayChannel = channelNumber;
 
         Log.i(TAG, "NET_DVR_Login_V30登录方法Successful!");
 
@@ -297,6 +319,7 @@ public class VideoActivity extends Activity implements Callback {
         try {
             if (mLoginId < 0) {
                 Log.e(TAG, "please login on device first");
+                goneLoad();
                 return;
             }
             if (mPlayID < 0) {
@@ -311,6 +334,7 @@ public class VideoActivity extends Activity implements Callback {
         RealPlayCallBack realPlayCallBack = getRealPlayerCallBack();
         if (realPlayCallBack == null) {
             Log.e(TAG, "RealPlayCallBack回调接口对象创建failed!");
+            goneLoad();
             return;
         }
         Log.i(TAG, "mPlayChannel:" + mPlayChannel);
@@ -323,6 +347,7 @@ public class VideoActivity extends Activity implements Callback {
         mPlayID = HCNetSDK.getInstance().NET_DVR_RealPlay_V40(mLoginId, previewInfo, realPlayCallBack);
         if (mPlayID < 0) {
             Log.e(TAG, "NET_DVR_RealPlay_V40播放监控方法失败!Err:" + HCNetSDK.getInstance().NET_DVR_GetLastError());
+            goneLoad();
             return;
         }
         Log.i(TAG, "NET_DVR_RealPlay_V40播放监控方法sucess");
@@ -349,7 +374,8 @@ public class VideoActivity extends Activity implements Callback {
      */
     public void processRealData(int iPlayViewNo, int iDataType, byte[] pDataBuffer, int iDataSize, int iStreamMode) {
         if (HCNetSDK.NET_DVR_SYSHEAD == iDataType) {
-            if (m_iPort >= 0) {
+            if (m_iPort >= 0) {// 头数据的时候还没有请求网络获取到m_iPort的值所以是-1
+                goneLoad();
                 return;
             }
             m_iPort = Player.getInstance().getPort();
@@ -358,31 +384,36 @@ public class VideoActivity extends Activity implements Callback {
                 goneLoad();
                 return;
             }
-            goneAll();
             Log.i(TAG, "getPort succ with: " + m_iPort);
             if (iDataSize > 0) {
-                if (!Player.getInstance().setStreamOpenMode(m_iPort, iStreamMode))  //set stream mode
-                {
+                if (!Player.getInstance().setStreamOpenMode(m_iPort, iStreamMode)) {
                     Log.e(TAG, "setStreamOpenMode failed");
+                    goneLoad();
                     return;
                 }
-                if (!Player.getInstance().openStream(m_iPort, pDataBuffer, iDataSize, 2 * 1024 * 1024)) //open stream
-                {
+                if (!Player.getInstance().openStream(m_iPort, pDataBuffer, iDataSize, 2 * 1024 * 1024)) {
                     Log.e(TAG, "openStream failed");
+                    goneLoad();
                     return;
                 }
                 if (!Player.getInstance().play(m_iPort, mSurfaceView.getHolder())) {
                     Log.e(TAG, "play failed");
+                    goneLoad();
                     return;
                 }
                 if (!Player.getInstance().playSound(m_iPort)) {
                     Log.e(TAG, "playSound failed with error code:" + Player.getInstance().getLastError(m_iPort));
-//                        return;  // 最后一个return不需要，已经走完代码准备出去了
+                    goneLoad();
+                    return;  // 最后一个return不需要，已经走完代码准备出去了
                 }
+                goneAll();
+            } else {
+                goneLoad();
             }
         } else {
             if (!Player.getInstance().inputData(m_iPort, pDataBuffer, iDataSize)) {
                 for (int i = 0; i < 4000 && m_iPlaybackID >= 0; i++) {
+                    System.out.println("=============================回放存储进来了=============================");
                     if (!Player.getInstance().inputData(m_iPort, pDataBuffer, iDataSize))
                         Log.e(TAG, "inputData failed with: " + Player.getInstance().getLastError(m_iPort));
                     else
@@ -420,16 +451,16 @@ public class VideoActivity extends Activity implements Callback {
         Player.getInstance().stopSound();
         // player stop play
         if (!Player.getInstance().stop(m_iPort)) {
-            Log.e(TAG, "stop is failed!");
+            Log.e(TAG, "停止端口号失败");
             return;
         }
 
         if (!Player.getInstance().closeStream(m_iPort)) {
-            Log.e(TAG, "closeStream is failed!");
+            Log.e(TAG, "关闭流失败");
             return;
         }
         if (!Player.getInstance().freePort(m_iPort)) {
-            Log.e(TAG, "freePort is failed!" + m_iPort);
+            Log.e(TAG, "释放端口号失败" + m_iPort);
             return;
         }
         m_iPort = -1;
@@ -449,14 +480,44 @@ public class VideoActivity extends Activity implements Callback {
     //  =============================================登出=====================================================
 
 
+    /*调用了该方法，代表播放成功*/
     private void goneAll() {
         ViewsUitls.runInMainThread(new Runnable() {
             @Override
             public void run() {
                 mLoad.setVisibility(View.GONE);
                 mError.setVisibility(View.GONE);
+                isCanShowTrueTimeData = true;
+                openKeepTimeTimer();
+
+
             }
         });
+    }
+
+    private void openKeepTimeTimer() {
+        keepTimeTimer = new Timer();
+        // 实时数据已经展示，需要过一段时间后隐藏掉
+        keepTimeTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                if (isAlreadyShowTrueTimeData) {// 实时数据已经展示，需要过一段时间后隐藏掉
+                    keepTime++;
+                    ViewsUitls.runInMainThread(new TimerTask() {
+                        @Override
+                        public void run() {
+                            if (keepTime == StringsFiled.VIDEO_TRUE_TIME_DATA_KEEP_TIME && mShiftOut != null && isAlreadyShowTrueTimeData && animationIsCompletes) {
+                                startAnimation(mShiftOut);
+                                isAlreadyShowTrueTimeData = false;
+                            }
+                        }
+                    });
+                } else {
+                    keepTime = -1;
+                }
+            }
+        };
+        keepTimeTimer.schedule(keepTimeTimerTask, 0, 1000);
     }
 
     private void goneLoad() {
@@ -484,25 +545,100 @@ public class VideoActivity extends Activity implements Callback {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
-
-                if (mPlayID > 0) {
+                if (!(mPlayID < 0)) {
+                    System.out.println("停止播放");
                     stopSinglePreview();
                 }
-                if (mLoginId > 0) {
+                if (!(mLoginId < 0)) {
+                    System.out.println("登出");
                     logOut();
                 }
-                Player.getInstance().freePort(m_iPort);
-                m_iPort = -1;
                 // 释放SDK资源
                 HCNetSDK.getInstance().NET_DVR_Cleanup();
-
                 finish();
-
                 break;
             default:
                 break;
         }
 
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.ll_error:
+                if (mLoginId < 0) { // 登录失败重新登录
+                    goneError();
+                    ThreadManager.getInstance().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            loginStart();
+                        }
+                    });
+                } else {// 登录成功但播放失败
+                    goneError();
+                    ThreadManager.getInstance().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mPlayID < 0) {
+                                previewStart();
+                            }
+                        }
+                    });
+                }
+                break;
+            case R.id.sv_player:// 根据实时界面是否出现来进行退回动画
+                if (isCanShowTrueTimeData) {
+                    if (mShiftOut != null && isAlreadyShowTrueTimeData && animationIsCompletes) {
+                        startAnimation(mShiftOut);
+                        isAlreadyShowTrueTimeData = false;
+                    } else if (mEnterInto != null && !isAlreadyShowTrueTimeData && animationIsCompletes) {
+                        startAnimation(mEnterInto);
+                        isAlreadyShowTrueTimeData = true;
+                    }
+                }
+                break;
+        }
+
+
+    }
+
+    private boolean animationIsCompletes = true;
+
+    private void startAnimation(TranslateAnimation translateAnimation) {
+        translateAnimation.setDuration(1000);
+        //当动画执行结束后  动画停留在结束的位置上
+        translateAnimation.setFillAfter(true);
+        mTrueTimeData.startAnimation(translateAnimation);
+        translateAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                animationIsCompletes = false;
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                animationIsCompletes = true;
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                System.out.println("onAnimationRepeat");
+            }
+        });
+    }
+
+
+    @Override
+    protected void onDestroy() {
+
+        if (keepTimeTimer != null)
+            keepTimeTimer.cancel();
+        keepTimeTimerTask = null;
+        keepTimeTimer = null;
+
+        super.onDestroy();
     }
 }

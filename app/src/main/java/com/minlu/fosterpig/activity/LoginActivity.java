@@ -146,16 +146,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 
 
     private void login() {
-        Intent intent = new Intent(ViewsUitls.getContext(), VideoActivity.class);
-        intent.putExtra(StringsFiled.VIDEO_IP, "192.168.1.67");
-        intent.putExtra(StringsFiled.VIDEO_USER, "admin");
-        intent.putExtra(StringsFiled.VIDEO_PASSWORD, "asdf1234");
-        intent.putExtra(StringsFiled.VIDEO_PORT, 8000);
-        intent.putExtra(StringsFiled.VIDEO_CHANNEL_NUMBER, 0);
-
-        startActivity(intent);
-
-       /* mUser = mEtUser.getText().toString().trim();
+        mUser = mEtUser.getText().toString().trim();
         mPassWord = mEtPassWord.getText().toString().trim();
 //        cutOffShow("第二百零八", "第二百零九");
         if (!StringUtils.isEmpty(mUser) && !StringUtils.isEmpty(mPassWord)) {
@@ -163,7 +154,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
             requestIsLoginSuccess(mUser, mPassWord);
         } else {
             ToastUtil.showToast(this, "帐户密码不可为空");
-        }*/
+        }
 
     }
 
@@ -214,9 +205,18 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                             }
                             if (loginResult.contains("true")) {
                                 saveSuccessPassWardUserName();
-                                Intent mainActivity = new Intent(ViewsUitls.getContext(), MainActivity.class);
-                                mainActivity.putExtra(StringsFiled.ACTIVITY_TITLE, "康乐畜牧养猪场");
-                                startActivity(mainActivity);
+
+                                Intent intent = new Intent(ViewsUitls.getContext(), VideoActivity.class);
+                                intent.putExtra(StringsFiled.VIDEO_IP, "192.168.1.67");
+                                intent.putExtra(StringsFiled.VIDEO_USER, "admin");
+                                intent.putExtra(StringsFiled.VIDEO_PASSWORD, "asdf1234");
+                                intent.putExtra(StringsFiled.VIDEO_PORT, 8000);
+                                intent.putExtra(StringsFiled.VIDEO_CHANNEL_NUMBER, 33);
+                                startActivity(intent);
+
+//                                Intent mainActivity = new Intent(ViewsUitls.getContext(), MainActivity.class);
+//                                mainActivity.putExtra(StringsFiled.ACTIVITY_TITLE, "康乐畜牧养猪场");
+//                                startActivity(mainActivity);
                                 ToastUtil.showToast(LoginActivity.this, "登录成功");
                                 finish();
                             } else {
@@ -272,7 +272,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
             String str;
             while ((str = bufferedReader.readLine()) != null) {
                 if (str.contains(start)) {
-                isCutOffShow = true;
+                    isCutOffShow = true;
                 } else if (str.contains(end)) {
                     isCutOffShow = false;
                 }
