@@ -61,6 +61,16 @@ public class StringsFiled {
 
     public final static String IS_SURE_WARN = "is_sure_warn";
 
+    public final static String VIDEO_IP = "video_ip";
+
+    public final static String VIDEO_USER = "video_user";
+
+    public final static String VIDEO_PASSWORD = "video_password";
+
+    public final static String VIDEO_PORT = "video_port";
+
+    public final static String VIDEO_CHANNEL_NUMBER = "video_channel_number";
+
     // 在main界面中的hundle
     public final static int SERVER_OUTAGE = 0;// 服务器宕机
 

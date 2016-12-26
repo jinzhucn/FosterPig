@@ -25,7 +25,10 @@
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.AboutUsActivity" />
         <activity android:name=".activity.VersionActivity" />
-        <activity android:name=".activity.DemoActivity" />
+        <activity
+            android:name=".activity.VideoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.NotificationToWarnActivity"
             android:launchMode="singleTop" />
