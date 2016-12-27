@@ -23,12 +23,12 @@
             android:indeterminateDrawable="@drawable/loading_big" />
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="请稍候，正在加载视频中"
-            android:textColor="@color/white"
-            android:id="@+id/textView" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
@@ -55,66 +55,72 @@
 
     <LinearLayout
         android:id="@+id/ll_video_true_time_data"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="match_parent"
         android:layout_margin="6dp"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:background="@drawable/shape_video_true_time_background"
+        android:orientation="vertical"
+        android:visibility="invisible">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="氨气:" />
+            android:id="@+id/tv_video_true_time_data_ammonia"
+            style="@style/vidoe_true_time_item_style"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="氨气 : --ppm" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="温度:" />
+            android:id="@+id/tv_video_true_time_data_temperature"
+            style="@style/vidoe_true_time_item_style"
+            android:text="温度 : --℃" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="湿度:" />
+            android:id="@+id/tv_video_true_time_data_humidity"
+            style="@style/vidoe_true_time_item_style"
+            android:text="湿度 : --%" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="市电1:" />
+            android:id="@+id/tv_video_true_time_data_power_supply_1"
+            style="@style/vidoe_true_time_item_style"
+            android:text="市电一 : ---" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="市电2:" />
+            android:id="@+id/tv_video_true_time_data_power_supply_2"
+            style="@style/vidoe_true_time_item_style"
+            android:text="市电二 : ---" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="市电3:" />
+            android:id="@+id/tv_video_true_time_data_power_supply_3"
+            style="@style/vidoe_true_time_item_style"
+            android:text="市电三 : ---" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="市电4:" />
+            android:id="@+id/tv_video_true_time_data_power_supply_4"
+            style="@style/vidoe_true_time_item_style"
+            android:text="市电四 : ---" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="市电5:" />
+            android:id="@+id/tv_video_true_time_data_power_supply_5"
+            style="@style/vidoe_true_time_item_style"
+            android:text="市电五 : ---" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="市电6:" />
+            android:id="@+id/tv_video_true_time_data_power_supply_6"
+            style="@style/vidoe_true_time_item_style"
+            android:text="市电六 : ---" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="市电7:" />
+            android:id="@+id/tv_video_true_time_data_power_supply_7"
+            style="@style/vidoe_true_time_item_style"
+            android:text="市电七 : ---" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="市电8:" />
+            android:id="@+id/tv_video_true_time_data_power_supply_8"
+            style="@style/vidoe_true_time_item_style"
+            android:text="市电八 : ---" />
     </LinearLayout>
 
 </FrameLayout>

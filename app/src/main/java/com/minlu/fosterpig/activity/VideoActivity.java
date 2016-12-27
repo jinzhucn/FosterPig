@@ -9,6 +9,7 @@
  */
 package com.minlu.fosterpig.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PixelFormat;
@@ -27,6 +28,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.hikvision.netsdk.ExceptionCallBack;
 import com.hikvision.netsdk.HCNetSDK;
@@ -35,14 +37,25 @@ import com.hikvision.netsdk.NET_DVR_PREVIEWINFO;
 import com.hikvision.netsdk.RealPlayCallBack;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
+import com.minlu.fosterpig.http.OkHttpManger;
 import com.minlu.fosterpig.manager.ThreadManager;
 import com.minlu.fosterpig.util.ToastUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
 
 import org.MediaPlayer.PlayM4.Player;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * <pre>
@@ -86,6 +99,19 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
     private int keepTime = -1;
     private TimerTask keepTimeTimerTask;
     private Timer keepTimeTimer;
+    private TextView mAmmoniaData;
+    private TextView mTemperatureData;
+    private TextView mHumidityData;
+    private TextView mPowerSupplyData1;
+    private TextView mPowerSupplyData2;
+    private TextView mPowerSupplyData3;
+    private TextView mPowerSupplyData4;
+    private TextView mPowerSupplyData5;
+    private TextView mPowerSupplyData6;
+    private TextView mPowerSupplyData7;
+    private TextView mPowerSupplyData8;
+    private TimerTask mGetHttpDataTask;
+    private Timer mGetHttpData;
 
     /**
      * Called when the activity is first created.
@@ -132,7 +158,7 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
         }
     }
 
-    // TODO =============================================SurfaceView接口=====================================================
+    //  =============================================SurfaceView接口=====================================================
     //@Override
     public void surfaceCreated(SurfaceHolder holder) {
         mSurfaceView.getHolder().setFormat(PixelFormat.TRANSLUCENT);
@@ -170,7 +196,7 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
     //  =============================================SurfaceView接口=====================================================
 
 
-    // TODO =============================================onSaveInstanceState缓存=====================================================
+    //  =============================================onSaveInstanceState缓存=====================================================
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putInt("m_iPort", m_iPort);
@@ -186,7 +212,7 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
     }
     //  =============================================onSaveInstanceState缓存=====================================================
 
-    // TODO =============================================初始化=====================================================
+    //  =============================================初始化=====================================================
 
     /**
      * @return true - success;false - fail
@@ -197,7 +223,7 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
             Log.e(TAG, "HCNetSDK init is failed!");
             return false;
         }
-        // TODO 启用日志 后期可删除
+        //  启用日志 后期可删除
         HCNetSDK.getInstance().NET_DVR_SetLogToFile(3, Environment.getExternalStorageDirectory().getPath() + "/", true);
         return true;
     }
@@ -226,12 +252,25 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
                 mEnterInto = new TranslateAnimation(-mTrueTimeDataWidth - ViewsUitls.dptopx(6), 0, 0f, 0f);
             }
         });
+
+        mAmmoniaData = (TextView) findViewById(R.id.tv_video_true_time_data_ammonia);
+        mTemperatureData = (TextView) findViewById(R.id.tv_video_true_time_data_temperature);
+        mHumidityData = (TextView) findViewById(R.id.tv_video_true_time_data_humidity);
+        mPowerSupplyData1 = (TextView) findViewById(R.id.tv_video_true_time_data_power_supply_1);
+        mPowerSupplyData2 = (TextView) findViewById(R.id.tv_video_true_time_data_power_supply_2);
+        mPowerSupplyData3 = (TextView) findViewById(R.id.tv_video_true_time_data_power_supply_3);
+        mPowerSupplyData4 = (TextView) findViewById(R.id.tv_video_true_time_data_power_supply_4);
+        mPowerSupplyData5 = (TextView) findViewById(R.id.tv_video_true_time_data_power_supply_5);
+        mPowerSupplyData6 = (TextView) findViewById(R.id.tv_video_true_time_data_power_supply_6);
+        mPowerSupplyData7 = (TextView) findViewById(R.id.tv_video_true_time_data_power_supply_7);
+        mPowerSupplyData8 = (TextView) findViewById(R.id.tv_video_true_time_data_power_supply_8);
+
         mError.setOnClickListener(this);
         mSurfaceView.setOnClickListener(this);
     }
     //  =============================================初始化=====================================================
 
-    // TODO =============================================登录具体实现代码=====================================================
+    //  =============================================登录具体实现代码=====================================================
     private void login() {
         try {
             if (mLoginId < 0) {//  此处没有登录成功过，所以开始登录代码
@@ -293,7 +332,7 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
         } else if (mNetDvrDeviceInfoV30.byIPChanNum > 0) {
             mPlayChannel = mNetDvrDeviceInfoV30.byStartDChan;
         }*/
-        // TODO 手动对视频的通道号进行设置
+        //  手动对视频的通道号进行设置
         mPlayChannel = channelNumber;
 
         Log.i(TAG, "NET_DVR_Login_V30登录方法Successful!");
@@ -307,14 +346,25 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
     private ExceptionCallBack getExceptionCallBack() {
         return new ExceptionCallBack() {
             public void fExceptionCallBack(int iType, int iUserID, int iHandle) {
-                System.out.println("***************************************此处是ExceptionCallBack回调接口的回调方法****************************************");
-                System.out.println("recv exception, type:" + iType);
+                System.out.println("recv exception, iType:" + iType + "***************************************此处是ExceptionCallBack回调接口的回调方法****************************************");
+                if (iType == 32773) {
+                    if (!(mPlayID < 0)) {
+                        System.out.println("停止播放");
+                        stopSinglePreview();
+                        ViewsUitls.runInMainThread(new TimerTask() {
+                            @Override
+                            public void run() {
+                                goneLoad();
+                            }
+                        });
+                    }
+                }
             }
         };
     }
     //  =============================================登录具体实现代码=====================================================
 
-    // TODO =============================================单屏幕播放=====================================================
+    //  =============================================单屏幕播放=====================================================
     private void previewStart() {
         try {
             if (mLoginId < 0) {
@@ -430,7 +480,7 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
     }
     //  =============================================单屏幕播放=====================================================
 
-    // TODO =============================================单屏幕停止=====================================================
+    //  =============================================单屏幕停止=====================================================
     private void stopSinglePreview() {
         if (mPlayID < 0) {
             Log.e(TAG, "播放返回的id小于0，没有播放成功过");
@@ -468,7 +518,7 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
 
     //  =============================================单屏幕停止=====================================================
 
-    // TODO =============================================登出=====================================================
+    //  =============================================登出=====================================================
     private void logOut() {
         if (!HCNetSDK.getInstance().NET_DVR_Logout_V30(mLoginId)) {
             Log.e(TAG, " NET_DVR_Logout is failed!");
@@ -488,12 +538,83 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
                 mLoad.setVisibility(View.GONE);
                 mError.setVisibility(View.GONE);
                 isCanShowTrueTimeData = true;
+                mTrueTimeData.setVisibility(View.VISIBLE);
+                requestHttpGetData();
                 openKeepTimeTimer();
-
-
             }
         });
     }
+
+    private void requestHttpGetData() {
+        // TODO 测试数据
+        list.add(data1);
+        list.add(data2);
+        list.add(data3);
+        list.add(data4);
+        list.add(data5);
+        list.add(data6);
+        list.add(data7);
+        list.add(data8);
+        // TODO 测试数据
+        mGetHttpData = new Timer();
+        mGetHttpDataTask = new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("==================================Timer==================================");
+                OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
+                // start查询数据的起点  limit要查多少条数据
+                RequestBody formBody = new FormBody.Builder().build();
+                Request request = new Request.Builder()
+                        .url("https://www.baidu.com/")//IpFiled.VIDEO_TRUE_TIME_DATA
+                        .post(formBody)
+                        .build();
+                okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        System.out.println("====================================onFailure====================================");
+                        ViewsUitls.runInMainThread(new TimerTask() {
+                            @Override
+                            public void run() {
+                                ToastUtil.showToast(ViewsUitls.getContext(), "网络异常，无法获取实时数据");
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        ViewsUitls.runInMainThread(new TimerTask() {
+                            @Override
+                            public void run() {
+                                // TODO 测试数据
+                                int[] ints = list.get(text);
+                                setTrueTimeText(ints[0], ints[1], ints[2], ints[3], ints[4], ints[5], ints[6], ints[7], ints[8], ints[9], ints[10]);
+                                if (text == 7) {
+                                    text = 0;
+                                } else {
+                                    text++;
+                                }
+                                // TODO 测试数据
+                            }
+                        });
+                    }
+                });
+            }
+        };
+        mGetHttpData.schedule(mGetHttpDataTask, 0, 15000);
+    }
+
+    // TODO 测试数据
+    private int[] data1 = {9056, 45, 60, 0, 1, 0, 1, 0, 1, 0, 1};
+    private int[] data2 = {64, 52, 45, 1, 0, 1, 0, 1, 0, 1, 0};
+    private int[] data3 = {44, 21, 78, 0, 1, 0, 1, 0, 1, 0, 1};
+    private int[] data4 = {24, 94, 34, 1, 0, 1, 0, 1, 0, 1, 0};
+    private int[] data5 = {20, 34, 94, 0, 1, 0, 1, 0, 1, 0, 1};
+    private int[] data6 = {78, 84, 75, 1, 0, 1, 0, 1, 0, 1, 0};
+    private int[] data7 = {12, 17, 12, 0, 1, 0, 1, 0, 1, 0, 1};
+    private int[] data8 = {25, 10, 37, 1, 0, 1, 0, 1, 0, 1, 0};
+    private List<int[]> list = new ArrayList<>();
+    private int text = 0;
+    // TODO 测试数据
 
     private void openKeepTimeTimer() {
         keepTimeTimer = new Timer();
@@ -540,28 +661,29 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
         });
     }
 
+    @SuppressLint("SetTextI18n")
+    private void setTrueTimeText(int ammoniaData, int temperatureData, int humidityData,
+                                 int powerSupplyData1, int powerSupplyData2, int powerSupplyData3, int powerSupplyData4,
+                                 int powerSupplyData5, int powerSupplyData6, int powerSupplyData7, int powerSupplyData8) {
+        mAmmoniaData.setText("氨气 : " + ammoniaData + "ppm");
+        mTemperatureData.setText("温度 : " + temperatureData + "℃");
+        mHumidityData.setText("湿度 : " + humidityData + "%");
+        mPowerSupplyData1.setText("市电一 : " + getOpenOrClose(powerSupplyData1));
+        mPowerSupplyData2.setText("市电二 : " + getOpenOrClose(powerSupplyData2));
+        mPowerSupplyData3.setText("市电三 : " + getOpenOrClose(powerSupplyData3));
+        mPowerSupplyData4.setText("市电四 : " + getOpenOrClose(powerSupplyData4));
+        mPowerSupplyData5.setText("市电五 : " + getOpenOrClose(powerSupplyData5));
+        mPowerSupplyData6.setText("市电六 : " + getOpenOrClose(powerSupplyData6));
+        mPowerSupplyData7.setText("市电七 : " + getOpenOrClose(powerSupplyData7));
+        mPowerSupplyData8.setText("市电八 : " + getOpenOrClose(powerSupplyData8));
+    }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_BACK:
-                if (!(mPlayID < 0)) {
-                    System.out.println("停止播放");
-                    stopSinglePreview();
-                }
-                if (!(mLoginId < 0)) {
-                    System.out.println("登出");
-                    logOut();
-                }
-                // 释放SDK资源
-                HCNetSDK.getInstance().NET_DVR_Cleanup();
-                finish();
-                break;
-            default:
-                break;
+    private String getOpenOrClose(int openOrClose) {
+        if (openOrClose == 0) {
+            return "断";
+        } else {
+            return "通";
         }
-
-        return true;
     }
 
     @Override
@@ -577,7 +699,7 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
                             loginStart();
                         }
                     });
-                } else {// 登录成功但播放失败
+                } else if (mPlayID < 0) {// 登录成功但播放失败
                     goneError();
                     ThreadManager.getInstance().execute(new Runnable() {
                         @Override
@@ -587,6 +709,8 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
                             }
                         }
                     });
+                } else {
+                    System.out.println("播放到一半时失败");
                 }
                 break;
             case R.id.sv_player:// 根据实时界面是否出现来进行退回动画
@@ -630,6 +754,28 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
         });
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                if (!(mPlayID < 0)) {
+                    System.out.println("停止播放");
+                    stopSinglePreview();
+                }
+                if (!(mLoginId < 0)) {
+                    System.out.println("登出");
+                    logOut();
+                }
+                // 释放SDK资源
+                HCNetSDK.getInstance().NET_DVR_Cleanup();
+                finish();
+                break;
+            default:
+                break;
+        }
+
+        return true;
+    }
 
     @Override
     protected void onDestroy() {
@@ -638,6 +784,11 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
             keepTimeTimer.cancel();
         keepTimeTimerTask = null;
         keepTimeTimer = null;
+
+        if (mGetHttpData != null)
+            mGetHttpData.cancel();
+        mGetHttpDataTask = null;
+        mGetHttpData = null;
 
         super.onDestroy();
     }
