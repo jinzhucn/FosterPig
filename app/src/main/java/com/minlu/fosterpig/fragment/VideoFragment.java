@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.ExpandableListView;
 
 import com.minlu.fosterpig.R;
+import com.minlu.fosterpig.adapter.VideoAdapter;
 import com.minlu.fosterpig.base.BaseFragment;
 import com.minlu.fosterpig.base.ContentPage;
 import com.minlu.fosterpig.bean.VideoBean;
@@ -34,8 +35,8 @@ public class VideoFragment extends BaseFragment<VideoBean> {
         expandableListView = (ExpandableListView) inflate.findViewById(R.id.elv_video);
         expandableListView.setGroupIndicator(null);
 
-//        VideoAdapter videoAdapter = new VideoAdapter(mVideoData);
-//        expandableListView.setAdapter(videoAdapter);
+        VideoAdapter videoAdapter = new VideoAdapter(mVideoData);
+        expandableListView.setAdapter(videoAdapter);
 
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             //v : 条目的view对象
@@ -79,6 +80,21 @@ public class VideoFragment extends BaseFragment<VideoBean> {
 
     @Override
     protected ContentPage.ResultState onLoad() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         return chat(mVideoData);
     }
 }
