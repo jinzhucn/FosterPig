@@ -8,7 +8,7 @@ import android.widget.ExpandableListView;
 import com.minlu.fosterpig.IpFiled;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
-import com.minlu.fosterpig.adapter.MyExpandableListViewAdapter;
+import com.minlu.fosterpig.adapter.AllSiteAdapter;
 import com.minlu.fosterpig.base.BaseFragment;
 import com.minlu.fosterpig.base.ContentPage;
 import com.minlu.fosterpig.bean.AllSiteBean;
@@ -46,7 +46,7 @@ public class AllSiteFragment extends BaseFragment<AllSiteBean> implements SwipeR
     private ExpandableListView expandableListView;
     private int currentExpandGroup = -1;
     private Runnable mRefreshThread;
-    private MyExpandableListViewAdapter myExpandableListViewAdapter;
+    private AllSiteAdapter allSiteAdapter;
     private String mResultString;
     private boolean requestDataIsSuccess;
 
@@ -73,8 +73,8 @@ public class AllSiteFragment extends BaseFragment<AllSiteBean> implements SwipeR
         expandableListView = (ExpandableListView) inflate.findViewById(R.id.elv_all_site);
         expandableListView.setGroupIndicator(null);
 
-        myExpandableListViewAdapter = new MyExpandableListViewAdapter(mAllAreaData);
-        expandableListView.setAdapter(myExpandableListViewAdapter);
+        allSiteAdapter = new AllSiteAdapter(mAllAreaData);
+        expandableListView.setAdapter(allSiteAdapter);
 
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             //v : 条目的view对象
@@ -236,7 +236,7 @@ public class AllSiteFragment extends BaseFragment<AllSiteBean> implements SwipeR
                         @Override
                         public void run() {
                             if (requestDataIsSuccess) {
-                                myExpandableListViewAdapter.notifyDataSetChanged();
+                                allSiteAdapter.notifyDataSetChanged();
                             } else {
                                 ToastUtil.showToast(ViewsUitls.getContext(), "刷新失败");
                             }

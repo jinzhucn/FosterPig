@@ -6,12 +6,13 @@ import com.minlu.fosterpig.fragment.AllWarnFragment;
 import com.minlu.fosterpig.fragment.MainToAlreadyWarnFragment;
 import com.minlu.fosterpig.fragment.MainToWarnFragment;
 import com.minlu.fosterpig.fragment.SureWarnFragment;
+import com.minlu.fosterpig.fragment.VideoFragment;
 
 
 public class FragmentFactory {
 
     /*存储工长要造的对象的仓库*/
-    public static BaseFragment[] fragments = new BaseFragment[5];
+    public static BaseFragment[] fragments = new BaseFragment[6];
 
     public static BaseFragment create(int position) {
         BaseFragment fragment = null;
@@ -34,6 +35,9 @@ public class FragmentFactory {
                     break;
                 case 4:
                     fragment = new MainToAlreadyWarnFragment();
+                    break;
+                case 5:
+                    fragment = new VideoFragment();
                     break;
             }
 

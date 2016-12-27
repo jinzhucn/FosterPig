@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
+
 import com.minlu.fosterpig.FragmentFactory;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
@@ -13,7 +14,9 @@ import com.minlu.fosterpig.base.BaseFragment;
 import com.minlu.fosterpig.fragment.AllSiteFragment;
 import com.minlu.fosterpig.fragment.AllWarnFragment;
 import com.minlu.fosterpig.fragment.SureWarnFragment;
+import com.minlu.fosterpig.fragment.VideoFragment;
 import com.minlu.fosterpig.util.ViewsUitls;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +33,8 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
     private AllSiteFragment mAllSiteFragment;
     private AllWarnFragment mAllWarnFragment;
     private SureWarnFragment mSureWarnFragment;
+    private TextView mVideo;
+    private VideoFragment mVideoFragment;
 
     @Override
     public void onCreateContent() {
@@ -60,6 +65,7 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
             mAllSiteFragment = (AllSiteFragment) getSupportFragmentManager().findFragmentByTag(StringsFiled.TAG_OPEN_ALL_SITE_FRAGMENT);
             mAllWarnFragment = (AllWarnFragment) getSupportFragmentManager().findFragmentByTag(StringsFiled.TAG_OPEN_WARN_INFORMATION_FRAGMENT);
             mSureWarnFragment = (SureWarnFragment) getSupportFragmentManager().findFragmentByTag(StringsFiled.TAG_OPEN_SURE_WARN_FRAGMENT);
+            mVideoFragment = (VideoFragment) getSupportFragmentManager().findFragmentByTag(StringsFiled.TAG_OPEN_VIDEO_FRAGMENT);
 
             // 给工厂添加所有实例
             if (mAllSiteFragment != null) {
@@ -80,15 +86,22 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
             } else {
                 FragmentFactory.fragments[2] = new SureWarnFragment();
             }
+            if (mVideoFragment != null) {
+                System.out.println("mVideoFragment");
+                FragmentFactory.fragments[5] = mVideoFragment;
+            } else {
+                FragmentFactory.fragments[5] = new VideoFragment();
+            }
+
 
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
             if (FragmentFactory.fragments[0].isAdded()) {
                 System.out.println("被add过了");
-                fragmentTransaction.show(FragmentFactory.fragments[0]).hide(FragmentFactory.fragments[1]).hide(FragmentFactory.fragments[2]);
+                fragmentTransaction.show(FragmentFactory.fragments[0]).hide(FragmentFactory.fragments[1]).hide(FragmentFactory.fragments[2]).hide(FragmentFactory.fragments[5]);
             } else {
                 System.out.println("没有add过");
-                fragmentTransaction.add(R.id.fl_select_true_time, FragmentFactory.fragments[0], StringsFiled.TAG_OPEN_ALL_SITE_FRAGMENT).hide(FragmentFactory.fragments[1]).hide(FragmentFactory.fragments[2]);
+                fragmentTransaction.add(R.id.fl_select_true_time, FragmentFactory.fragments[0], StringsFiled.TAG_OPEN_ALL_SITE_FRAGMENT).hide(FragmentFactory.fragments[1]).hide(FragmentFactory.fragments[2]).hide(FragmentFactory.fragments[5]);
             }
 
             mFromFragment = FragmentFactory.fragments[0];
@@ -111,6 +124,9 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
         mSureWarn = (TextView) view.findViewById(R.id.tv_tab_sure_warn);
         mSureWarn.setOnClickListener(this);
         mTextViews.add(mSureWarn);
+        mVideo = (TextView) view.findViewById(R.id.tv_tab_video);
+        mVideo.setOnClickListener(this);
+        mTextViews.add(mVideo);
 
     }
 
@@ -126,6 +142,9 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.tv_tab_sure_warn:
                 amendClickStyle(StringsFiled.SELECT_SURE_WARN_INFORMATION_TAB, 3, StringsFiled.TAG_OPEN_SURE_WARN_FRAGMENT);
+                break;
+            case R.id.tv_tab_video:
+                amendClickStyle(StringsFiled.SELECT_VIDEO_TAB, 4, StringsFiled.TAG_OPEN_VIDEO_FRAGMENT);
                 break;
         }
 
@@ -169,6 +188,10 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
     *
     * */
     private void startSelectAreaContent(int bundleValue, int toFragment, String tag) {
+
+        if (toFragment == 4) {//TODO 因为在FragmentFactory工厂里第四个已经有人了，所以改变toFragment的值(第六个位置有空位)
+            toFragment = 6;
+        }
 
         BaseFragment baseFragment = FragmentFactory.create(toFragment - 1);
 

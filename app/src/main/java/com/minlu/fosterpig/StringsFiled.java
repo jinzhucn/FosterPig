@@ -43,6 +43,8 @@ public class StringsFiled {
 
     public final static String TAG_OPEN_SURE_WARN_FRAGMENT = "sure_warn";
 
+    public final static String TAG_OPEN_VIDEO_FRAGMENT = "video";
+
     public final static String TAG_OPEN_NO_SURE_FRAGMENT = "no_sure";
 
     public final static String TAG_OPEN_ALREADY_SURE_FRAGMENT = "already_sure";
@@ -99,6 +101,8 @@ public class StringsFiled {
     public final static int SELECT_ALL_SITE_TAB = 4;// 所有站点信息
 
     public final static int SELECT_SURE_WARN_INFORMATION_TAB = 5;// 已经确认的报警信息
+
+    public final static int SELECT_VIDEO_TAB = -1;// 视频界面Fragment暂时不需要传递int值
     //
 
     //  刷新的动画颜色

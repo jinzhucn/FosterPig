@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by user on 2016/11/24.
  */
-public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
+public class AllSiteAdapter extends BaseExpandableListAdapter {
 
     private List<AllSiteBean> groups;
     private TextView monitorAddress;
@@ -26,7 +26,7 @@ public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
     private ImageView isPowerOn;
 //    private ImageView isHandle;
 
-    public MyExpandableListViewAdapter(List<AllSiteBean> list) {
+    public AllSiteAdapter(List<AllSiteBean> list) {
         this.groups = list;
     }
 
