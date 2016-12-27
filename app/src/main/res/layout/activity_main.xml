@@ -27,7 +27,7 @@
                 android:layout_width="220dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                app:bgColor="@color/white"
+                app:bgColor="@color/bu_ji_ge"
                 app:fgColorEnd="#ffffff"
                 app:fgColorStart="#ffffff"
                 app:percent="100"

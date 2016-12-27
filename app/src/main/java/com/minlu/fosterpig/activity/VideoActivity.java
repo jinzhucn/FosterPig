@@ -119,6 +119,15 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /*Intent intent = new Intent(ViewsUitls.getContext(), VideoActivity.class);
+        intent.putExtra(StringsFiled.VIDEO_IP, "192.168.1.67");
+        intent.putExtra(StringsFiled.VIDEO_USER, "admin");
+        intent.putExtra(StringsFiled.VIDEO_PASSWORD, "asdf1234");
+        intent.putExtra(StringsFiled.VIDEO_PORT, 8000);
+        intent.putExtra(StringsFiled.VIDEO_CHANNEL_NUMBER, 33);
+        startActivity(intent);*/
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_screen);
@@ -320,12 +329,14 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
             Log.e(TAG, "NET_DVR_Login_V30登录方法失败!Err:" + HCNetSDK.getInstance().NET_DVR_GetLastError());
             return -1;
         }
-        /*if (mNetDvrDeviceInfoV30.byChanNum > 0) {// 设备模拟通道个数
-            mPlayChannel = mNetDvrDeviceInfoV30.byStartChan;// 模拟通道起始通道号
-            m_iChanNum = mNetDvrDeviceInfoV30.byChanNum; // 设备模拟通道个数
-        } else if (mNetDvrDeviceInfoV30.byIPChanNum > 0) {// 设备最大数字通道个数，低 8 位
-            mPlayChannel = mNetDvrDeviceInfoV30.byStartDChan;// 起始数字通道号
+        /*int m_iChanNum;
+        if (mNetDvrDeviceInfoV30.byChanNum > 0) {// 设备模拟通道个数 byChanNum为0
+            mPlayChannel = mNetDvrDeviceInfoV30.byStartChan;// 模拟通道起始通道号 byStartChan为1
+            m_iChanNum = mNetDvrDeviceInfoV30.byChanNum; // 设备模拟通道个数 byChanNum为0
+        } else if (mNetDvrDeviceInfoV30.byIPChanNum > 0) {// 设备最大数字通道个数，低 8 位  byIPChanNum为8
+            mPlayChannel = mNetDvrDeviceInfoV30.byStartDChan;// 起始数字通道号  byStartDChan为33
             m_iChanNum = mNetDvrDeviceInfoV30.byIPChanNum + mNetDvrDeviceInfoV30.byHighDChanNum * 256;// 其中byHighDChanNum为数字通道个数，高 8 位
+            System.out.println("走的是设备数字通道个数");
         }*/
         /*if (mNetDvrDeviceInfoV30.byChanNum > 0) {
             mPlayChannel = mNetDvrDeviceInfoV30.byStartChan;
@@ -758,16 +769,22 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
-                if (!(mPlayID < 0)) {
-                    System.out.println("停止播放");
-                    stopSinglePreview();
-                }
-                if (!(mLoginId < 0)) {
-                    System.out.println("登出");
-                    logOut();
-                }
-                // 释放SDK资源
-                HCNetSDK.getInstance().NET_DVR_Cleanup();
+                ThreadManager.getInstance().execute(new TimerTask() {
+                    @Override
+                    public void run() {
+                        if (!(mPlayID < 0)) {
+                            System.out.println("停止播放");
+                            stopSinglePreview();
+                        }
+                        if (!(mLoginId < 0)) {
+                            System.out.println("登出");
+                            logOut();
+                        }
+                        // 释放SDK资源
+                        HCNetSDK.getInstance().NET_DVR_Cleanup();
+                    }
+                });
+
                 finish();
                 break;
             default:

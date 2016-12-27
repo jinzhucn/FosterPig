@@ -690,17 +690,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             mPercent.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.white));
         }
         if (mSafePercentNumber >= 80 && mSafePercentNumber < 100) {
-            mRingProgressView.setFgColorEnd(ContextCompat.getColor(MainActivity.this, R.color.liang_hao));
-            mRingProgressView.setFgColorStart(ContextCompat.getColor(MainActivity.this, R.color.liang_hao));
-            mPercent.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.liang_hao));
+            mRingProgressView.setFgColorEnd(ContextCompat.getColor(MainActivity.this, R.color.white));
+            mRingProgressView.setFgColorStart(ContextCompat.getColor(MainActivity.this, R.color.white));
+            mPercent.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.white));
         } else if (mSafePercentNumber < 80 && mSafePercentNumber >= 60) {
-            mRingProgressView.setFgColorEnd(ContextCompat.getColor(MainActivity.this, R.color.ji_ge));
-            mRingProgressView.setFgColorStart(ContextCompat.getColor(MainActivity.this, R.color.ji_ge));
-            mPercent.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.ji_ge));
+            mRingProgressView.setFgColorEnd(ContextCompat.getColor(MainActivity.this, R.color.white));
+            mRingProgressView.setFgColorStart(ContextCompat.getColor(MainActivity.this, R.color.white));
+            mPercent.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.white));
         } else if (mSafePercentNumber < 60) {
-            mRingProgressView.setFgColorEnd(ContextCompat.getColor(MainActivity.this, R.color.bu_ji_ge));
-            mRingProgressView.setFgColorStart(ContextCompat.getColor(MainActivity.this, R.color.bu_ji_ge));
-            mPercent.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.bu_ji_ge));
+            mRingProgressView.setFgColorEnd(ContextCompat.getColor(MainActivity.this, R.color.white));
+            mRingProgressView.setFgColorStart(ContextCompat.getColor(MainActivity.this, R.color.white));
+            mPercent.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.white));
         }
     }
 
