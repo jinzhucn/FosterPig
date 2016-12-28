@@ -35,7 +35,6 @@ import com.hikvision.netsdk.HCNetSDK;
 import com.hikvision.netsdk.NET_DVR_DEVICEINFO_V30;
 import com.hikvision.netsdk.NET_DVR_PREVIEWINFO;
 import com.hikvision.netsdk.RealPlayCallBack;
-import com.minlu.fosterpig.IpFiled;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.http.OkHttpManger;
@@ -292,7 +291,7 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
                 OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
                 RequestBody formBody = new FormBody.Builder().add("id", videoId + "").build();
                 Request request = new Request.Builder()
-                        .url(IpFiled.VIDEO_TRUE_TIME_DATA)
+                        .url("https://www.baidu.com/")//IpFiled.VIDEO_TRUE_TIME_DATA
                         .post(formBody)
                         .build();
                 callTrueTime = okHttpClient.newCall(request);
@@ -310,13 +309,13 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
                                 final double temperatureData = getDoubleData(partSensor, "v2");
                                 final double humidityData = getDoubleData(partSensor, "v3");
                                 final int powerSupplyData1 = getIntData(partSensor, "v4");
-                                final int powerSupplyData2 = getIntData(partSensor, "v4");
-                                final int powerSupplyData3 = getIntData(partSensor, "v4");
-                                final int powerSupplyData4 = getIntData(partSensor, "v4");
-                                final int powerSupplyData5 = getIntData(partSensor, "v4");
-                                final int powerSupplyData6 = getIntData(partSensor, "v4");
-                                final int powerSupplyData7 = getIntData(partSensor, "v4");
-                                final int powerSupplyData8 = getIntData(partSensor, "v4");
+                                final int powerSupplyData2 = getIntData(partSensor, "v5");
+                                final int powerSupplyData3 = getIntData(partSensor, "v6");
+                                final int powerSupplyData4 = getIntData(partSensor, "v7");
+                                final int powerSupplyData5 = getIntData(partSensor, "v8");
+                                final int powerSupplyData6 = getIntData(partSensor, "v9");
+                                final int powerSupplyData7 = getIntData(partSensor, "v10");
+                                final int powerSupplyData8 = getIntData(partSensor, "v11");
                                 ViewsUitls.runInMainThread(new TimerTask() {
                                     @Override
                                     public void run() {
