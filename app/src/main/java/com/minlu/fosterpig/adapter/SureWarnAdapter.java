@@ -77,6 +77,8 @@ public class SureWarnAdapter extends MyBaseAdapter<AlreadySureWarn> {
             if (response.isSuccessful()) {
                 mResultString = response.body().string();
                 parseJson();
+            }else{
+                System.out.println("=========================onFailure=============================");
             }
         } catch (IOException e) {
             e.printStackTrace();

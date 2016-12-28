@@ -104,6 +104,8 @@ public class AlarmServicer extends Service implements Observers {
                             isAlarm = false;
                             msg = "报警信息,请求失败!";
                         }
+                    }else{
+                        System.out.println("=========================onFailure=============================");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

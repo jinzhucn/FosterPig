@@ -124,6 +124,9 @@ public class SureWarnFragment extends BaseFragment<AlreadySureWarn> implements S
                 mResultString = response.body().string();
                 Log.i("okHttp_SUCCESS", mResultString);
                 analysisJsonDate();
+            }else{
+                System.out.println("=========================onFailure=============================");
+                requestDataIsSuccess = false;
             }
         } catch (IOException e) {
             e.printStackTrace();

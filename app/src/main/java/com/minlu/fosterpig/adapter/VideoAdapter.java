@@ -87,7 +87,7 @@ public class VideoAdapter extends BaseExpandableListAdapter {
     // 设置孩子是否可以点击,false:表示不可点击,true:表示可以点击
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 
 }

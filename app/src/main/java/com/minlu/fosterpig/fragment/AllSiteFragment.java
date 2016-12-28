@@ -141,6 +141,9 @@ public class AllSiteFragment extends BaseFragment<AllSiteBean> implements SwipeR
                 mResultString = response.body().string();
                 Log.i("okHttp_SUCCESS", mResultString);
                 analysisJsonDate();
+            }else{
+                System.out.println("=========================onFailure=============================");
+                requestDataIsSuccess = false;
             }
         } catch (IOException e) {
             e.printStackTrace();

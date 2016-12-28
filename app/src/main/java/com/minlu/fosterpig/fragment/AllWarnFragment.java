@@ -107,6 +107,9 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
                 mResultString = response.body().string();
                 Log.i("okHttp_SUCCESS", mResultString);
                 analysisJsonDate();
+            }else{
+                System.out.println("=========================onFailure=============================");
+                requestDataIsSuccess = false;
             }
         } catch (IOException e) {
             e.printStackTrace();

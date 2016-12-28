@@ -120,14 +120,6 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*Intent intent = new Intent(ViewsUitls.getContext(), VideoActivity.class);
-        intent.putExtra(StringsFiled.VIDEO_IP, "192.168.1.67");
-        intent.putExtra(StringsFiled.VIDEO_USER, "admin");
-        intent.putExtra(StringsFiled.VIDEO_PASSWORD, "asdf1234");
-        intent.putExtra(StringsFiled.VIDEO_PORT, 8000);
-        intent.putExtra(StringsFiled.VIDEO_CHANNEL_NUMBER, 33);
-        startActivity(intent);*/
-
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_screen);

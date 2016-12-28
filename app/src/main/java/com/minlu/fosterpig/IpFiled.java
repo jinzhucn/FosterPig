@@ -18,4 +18,6 @@ public class IpFiled {
     public final static String REQUEST_SURE_WARN = IP + "cancleAlarm.html";
 
     public final static String VIDEO_TRUE_TIME_DATA = IP + "cancleAlarm.html";
+
+    public final static String VIDEO_LIST_DATA = IP + "cancleAlarm.html";
 }
