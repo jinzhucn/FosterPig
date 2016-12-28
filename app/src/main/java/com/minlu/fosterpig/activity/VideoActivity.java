@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Process;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Surface;
@@ -35,6 +36,7 @@ import com.hikvision.netsdk.HCNetSDK;
 import com.hikvision.netsdk.NET_DVR_DEVICEINFO_V30;
 import com.hikvision.netsdk.NET_DVR_PREVIEWINFO;
 import com.hikvision.netsdk.RealPlayCallBack;
+import com.minlu.fosterpig.IpFiled;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.http.OkHttpManger;
@@ -114,6 +116,7 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
     private Timer mGetHttpData;
     private Call callTrueTime;
     private int videoId;
+    private int mGetHttpDataID = -1;
 
     /**
      * Called when the activity is first created.
@@ -287,11 +290,12 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
         mGetHttpDataTask = new TimerTask() {
             @Override
             public void run() {
+                mGetHttpDataID = Process.myTid();
                 System.out.println("==================================requestHttpGetDataTimer==================================");
                 OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
                 RequestBody formBody = new FormBody.Builder().add("id", videoId + "").build();
-                Request request = new Request.Builder()
-                        .url("https://www.baidu.com/")//IpFiled.VIDEO_TRUE_TIME_DATA
+                Request request = new Request.Builder().tag("mGetHttpData")
+                        .url(IpFiled.VIDEO_TRUE_TIME_DATA)
                         .post(formBody)
                         .build();
                 callTrueTime = okHttpClient.newCall(request);
@@ -339,7 +343,7 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
                 }
             }
         };
-        mGetHttpData.schedule(mGetHttpDataTask, 0, 15000);
+        mGetHttpData.schedule(mGetHttpDataTask, 0, StringsFiled.VIDEO_TRUE_TIME_SHOW_INTERVAL);
     }
 
     private void showError() {
@@ -538,7 +542,6 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
                     mGetHttpData.cancel();
                 mGetHttpDataTask = null;
                 mGetHttpData = null;
-
 
                 if (callTrueTime != null) {
                     System.out.println("是否取消了：" + callTrueTime.isCanceled());

@@ -117,9 +117,11 @@ public class StringsFiled {
     public final static int SWIPE_REFRESH_BACKGROUND = Color.WHITE; // 0xFF000000
 
     //  报警服务的响铃间隔时间
-    public final static int ALARM_INTERVAL_TIME = 20000;
+    public final static int ALARM_INTERVAL_TIME = 3600000;
     // 视频界面中实时数据控件存在的时间单位s
-    public final static int VIDEO_TRUE_TIME_DATA_KEEP_TIME = 5;
+    public final static int VIDEO_TRUE_TIME_DATA_KEEP_TIME = 10;
+    // 视频界面中实时数据控件刷新数据的时间单位ms
+    public static final long VIDEO_TRUE_TIME_SHOW_INTERVAL = 5000;
 
     // 观察者模式的区分
     public final static int OBSERVER_MEDIA_PLAYER_PAUSE = 0;

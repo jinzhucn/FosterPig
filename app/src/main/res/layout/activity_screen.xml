@@ -60,7 +60,7 @@
         android:layout_margin="6dp"
         android:background="@drawable/shape_video_true_time_background"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="invisible">
 
         <TextView
             android:id="@+id/tv_video_true_time_data_ammonia"
