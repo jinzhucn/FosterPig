@@ -73,6 +73,8 @@ public class StringsFiled {
 
     public final static String VIDEO_CHANNEL_NUMBER = "video_channel_number";
 
+    public final static String VIDEO_ID = "video_id";
+
     // 在main界面中的hundle
     public final static int SERVER_OUTAGE = 0;// 服务器宕机
 

@@ -110,6 +110,7 @@ public class VideoFragment extends BaseFragment<VideoBean> {
                 intent.putExtra(StringsFiled.VIDEO_PASSWORD, siteVideo.getVideoPassWord());
                 intent.putExtra(StringsFiled.VIDEO_PORT, siteVideo.getVideoPort());
                 intent.putExtra(StringsFiled.VIDEO_CHANNEL_NUMBER, siteVideo.getVideoChannelNumber());
+                intent.putExtra(StringsFiled.VIDEO_ID, siteVideo.getId());
                 startActivity(intent);
 
                 // 如果点击事件有具体的处理，那就返回true给其他代码一个准确的判断
@@ -137,7 +138,7 @@ public class VideoFragment extends BaseFragment<VideoBean> {
         OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
         RequestBody formBody = new FormBody.Builder().build();
         Request request = new Request.Builder()
-                .url(IpFiled.ALL_SITE_DATA) // IpFiled.VIDEO_LIST_DATA
+                .url(IpFiled.VIDEO_LIST_DATA)
                 .post(formBody)
                 .build();
         try {
@@ -146,7 +147,7 @@ public class VideoFragment extends BaseFragment<VideoBean> {
                 mResultString = response.body().string();
                 Log.i("okHttp_SUCCESS", mResultString);
                 analysisJsonDate();
-            }else{
+            } else {
                 System.out.println("=========================onFailure=============================");
                 requestDataIsSuccess = false;
             }
@@ -173,41 +174,47 @@ public class VideoFragment extends BaseFragment<VideoBean> {
     private void analysisJsonDate() {
 
         // TODO 测试数据
-        try {
-            InputStream is = getActivity().getAssets().open("textJson6.txt");
-            mResultString = readTextFromSDcard(is);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            InputStream is = getActivity().getAssets().open("textJson6.txt");
+//            mResultString = readTextFromSDcard(is);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         // TODO 测试数据
 
         if (StringUtils.interentIsNormal(mResultString)) {
             try {
-                JSONArray allAreaData = new JSONArray(mResultString);
-                if (mVideoData == null) {
-                    mVideoData = new ArrayList<>();
-                } else {
-                    mVideoData.clear();
-                }
-                for (int i = 0; i < allAreaData.length(); i++) {
-                    JSONObject singleAreaData = allAreaData.getJSONObject(i);
-                    String areaName = singleAreaData.optString("areaName");
-                    JSONArray allSiteData = singleAreaData.optJSONArray("siteVideos");
-
-                    List<SiteVideo> siteVideos = new ArrayList<>();
-                    for (int j = 0; j < allSiteData.length(); j++) {
-                        JSONObject singleSiteData = allSiteData.getJSONObject(j);
-                        String siteName = singleSiteData.optString("siteName");
-                        String videoUser = singleSiteData.optString("videoUser");
-                        String videoIP = singleSiteData.optString("videoIP");
-                        String videoPassWord = singleSiteData.optString("videoPassWord");
-                        int videoPort = singleSiteData.optInt("videoPort");
-                        int videoChannelNumber = singleSiteData.optInt("videoChannelNumber");
-                        siteVideos.add(new SiteVideo(siteName, videoIP, videoUser, videoPassWord, videoPort, videoChannelNumber));
+                JSONObject jsonObject = new JSONObject(mResultString);
+                if (jsonObject.has("nvrList")) {
+                    JSONArray allAreaData = jsonObject.optJSONArray("nvrList");
+                    if (mVideoData == null) {
+                        mVideoData = new ArrayList<>();
+                    } else {
+                        mVideoData.clear();
                     }
-                    mVideoData.add(new VideoBean(areaName, siteVideos));
+                    for (int i = 0; i < allAreaData.length(); i++) {
+                        JSONObject singleAreaData = allAreaData.getJSONObject(i);
+                        String areaName = singleAreaData.optString("areaName");
+                        JSONArray allSiteData = singleAreaData.optJSONArray("siteVideos");
+
+                        List<SiteVideo> siteVideos = new ArrayList<>();
+                        for (int j = 0; j < allSiteData.length(); j++) {
+                            JSONObject singleSiteData = allSiteData.getJSONObject(j);
+                            String siteName = singleSiteData.optString("siteName");
+                            String videoUser = singleSiteData.optString("videoUser");
+                            String videoIP = singleSiteData.optString("videoIP");
+                            String videoPassWord = singleSiteData.optString("videoPassWord");
+                            int id = singleSiteData.optInt("id");
+                            int videoPort = singleSiteData.optInt("videoPort");
+                            int videoChannelNumber = singleSiteData.optInt("videoChannelNumber");
+                            siteVideos.add(new SiteVideo(id, siteName, videoIP, videoUser, videoPassWord, videoPort, videoChannelNumber));
+                        }
+                        mVideoData.add(new VideoBean(areaName, siteVideos));
+                    }
+                    requestDataIsSuccess = true;
+                } else {
+                    requestDataIsSuccess = false;
                 }
-                requestDataIsSuccess = true;
             } catch (JSONException e) {
                 e.printStackTrace();
             }

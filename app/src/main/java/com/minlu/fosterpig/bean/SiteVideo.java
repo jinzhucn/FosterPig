@@ -12,14 +12,24 @@ public class SiteVideo {
     private String videoPassWord;
     private int videoPort;
     private int videoChannelNumber;
+    private int id;
 
-    public SiteVideo(String siteName, String videoIP, String videoUser, String videoPassWord, int videoPort, int videoChannelNumber) {
+    public SiteVideo(int id, String siteName, String videoIP, String videoUser, String videoPassWord, int videoPort, int videoChannelNumber) {
+        this.id = id;
         this.siteName = siteName;
         this.videoIP = videoIP;
         this.videoUser = videoUser;
         this.videoPassWord = videoPassWord;
         this.videoPort = videoPort;
         this.videoChannelNumber = videoChannelNumber;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getSiteName() {

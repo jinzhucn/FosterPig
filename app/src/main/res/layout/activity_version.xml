@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/tv2"
         android:layout_centerHorizontal="true"
-        android:text="POWERED BY 明基物联  版权所有康乐畜牧"
+        android:text="@string/login_foot"
         android:textColor="@color/black" />
 
 </RelativeLayout>
