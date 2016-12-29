@@ -92,7 +92,7 @@ public abstract class MyBaseAdapter<T> extends BaseSwipListAdapter {
     }
 
     // 获取加载更多的Holder
-    private BaseHolder getMoreHolder() {
+    public BaseHolder getMoreHolder() {
         // 只有在第一次显示加载时才创建MoreHolder，并在其构造方法中给MoreHolder的setData方法设置加载情况的值
         // 一开始是HAS_MORE，所以可以在getRootView时请求网络数据
         // 然后在请求完数据后返回数据时，在根据返回数据的情况去调用setData方法设置加载情况的值

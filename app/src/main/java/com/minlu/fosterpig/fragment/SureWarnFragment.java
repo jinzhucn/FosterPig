@@ -124,7 +124,7 @@ public class SureWarnFragment extends BaseFragment<AlreadySureWarn> implements S
                 mResultString = response.body().string();
                 Log.i("okHttp_SUCCESS", mResultString);
                 analysisJsonDate();
-            }else{
+            } else {
                 System.out.println("=========================onFailure=============================");
                 requestDataIsSuccess = false;
             }
@@ -206,6 +206,7 @@ public class SureWarnFragment extends BaseFragment<AlreadySureWarn> implements S
                         public void run() {
                             if (requestDataIsSuccess) {
                                 sureWarnAdapter.notifyDataSetChanged();
+                                sureWarnAdapter.getMoreHolder().setData(0);// 给moreholder设置可以加载更多
                             } else {
                                 ToastUtil.showToast(ViewsUitls.getContext(), "刷新失败");
                             }
