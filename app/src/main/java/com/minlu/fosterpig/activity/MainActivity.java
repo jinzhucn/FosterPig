@@ -647,23 +647,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mRingProgressView.setPercent(mSafePercentNumber);
         mPercent.setText(mSafePercentNumber + "分");
         if (mSafePercentNumber == 100) {
-            mRingProgressView.setFgColorEnd(ContextCompat.getColor(MainActivity.this, R.color.white));
-            mRingProgressView.setFgColorStart(ContextCompat.getColor(MainActivity.this, R.color.white));
-            mPercent.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.white));
-        }
-        if (mSafePercentNumber >= 80 && mSafePercentNumber < 100) {
-            mRingProgressView.setFgColorEnd(ContextCompat.getColor(MainActivity.this, R.color.white));
-            mRingProgressView.setFgColorStart(ContextCompat.getColor(MainActivity.this, R.color.white));
-            mPercent.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.white));
+            setPercentColorProgressBackGround(R.color.white);
+        } else if (mSafePercentNumber >= 80 && mSafePercentNumber < 100) {
+            setPercentColorProgressBackGround(R.color.white);
         } else if (mSafePercentNumber < 80 && mSafePercentNumber >= 60) {
-            mRingProgressView.setFgColorEnd(ContextCompat.getColor(MainActivity.this, R.color.white));
-            mRingProgressView.setFgColorStart(ContextCompat.getColor(MainActivity.this, R.color.white));
-            mPercent.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.white));
+            setPercentColorProgressBackGround(R.color.white);
         } else if (mSafePercentNumber < 60) {
-            mRingProgressView.setFgColorEnd(ContextCompat.getColor(MainActivity.this, R.color.white));
-            mRingProgressView.setFgColorStart(ContextCompat.getColor(MainActivity.this, R.color.white));
-            mPercent.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.white));
+            setPercentColorProgressBackGround(R.color.white);
         }
+    }
+
+    private void setPercentColorProgressBackGround(int color) {
+        mRingProgressView.setFgColorEnd(ContextCompat.getColor(MainActivity.this, color));
+        mRingProgressView.setFgColorStart(ContextCompat.getColor(MainActivity.this, color));
+        mPercent.setTextColor(ContextCompat.getColor(MainActivity.this, color));
     }
 
     @Override
