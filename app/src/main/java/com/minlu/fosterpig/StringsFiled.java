@@ -75,6 +75,8 @@ public class StringsFiled {
 
     public final static String VIDEO_ID = "video_id";
 
+    public final static String TRUE_TIME_DATA_ACTIVITY_ALREADY_PRESS="true_time_data_activity_already_press";
+
     // 在main界面中的hundle
     public final static int SERVER_OUTAGE = 0;// 服务器宕机
 

@@ -1,8 +1,10 @@
 package com.minlu.fosterpig.activity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -50,6 +52,32 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
         showFragmentWhenFirstOrSecond();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(StringsFiled.TRUE_TIME_DATA_ACTIVITY_ALREADY_PRESS, alreadyPress);
+        super.onSaveInstanceState(outState);
+        Log.i("TrueTimeDataActivity", "onSaveInstanceState");
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//            Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+//            Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /*@Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        System.out.println("===========================================onRestoreInstanceState===========================================");
+        alreadyPress = savedInstanceState.getInt(StringsFiled.TRUE_TIME_DATA_ACTIVITY_ALREADY_PRESS);
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.i("TrueTimeDataActivity", "onRestoreInstanceState");
+    }*/
 
     /*
    *   此方法中对第一次进入界面直接展示一个Fragment
@@ -61,7 +89,7 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
             // mFromFragment为空的情况下
             amendClickStyle(StringsFiled.SELECT_ALL_SITE_TAB, 1, StringsFiled.TAG_OPEN_ALL_SITE_FRAGMENT);
         } else {
-            System.out.println("第二次+++++++++++++++++++++++++++++");
+            System.out.println("第二次+++++++++++++++++++++++++++++  alreadyPress : " + savedInstanceState.getInt(StringsFiled.TRUE_TIME_DATA_ACTIVITY_ALREADY_PRESS));
             mAllSiteFragment = (AllSiteFragment) getSupportFragmentManager().findFragmentByTag(StringsFiled.TAG_OPEN_ALL_SITE_FRAGMENT);
             mAllWarnFragment = (AllWarnFragment) getSupportFragmentManager().findFragmentByTag(StringsFiled.TAG_OPEN_WARN_INFORMATION_FRAGMENT);
             mSureWarnFragment = (SureWarnFragment) getSupportFragmentManager().findFragmentByTag(StringsFiled.TAG_OPEN_SURE_WARN_FRAGMENT);
@@ -103,7 +131,6 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
                 System.out.println("没有add过");
                 fragmentTransaction.add(R.id.fl_select_true_time, FragmentFactory.fragments[0], StringsFiled.TAG_OPEN_ALL_SITE_FRAGMENT).hide(FragmentFactory.fragments[1]).hide(FragmentFactory.fragments[2]).hide(FragmentFactory.fragments[5]);
             }
-
             mFromFragment = FragmentFactory.fragments[0];
             alreadyPress = 1; // 防止再次点击所有站点的Tab
 
