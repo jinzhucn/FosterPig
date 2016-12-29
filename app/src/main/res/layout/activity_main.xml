@@ -111,6 +111,13 @@
                 android:layout_alignTop="@id/ll_item_ammonia"
                 android:layout_toRightOf="@id/ll_item_ammonia"
                 android:text="1" />
+
+            <TextView
+                android:id="@+id/tv_item_ammonia_already_warn_number"
+                style="@style/main_bottom_item_gray_round_style"
+                android:layout_alignTop="@id/ll_item_ammonia"
+                android:layout_toRightOf="@id/ll_item_ammonia"
+                android:text="1" />
         </RelativeLayout>
 
         <View
@@ -147,6 +154,13 @@
             <TextView
                 android:id="@+id/tv_item_temperature_warn_number"
                 style="@style/main_bottom_item_red_round_style"
+                android:layout_alignTop="@id/ll_item_temperature"
+                android:layout_toRightOf="@id/ll_item_temperature"
+                android:text="1" />
+
+            <TextView
+                android:id="@+id/tv_item_temperature_already_warn_number"
+                style="@style/main_bottom_item_gray_round_style"
                 android:layout_alignTop="@id/ll_item_temperature"
                 android:layout_toRightOf="@id/ll_item_temperature"
                 android:text="1" />
@@ -196,6 +210,13 @@
                 android:layout_alignTop="@id/ll_item_humidity"
                 android:layout_toRightOf="@id/ll_item_humidity"
                 android:text="1" />
+
+            <TextView
+                android:id="@+id/tv_item_humidity_already_warn_number"
+                style="@style/main_bottom_item_gray_round_style"
+                android:layout_alignTop="@id/ll_item_humidity"
+                android:layout_toRightOf="@id/ll_item_humidity"
+                android:text="1" />
         </RelativeLayout>
 
         <View
@@ -232,6 +253,13 @@
             <TextView
                 android:id="@+id/tv_item_power_supply_warn_number"
                 style="@style/main_bottom_item_red_round_style"
+                android:layout_alignTop="@id/ll_item_power_supply"
+                android:layout_toRightOf="@id/ll_item_power_supply"
+                android:text="1" />
+
+            <TextView
+                android:id="@+id/tv_item_power_supply_already_warn_number"
+                style="@style/main_bottom_item_gray_round_style"
                 android:layout_alignTop="@id/ll_item_power_supply"
                 android:layout_toRightOf="@id/ll_item_power_supply"
                 android:text="1" />

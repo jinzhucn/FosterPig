@@ -16,17 +16,23 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="main_bottom_item_red_round_style">
-        <item name="android:visibility">invisible</item>
+    <style name="main_bottom_item_round_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/shape_red_round</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">3dp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">12dp</item>
+        <item name="android:visibility">invisible</item>
     </style>
 
+    <style name="main_bottom_item_red_round_style" parent="main_bottom_item_round_style">
+        <item name="android:background">@drawable/shape_red_round</item>
+    </style>
+
+    <style name="main_bottom_item_gray_round_style" parent="main_bottom_item_round_style">
+        <item name="android:background">@drawable/shape_gray_round</item>
+    </style>
 
     <style name="TabsPublicStyle">
         <item name="android:clickable">true</item>
@@ -56,11 +62,13 @@
         <item name="android:layout_height">wrap_content</item>
 
     </style>
+
     <style name="editText_child" parent="editText_parent">
         <item name="android:drawablePadding">15dp</item>
         <item name="android:layout_marginRight">30dp</item>
         <item name="android:layout_marginLeft">30dp</item>
     </style>
+
     <style name="login_in_padding">
         <item name="android:layout_marginRight">30dp</item>
         <item name="android:layout_marginLeft">30dp</item>
