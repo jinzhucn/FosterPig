@@ -81,21 +81,17 @@ public class WarnActivity extends BaseActivity implements View.OnClickListener {
             } else {
                 FragmentFactory.fragments[3] = new MainToWarnFragment();
             }
-            if (mSureWarnFragment != null) {
-                FragmentFactory.fragments[4] = mSureWarnFragment;
-                System.out.println("mSureWarnFragment");
-            } else {
-                FragmentFactory.fragments[4] = new MainToAlreadyWarnFragment();
-            }
 
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
             if (FragmentFactory.fragments[3].isAdded()) {
                 System.out.println("被add过了");
-                fragmentTransaction.show(FragmentFactory.fragments[3]).hide(FragmentFactory.fragments[4]);
+                FragmentTransaction transaction = fragmentTransaction.show(FragmentFactory.fragments[3]);
+                isHide(transaction);
             } else {
                 System.out.println("没有add过");
-                fragmentTransaction.add(R.id.fl_select_sure_or_no, FragmentFactory.fragments[3], StringsFiled.TAG_OPEN_NO_SURE_FRAGMENT).hide(FragmentFactory.fragments[4]);
+                FragmentTransaction transaction = fragmentTransaction.add(R.id.fl_select_sure_or_no, FragmentFactory.fragments[3], StringsFiled.TAG_OPEN_NO_SURE_FRAGMENT);
+                isHide(transaction);
             }
 
             mFromFragment = FragmentFactory.fragments[3];
@@ -104,6 +100,16 @@ public class WarnActivity extends BaseActivity implements View.OnClickListener {
             fragmentTransaction.commit();
         }
 
+    }
+
+    private void isHide(FragmentTransaction transaction) {
+        if (mSureWarnFragment != null) {
+            FragmentFactory.fragments[4] = mSureWarnFragment;
+            System.out.println("mSureWarnFragment");
+            transaction.hide(FragmentFactory.fragments[4]);
+        } else {
+            FragmentFactory.fragments[4] = new MainToAlreadyWarnFragment();
+        }
     }
 
     private void tabSelectFragment(int toFragment, String tag) {
@@ -197,14 +203,14 @@ public class WarnActivity extends BaseActivity implements View.OnClickListener {
                 Bundle bundle = new Bundle();
                 bundle.putInt(StringsFiled.OPEN_FRAGMENT_BUNDLE_KEY, bundleValue);
                 baseFragment.setArguments(bundle);
-                System.out.println("bundleValue====="+bundleValue);
+                System.out.println("bundleValue=====" + bundleValue);
 
                 if (mFromFragment == null) {
                     System.out.println("当前tab为空");
                     transaction.add(R.id.fl_select_sure_or_no, baseFragment, tag).commit(); // 第一次进入本页面，直接add到Activity中
                 } else {
                     System.out.println("当前的tab不为空");
-                    System.out.println("tag========="+tag);
+                    System.out.println("tag=========" + tag);
                     transaction.hide(mFromFragment).add(R.id.fl_select_sure_or_no, baseFragment, tag).commit(); // 隐藏当前的fragment，add下一个到Activity中
                 }
 

@@ -37,6 +37,9 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
     private SureWarnFragment mSureWarnFragment;
     private TextView mVideo;
     private VideoFragment mVideoFragment;
+    private boolean mAllWarnIsNull;
+    private boolean mSureWarnIsNull;
+    private boolean mVideoIsNull;
 
     @Override
     public void onCreateContent() {
@@ -102,22 +105,29 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
             } else {
                 FragmentFactory.fragments[0] = new AllSiteFragment();
             }
+
             if (mAllWarnFragment != null) {
                 FragmentFactory.fragments[1] = mAllWarnFragment;
+                mAllWarnIsNull = false;
                 System.out.println("mAllWarnFragment");
             } else {
+                mAllWarnIsNull = true;
                 FragmentFactory.fragments[1] = new AllWarnFragment();
             }
             if (mSureWarnFragment != null) {
+                mSureWarnIsNull = false;
                 System.out.println("mSureWarnFragment");
                 FragmentFactory.fragments[2] = mSureWarnFragment;
             } else {
+                mSureWarnIsNull = true;
                 FragmentFactory.fragments[2] = new SureWarnFragment();
             }
             if (mVideoFragment != null) {
+                mVideoIsNull = false;
                 System.out.println("mVideoFragment");
                 FragmentFactory.fragments[5] = mVideoFragment;
             } else {
+                mVideoIsNull = true;
                 FragmentFactory.fragments[5] = new VideoFragment();
             }
 
@@ -126,15 +136,41 @@ public class TrueTimeDataActivity extends BaseActivity implements View.OnClickLi
 
             if (FragmentFactory.fragments[0].isAdded()) {
                 System.out.println("被add过了");
-                fragmentTransaction.show(FragmentFactory.fragments[0]).hide(FragmentFactory.fragments[1]).hide(FragmentFactory.fragments[2]).hide(FragmentFactory.fragments[5]);
+                FragmentTransaction transaction = fragmentTransaction.show(FragmentFactory.fragments[0]);
+                isHide(transaction, 1);
+                isHide(transaction, 2);
+                isHide(transaction, 5);
             } else {
                 System.out.println("没有add过");
-                fragmentTransaction.add(R.id.fl_select_true_time, FragmentFactory.fragments[0], StringsFiled.TAG_OPEN_ALL_SITE_FRAGMENT).hide(FragmentFactory.fragments[1]).hide(FragmentFactory.fragments[2]).hide(FragmentFactory.fragments[5]);
+                FragmentTransaction transaction = fragmentTransaction.add(R.id.fl_select_true_time, FragmentFactory.fragments[0], StringsFiled.TAG_OPEN_ALL_SITE_FRAGMENT);
+                isHide(transaction, 1);
+                isHide(transaction, 2);
+                isHide(transaction, 5);
             }
             mFromFragment = FragmentFactory.fragments[0];
             alreadyPress = 1; // 防止再次点击所有站点的Tab
 
             fragmentTransaction.commit();
+        }
+    }
+
+    private void isHide(FragmentTransaction transaction, int tab) {
+        switch (tab) {
+            case 1:
+                if (!mAllWarnIsNull) {
+                    transaction.hide(FragmentFactory.fragments[1]);
+                }
+                break;
+            case 2:
+                if (!mSureWarnIsNull) {
+                    transaction.hide(FragmentFactory.fragments[2]);
+                }
+                break;
+            case 5:
+                if (!mVideoIsNull) {
+                    transaction.hide(FragmentFactory.fragments[5]);
+                }
+                break;
         }
     }
 
