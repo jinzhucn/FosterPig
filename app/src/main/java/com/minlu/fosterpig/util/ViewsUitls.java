@@ -53,6 +53,13 @@ public class ViewsUitls {
         }
     }
 
+    /*
+    * 当前线程是否在子线程
+    * */
+    public static boolean isAtMainThread() {
+        return MyApplication.getMainThreadId() == android.os.Process.myTid();
+    }
+
     /**
      * 判断某个服务是否正在运行的方法
      *

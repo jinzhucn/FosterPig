@@ -1,6 +1,7 @@
 package com.minlu.fosterpig.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -10,7 +11,6 @@ import com.minlu.fosterpig.FragmentFactory;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.base.BaseActivity;
-import com.minlu.fosterpig.base.BaseFragment;
 import com.minlu.fosterpig.fragment.MainToAlreadyWarnFragment;
 import com.minlu.fosterpig.fragment.MainToWarnFragment;
 import com.minlu.fosterpig.util.ViewsUitls;
@@ -185,41 +185,41 @@ public class WarnActivity extends BaseActivity implements View.OnClickListener {
     }
 
     /*被选中的Fragment*/
-    private BaseFragment mFromFragment = null;
+    private Fragment mFromFragment = null;
 
     private void startSelectAreaContent(int bundleValue, int toFragment, String tag) {
 
-        BaseFragment baseFragment = FragmentFactory.create(toFragment - 1);
+        Fragment fragment = FragmentFactory.create(toFragment - 1);
 
         System.out.println("第" + toFragment + "个Tab");
 
-        if (mFromFragment != baseFragment) {
+        if (mFromFragment != fragment) {
             System.out.println("与上一个Tab不一样");
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-            if (!baseFragment.isAdded()) {    // 先判断是否被add过
+            if (!fragment.isAdded()) {    // 先判断是否被add过
                 System.out.println("需要显示的tab没有被add");
                 // 设置要传送的数据
                 Bundle bundle = new Bundle();
                 bundle.putInt(StringsFiled.OPEN_FRAGMENT_BUNDLE_KEY, bundleValue);
-                baseFragment.setArguments(bundle);
+                fragment.setArguments(bundle);
                 System.out.println("bundleValue=====" + bundleValue);
 
                 if (mFromFragment == null) {
                     System.out.println("当前tab为空");
-                    transaction.add(R.id.fl_select_sure_or_no, baseFragment, tag).commit(); // 第一次进入本页面，直接add到Activity中
+                    transaction.add(R.id.fl_select_sure_or_no, fragment, tag).commit(); // 第一次进入本页面，直接add到Activity中
                 } else {
                     System.out.println("当前的tab不为空");
                     System.out.println("tag=========" + tag);
-                    transaction.hide(mFromFragment).add(R.id.fl_select_sure_or_no, baseFragment, tag).commit(); // 隐藏当前的fragment，add下一个到Activity中
+                    transaction.hide(mFromFragment).add(R.id.fl_select_sure_or_no, fragment, tag).commit(); // 隐藏当前的fragment，add下一个到Activity中
                 }
 
             } else {
                 System.out.println("需要显示的tab已经被add");
-                transaction.hide(mFromFragment).show(baseFragment).commit(); // 隐藏当前的fragment，显示下一个
+                transaction.hide(mFromFragment).show(fragment).commit(); // 隐藏当前的fragment，显示下一个
             }
 
-            mFromFragment = baseFragment;
+            mFromFragment = fragment;
         }
 
     }
