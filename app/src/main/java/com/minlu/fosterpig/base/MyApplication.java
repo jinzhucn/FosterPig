@@ -6,6 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 
+import com.hik.mcrsdk.MCRSDK;
+import com.hik.mcrsdk.rtsp.RtspClient;
+import com.hikvision.sdk.VMSNetSDK;
 import com.minlu.fosterpig.activity.AlarmServicer;
 
 import java.util.ArrayList;
@@ -31,6 +34,12 @@ public class MyApplication extends Application {
 
         // 将这个加入通知
         intentServicer = new Intent(mContext, AlarmServicer.class);
+
+        // 视频初始化
+        MCRSDK.init();
+        RtspClient.initLib();
+        MCRSDK.setPrint(1, null);
+        VMSNetSDK.init(this);
 
     }
 

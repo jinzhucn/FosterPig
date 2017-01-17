@@ -9,55 +9,11 @@
  */
 package com.minlu.fosterpig.activity;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.PixelFormat;
-import android.os.Bundle;
-import android.os.Environment;
-import android.os.Process;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewTreeObserver;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.hikvision.netsdk.ExceptionCallBack;
-import com.hikvision.netsdk.HCNetSDK;
-import com.hikvision.netsdk.NET_DVR_DEVICEINFO_V30;
-import com.hikvision.netsdk.NET_DVR_PREVIEWINFO;
-import com.hikvision.netsdk.RealPlayCallBack;
-import com.minlu.fosterpig.IpFiled;
-import com.minlu.fosterpig.R;
-import com.minlu.fosterpig.StringsFiled;
-import com.minlu.fosterpig.http.OkHttpManger;
-import com.minlu.fosterpig.manager.ThreadManager;
-import com.minlu.fosterpig.util.ToastUtil;
-import com.minlu.fosterpig.util.ViewsUitls;
-
-import org.MediaPlayer.PlayM4.Player;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import okhttp3.Call;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 /**
  * <pre>
@@ -68,8 +24,27 @@ import okhttp3.Response;
  * @version V1.0
  */
 public class VideoActivity extends Activity implements Callback, OnClickListener {
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
 
-    private SurfaceView mSurfaceView = null;
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    /*private SurfaceView mSurfaceView = null;
 
     private int mLoginId = -1;                // return by NET_DVR_Login_v30
     private int mPlayID = -1;                // return by NET_DVR_RealPlay_V30
@@ -118,9 +93,9 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
     private int videoId;
     private int mGetHttpDataID = -1;
 
-    /**
+    *//**
      * Called when the activity is first created.
-     */
+     *//*
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,9 +142,9 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
 
     //  =============================================初始化=====================================================
 
-    /**
+    *//**
      * @return true - success;false - fail
-     */
+     *//*
     private boolean initeSdk() {
         // 初始化SDK 调用设备网络 SDK 其他函数的前提，TRUE 表示成功， FALSE 表示失败
         if (!HCNetSDK.getInstance().NET_DVR_Init()) {
@@ -243,7 +218,7 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
         });
     }
 
-    /*调用了该方法，代表播放成功*/
+    *//*调用了该方法，代表播放成功*//*
     private void goneAll() {
         ViewsUitls.runInMainThread(new Runnable() {
             @Override
@@ -664,9 +639,9 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
         }
     }
 
-    /**
+    *//**
      * @return login ID
-     */
+     *//*
     private int loginDevice() {
         // 创建对象 该对象用来存储登录成功后的信息
         NET_DVR_DEVICEINFO_V30 mNetDvrDeviceInfoV30 = new NET_DVR_DEVICEINFO_V30();
@@ -681,7 +656,7 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
             Log.e(TAG, "NET_DVR_Login_V30登录方法失败!Err:" + HCNetSDK.getInstance().NET_DVR_GetLastError());
             return -1;
         }
-        /*int m_iChanNum;
+        *//*int m_iChanNum;
         if (mNetDvrDeviceInfoV30.byChanNum > 0) {// 设备模拟通道个数 byChanNum为0
             mPlayChannel = mNetDvrDeviceInfoV30.byStartChan;// 模拟通道起始通道号 byStartChan为1
             m_iChanNum = mNetDvrDeviceInfoV30.byChanNum; // 设备模拟通道个数 byChanNum为0
@@ -689,12 +664,12 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
             mPlayChannel = mNetDvrDeviceInfoV30.byStartDChan;// 起始数字通道号  byStartDChan为33
             m_iChanNum = mNetDvrDeviceInfoV30.byIPChanNum + mNetDvrDeviceInfoV30.byHighDChanNum * 256;// 其中byHighDChanNum为数字通道个数，高 8 位
             System.out.println("走的是设备数字通道个数");
-        }*/
-        /*if (mNetDvrDeviceInfoV30.byChanNum > 0) {
+        }*//*
+        *//*if (mNetDvrDeviceInfoV30.byChanNum > 0) {
             mPlayChannel = mNetDvrDeviceInfoV30.byStartChan;
         } else if (mNetDvrDeviceInfoV30.byIPChanNum > 0) {
             mPlayChannel = mNetDvrDeviceInfoV30.byStartDChan;
-        }*/
+        }*//*
         //  手动对视频的通道号进行设置
         mPlayChannel = channelNumber;
 
@@ -703,9 +678,9 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
         return iLogID;
     }
 
-    /**
+    *//**
      * @return exception instance
-     */
+     *//*
     private ExceptionCallBack getExceptionCallBack() {
         return new ExceptionCallBack() {
             public void fExceptionCallBack(int iType, int iUserID, int iHandle) {
@@ -766,9 +741,9 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
         Log.i(TAG, "NET_DVR_RealPlay_V40播放监控方法sucess");
     }
 
-    /**
+    *//**
      * @return callback instance
-     */
+     *//*
     private RealPlayCallBack getRealPlayerCallBack() {
         return new RealPlayCallBack() {
             public void fRealDataCallBack(int iRealHandle, int iDataType, byte[] pDataBuffer, int iDataSize) {
@@ -778,13 +753,13 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
         };
     }
 
-    /**
+    *//**
      * @param iPlayViewNo - player channel [in]
      * @param iDataType   - data type [in]
      * @param pDataBuffer - data buffer [in]
      * @param iDataSize   - data size [in]
      * @param iStreamMode - stream mode [in]
-     */
+     *//*
     public void processRealData(int iPlayViewNo, int iDataType, byte[] pDataBuffer, int iDataSize, int iStreamMode) {
         if (HCNetSDK.NET_DVR_SYSHEAD == iDataType) {
             if (m_iPort >= 0) {// 头数据的时候还没有请求网络获取到m_iPort的值所以是-1
@@ -890,5 +865,5 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
         mLoginId = -1;
     }
 
-    //  =============================================登出=====================================================
+    //  =============================================登出=====================================================*/
 }

@@ -27,5 +27,5 @@ dependencies {
     compile 'com.squareup.okio:okio:1.6.0'
     compile 'com.github.ybq:Android-SpinKit:1.1.0'
     compile files('libs/gson.jar')
-    compile files('libs/AudioEngineSDK.jar')
+    compile files('libs/android-async-http-1.4.5.jar')
 }

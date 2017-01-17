@@ -2,6 +2,7 @@ package com.minlu.fosterpig.util;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.view.View;
 
@@ -88,6 +89,15 @@ public class ViewsUitls {
         } else {
             return false;
         }
+    }
+
+    /**
+     * 获取登录设备mac地址
+     */
+    public static String getMacAddress(Context context) {
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        String mac = wifiManager.getConnectionInfo().getMacAddress();
+        return mac == null ? "" : mac;
     }
 
 }
