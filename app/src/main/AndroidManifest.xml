@@ -35,6 +35,10 @@
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.AboutUsActivity" />
         <activity android:name=".activity.VersionActivity" />
+        <activity android:name=".activity.VideoTwoListActivity" />
+        <activity
+            android:name=".activity.LiveActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.VideoActivity"
             android:screenOrientation="landscape" />

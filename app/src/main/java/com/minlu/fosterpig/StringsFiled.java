@@ -75,7 +75,24 @@ public class StringsFiled {
 
     public final static String VIDEO_ID = "video_id";
 
-    public final static String TRUE_TIME_DATA_ACTIVITY_ALREADY_PRESS="true_time_data_activity_already_press";
+    public final static String TRUE_TIME_DATA_ACTIVITY_ALREADY_PRESS = "true_time_data_activity_already_press";
+
+    /**
+     * 获取二级列表
+     */
+    public final static String GET_TWO_LIST_VIEW = "get_two_list_view";
+    /**
+     * 父节点类型
+     */
+    public final static String PARENT_NODE_TYPE = "parentNodeType";
+    /**
+     * 父节点ID
+     */
+    public final static String PARENT_ID = "parentId";
+    /**
+     * 摄像头信息
+     */
+    public final static String CAMERA_INFORMATION = "camera_information";
 
     // 在main界面中的hundle
     public final static int SERVER_OUTAGE = 0;// 服务器宕机
