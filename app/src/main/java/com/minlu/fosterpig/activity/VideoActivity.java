@@ -73,7 +73,7 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
 
     private TranslateAnimation mShiftOut;
     private TranslateAnimation mEnterInto;
-    private int keepTime = -1;
+    private int keepTimeasd = -1;
     private TimerTask keepTimeTimerTask;
     private Timer keepTimeTimer;
     private TextView mAmmoniaData;
@@ -93,9 +93,6 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
     private int videoId;
     private int mGetHttpDataID = -1;
 
-    *//**
-     * Called when the activity is first created.
-     *//*
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,9 +139,7 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
 
     //  =============================================初始化=====================================================
 
-    *//**
-     * @return true - success;false - fail
-     *//*
+
     private boolean initeSdk() {
         // 初始化SDK 调用设备网络 SDK 其他函数的前提，TRUE 表示成功， FALSE 表示失败
         if (!HCNetSDK.getInstance().NET_DVR_Init()) {
@@ -218,7 +213,7 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
         });
     }
 
-    *//*调用了该方法，代表播放成功*//*
+    // 调用了该方法，代表播放成功
     private void goneAll() {
         ViewsUitls.runInMainThread(new Runnable() {
             @Override
@@ -240,19 +235,19 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
             @Override
             public void run() {
                 if (isAlreadyShowTrueTimeData) {// 实时数据已经展示，需要过一段时间后隐藏掉
-                    keepTime++;
+                    keepTimeasd++;
                     ViewsUitls.runInMainThread(new TimerTask() {
                         @Override
                         public void run() {
                             System.out.println("=============================================openKeepTimeTimer=================================================");
-                            if (keepTime == StringsFiled.VIDEO_TRUE_TIME_DATA_KEEP_TIME && mShiftOut != null && isAlreadyShowTrueTimeData && animationIsCompletes) {
+                            if (keepTimeasd == StringsFiled.VIDEO_TRUE_TIME_DATA_KEEP_TIME && mShiftOut != null && isAlreadyShowTrueTimeData && animationIsCompletes) {
                                 startAnimation(mShiftOut);
                                 isAlreadyShowTrueTimeData = false;
                             }
                         }
                     });
                 } else {
-                    keepTime = -1;
+                    keepTimeasd = -1;
                 }
             }
         };
@@ -639,9 +634,6 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
         }
     }
 
-    *//**
-     * @return login ID
-     *//*
     private int loginDevice() {
         // 创建对象 该对象用来存储登录成功后的信息
         NET_DVR_DEVICEINFO_V30 mNetDvrDeviceInfoV30 = new NET_DVR_DEVICEINFO_V30();
@@ -656,7 +648,7 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
             Log.e(TAG, "NET_DVR_Login_V30登录方法失败!Err:" + HCNetSDK.getInstance().NET_DVR_GetLastError());
             return -1;
         }
-        *//*int m_iChanNum;
+        int m_iChanNum;
         if (mNetDvrDeviceInfoV30.byChanNum > 0) {// 设备模拟通道个数 byChanNum为0
             mPlayChannel = mNetDvrDeviceInfoV30.byStartChan;// 模拟通道起始通道号 byStartChan为1
             m_iChanNum = mNetDvrDeviceInfoV30.byChanNum; // 设备模拟通道个数 byChanNum为0
@@ -664,12 +656,12 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
             mPlayChannel = mNetDvrDeviceInfoV30.byStartDChan;// 起始数字通道号  byStartDChan为33
             m_iChanNum = mNetDvrDeviceInfoV30.byIPChanNum + mNetDvrDeviceInfoV30.byHighDChanNum * 256;// 其中byHighDChanNum为数字通道个数，高 8 位
             System.out.println("走的是设备数字通道个数");
-        }*//*
-        *//*if (mNetDvrDeviceInfoV30.byChanNum > 0) {
+        }
+        if (mNetDvrDeviceInfoV30.byChanNum > 0) {
             mPlayChannel = mNetDvrDeviceInfoV30.byStartChan;
         } else if (mNetDvrDeviceInfoV30.byIPChanNum > 0) {
             mPlayChannel = mNetDvrDeviceInfoV30.byStartDChan;
-        }*//*
+        }
         //  手动对视频的通道号进行设置
         mPlayChannel = channelNumber;
 
@@ -678,9 +670,6 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
         return iLogID;
     }
 
-    *//**
-     * @return exception instance
-     *//*
     private ExceptionCallBack getExceptionCallBack() {
         return new ExceptionCallBack() {
             public void fExceptionCallBack(int iType, int iUserID, int iHandle) {
@@ -741,9 +730,6 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
         Log.i(TAG, "NET_DVR_RealPlay_V40播放监控方法sucess");
     }
 
-    *//**
-     * @return callback instance
-     *//*
     private RealPlayCallBack getRealPlayerCallBack() {
         return new RealPlayCallBack() {
             public void fRealDataCallBack(int iRealHandle, int iDataType, byte[] pDataBuffer, int iDataSize) {
@@ -753,13 +739,6 @@ public class VideoActivity extends Activity implements Callback, OnClickListener
         };
     }
 
-    *//**
-     * @param iPlayViewNo - player channel [in]
-     * @param iDataType   - data type [in]
-     * @param pDataBuffer - data buffer [in]
-     * @param iDataSize   - data size [in]
-     * @param iStreamMode - stream mode [in]
-     *//*
     public void processRealData(int iPlayViewNo, int iDataType, byte[] pDataBuffer, int iDataSize, int iStreamMode) {
         if (HCNetSDK.NET_DVR_SYSHEAD == iDataType) {
             if (m_iPort >= 0) {// 头数据的时候还没有请求网络获取到m_iPort的值所以是-1
