@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.hikvision.sdk.VMSNetSDK;
-import com.hikvision.sdk.net.bean.Camera;
 import com.hikvision.sdk.net.bean.LoginData;
 import com.hikvision.sdk.net.bean.RootCtrlCenter;
 import com.hikvision.sdk.net.bean.SubResourceNodeBean;
@@ -22,12 +21,10 @@ import com.hikvision.sdk.utils.HttpConstants;
 import com.minlu.fosterpig.IpFiled;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
-import com.minlu.fosterpig.activity.LiveActivity;
 import com.minlu.fosterpig.activity.VideoTwoListActivity;
 import com.minlu.fosterpig.adapter.VideoAreaListAdapter;
 import com.minlu.fosterpig.haikang.LoginCameraData;
 import com.minlu.fosterpig.util.StringUtils;
-import com.minlu.fosterpig.util.ToastUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
 
 import java.lang.ref.WeakReference;
@@ -50,13 +47,19 @@ public class VideoListFragment extends Fragment implements AdapterView.OnItemCli
     private static final int EMPTY_LAYOUT = 2;
     private static final int ERROR_LAYOUT = 3;
     private static final int LIST_VIEW_LAYOUT = 4;
+
+
     private List<SubResourceNodeBean> areaData = new ArrayList<>();
     private VideoAreaListAdapter videoAreaListAdapter;
 
     private MyHandler myHandler;
-    private boolean isOpenTwoList = false;
-    private int parentNodeType = -1;
-    private int parentId = -1;
+
+    private int whichError = -1;
+    private final int loginError = 1;
+    private final int rootError = 2;
+    private final int subError = 3;
+    private int rootNodeType = -1;
+    private int rootId = -1;
 
     static class MyHandler extends Handler {
         WeakReference<VideoListFragment> mVideoListFragment;
@@ -76,7 +79,7 @@ public class VideoListFragment extends Fragment implements AdapterView.OnItemCli
                     videoListFragment.showWhichLayout(EMPTY_LAYOUT);
                     break;
                 case ERROR_LAYOUT:
-                    videoListFragment.myHandler.sendEmptyMessage(ERROR_LAYOUT);
+                    videoListFragment.showWhichLayout(ERROR_LAYOUT);
                     break;
                 case LIST_VIEW_LAYOUT:
                     videoListFragment.showWhichLayout(LIST_VIEW_LAYOUT);
@@ -84,19 +87,6 @@ public class VideoListFragment extends Fragment implements AdapterView.OnItemCli
                     break;
             }
         }
-    }
-
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-
-        Bundle bundle = getArguments();
-        isOpenTwoList = bundle.getBoolean(StringsFiled.GET_TWO_LIST_VIEW, false);
-        if (isOpenTwoList) {
-            parentNodeType = bundle.getInt(StringsFiled.PARENT_NODE_TYPE, -1);
-            parentId = bundle.getInt(StringsFiled.PARENT_ID, -1);
-        }
-        super.onCreate(savedInstanceState);
     }
 
     @Nullable
@@ -108,6 +98,25 @@ public class VideoListFragment extends Fragment implements AdapterView.OnItemCli
         mLoading = inflate.findViewById(R.id.video_list_loading);
         mEmpty = inflate.findViewById(R.id.video_list_empty);
         mError = inflate.findViewById(R.id.video_list_error);
+        mError.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (whichError) {
+                    case loginError:
+                        showWhichLayout(LOADING_LAYOUT);
+                        startLogin();
+                        break;
+                    case rootError:
+                        showWhichLayout(LOADING_LAYOUT);
+                        getRootControlCenter();
+                        break;
+                    case subError:
+                        showWhichLayout(LOADING_LAYOUT);
+                        getSubResourceList(rootNodeType, rootId);
+                        break;
+                }
+            }
+        });
 
         mListView = (ListView) inflate.findViewById(R.id.video_list_lv);
         videoAreaListAdapter = new VideoAreaListAdapter(areaData);
@@ -118,28 +127,14 @@ public class VideoListFragment extends Fragment implements AdapterView.OnItemCli
 
         showWhichLayout(LOADING_LAYOUT);
 
-        if (isOpenTwoList) {
-            getSubResourceList(parentNodeType, parentId);
-        } else {
-            startLogin();
-        }
+        startLogin();
         return inflate;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         SubResourceNodeBean subResourceNodeBean = areaData.get(position);
-        if (HttpConstants.NodeType.TYPE_CAMERA_OR_DOOR == subResourceNodeBean.getNodeType()) {// 被点击的条目是摄像所在站点名称
-            Camera camera = VMSNetSDK.getInstance().initCameraInfo(subResourceNodeBean);
-            if (VMSNetSDK.getInstance().isHasLivePermission(camera)) {// 判断camera是否是有权限
-                Intent intent = new Intent(getContext(), LiveActivity.class);
-                intent.putExtra(StringsFiled.CAMERA_INFORMATION, camera);
-                startActivity(intent);
-            } else {
-                ToastUtil.showToast(ViewsUitls.getContext(), "摄像头无权限打开");
-            }
-        } else {// 被点击的条目是站点所在区域
-            System.out.println();
+        if (!(HttpConstants.NodeType.TYPE_CAMERA_OR_DOOR == subResourceNodeBean.getNodeType())) {
             Intent intent = new Intent(getContext(), VideoTwoListActivity.class);
             intent.putExtra(StringsFiled.ACTIVITY_TITLE, "视频—站点");
             intent.putExtra(StringsFiled.PARENT_NODE_TYPE, subResourceNodeBean.getNodeType());
@@ -149,9 +144,11 @@ public class VideoListFragment extends Fragment implements AdapterView.OnItemCli
     }
 
     private void startLogin() {
+        System.out.println();
         VMSNetSDK.getInstance().setOnVMSNetSDKBusiness(new OnVMSNetSDKBusiness() {
             @Override
             public void onFailure() {
+                whichError = loginError;
                 myHandler.sendEmptyMessage(ERROR_LAYOUT);
             }
 
@@ -169,6 +166,7 @@ public class VideoListFragment extends Fragment implements AdapterView.OnItemCli
                     LoginCameraData.getInstance().setLoginIpAddress(IpFiled.VIDEO_LOGIN_IP);
                     getRootControlCenter();
                 } else {
+                    whichError = loginError;
                     myHandler.sendEmptyMessage(ERROR_LAYOUT);
                 }
             }
@@ -179,17 +177,20 @@ public class VideoListFragment extends Fragment implements AdapterView.OnItemCli
     }
 
     /**
-     * 获取控制中心信息
+     * 获取控制中心信息  TODO 貌似只有登录才有失败返回
      */
     public void getRootControlCenter() {
+        System.out.println();
         VMSNetSDK.getInstance().setOnVMSNetSDKBusiness(new OnVMSNetSDKBusiness() {
             @Override
             public void onSuccess(Object obj) {
                 super.onSuccess(obj);
                 if (obj instanceof RootCtrlCenter) {
-
-                    getSubResourceList(Integer.parseInt(((RootCtrlCenter) obj).getNodeType()), ((RootCtrlCenter) obj).getId());
+                    rootNodeType = Integer.parseInt(((RootCtrlCenter) obj).getNodeType());
+                    rootId = ((RootCtrlCenter) obj).getId();
+                    getSubResourceList(rootNodeType, rootId);
                 } else {
+                    whichError = rootError;
                     myHandler.sendEmptyMessage(ERROR_LAYOUT);
                 }
             }
@@ -197,6 +198,7 @@ public class VideoListFragment extends Fragment implements AdapterView.OnItemCli
             @Override
             public void onFailure() {
                 super.onFailure();
+                whichError = rootError;
                 myHandler.sendEmptyMessage(ERROR_LAYOUT);
             }
         });
@@ -208,6 +210,7 @@ public class VideoListFragment extends Fragment implements AdapterView.OnItemCli
      * 获取控制中心下的区域信息或者区域下的站点信息
      */
     private void getSubResourceList(int parentNodeType, int pId) {
+        System.out.println();
         VMSNetSDK.getInstance().setOnVMSNetSDKBusiness(new OnVMSNetSDKBusiness() {
             @Override
             public void onSuccess(Object obj) {
@@ -221,6 +224,7 @@ public class VideoListFragment extends Fragment implements AdapterView.OnItemCli
                         myHandler.sendEmptyMessage(LIST_VIEW_LAYOUT);
                     }
                 } else {
+                    whichError = subError;
                     myHandler.sendEmptyMessage(ERROR_LAYOUT);
                 }
             }
@@ -228,6 +232,7 @@ public class VideoListFragment extends Fragment implements AdapterView.OnItemCli
             @Override
             public void onFailure() {
                 super.onFailure();
+                whichError = subError;
                 myHandler.sendEmptyMessage(ERROR_LAYOUT);
             }
         });

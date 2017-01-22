@@ -156,4 +156,30 @@ public class StringsFiled {
     public final static int OBSERVER_POWER_SUPPLY_SURE = 5;
 
     public final static int OBSERVER_UPDATE_NOTIFICATION = 6;
+
+
+    /**
+     * 获取监控点信息
+     */
+    public final static int GET_CAMERA_INFO = 1;
+    /**
+     * 获取监控点信息成功
+     */
+    public final static int GET_CAMERA_INFO_SUCCESS = 2;
+    /**
+     * 获取监控点信息失败
+     */
+    public final static int GET_CAMERA_INFO_FAILURE = 3;
+    /**
+     * 获取设备信息
+     */
+    public final static int GET_DEVICE_INFO = 4;
+    /**
+     * 获取设备信息成功
+     */
+    public final static int GET_DEVICE_INFO_SUCCESS = 5;
+    /**
+     * 获取设备信息失败
+     */
+    public final static int GET_DEVICE_INFO_FAILURE = 6;
 }

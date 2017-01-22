@@ -28,14 +28,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.WarnActivity" />
-        <activity
-            android:name=".activity.TrueTimeDataActivity"
-            android:configChanges="orientation|screenSize" />
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.AboutUsActivity" />
         <activity android:name=".activity.VersionActivity" />
-        <activity android:name=".activity.VideoTwoListActivity" />
+        <activity
+            android:name=".activity.TrueTimeDataActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".activity.VideoTwoListActivity"
+            android:configChanges="orientation|screenSize" />
         <activity
             android:name=".activity.LiveActivity"
             android:screenOrientation="landscape" />

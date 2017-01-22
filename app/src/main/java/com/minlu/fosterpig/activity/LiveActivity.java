@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -15,10 +18,16 @@ import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hikvision.sdk.VMSNetSDK;
+import com.hikvision.sdk.consts.ConstantLiveSDK;
 import com.hikvision.sdk.net.bean.Camera;
+import com.hikvision.sdk.net.bean.CameraInfo;
+import com.hikvision.sdk.net.bean.DeviceInfo;
+import com.hikvision.sdk.net.business.OnVMSNetSDKBusiness;
 import com.minlu.fosterpig.IpFiled;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
+import com.minlu.fosterpig.haikang.LiveControl;
 import com.minlu.fosterpig.http.OkHttpManger;
 import com.minlu.fosterpig.manager.ThreadManager;
 import com.minlu.fosterpig.util.ToastUtil;
@@ -28,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -41,7 +51,7 @@ import okhttp3.Response;
 /**
  * Created by user on 2017/1/18.
  */
-public class LiveActivity extends Activity implements View.OnClickListener, SurfaceHolder.Callback {
+public class LiveActivity extends Activity implements View.OnClickListener {
 
 
     private LinearLayout mLoad;
@@ -71,6 +81,100 @@ public class LiveActivity extends Activity implements View.OnClickListener, Surf
     private TimerTask mGetHttpDataTask;
     private Call callTrueTime;
     private boolean animationIsCompletes = true;
+    private Camera camera;
+    private VMSNetSDK mVMSNetSDK;
+    private MyHandler mHandler;
+    private LiveControl mLiveControl;
+    private CameraInfo cameraInfo;
+    private DeviceInfo deviceInfo;
+
+    private int whichError = -1;
+    private final int cameraError = 1;
+    private final int deviceError = 2;
+    private final int playError = 3;
+
+    static class MyHandler extends Handler {
+        WeakReference<LiveActivity> mActivity;
+
+        MyHandler(LiveActivity activity) {
+            mActivity = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            final LiveActivity liveActivity = mActivity.get();
+            switch (msg.what) {
+                case StringsFiled.GET_CAMERA_INFO:
+                    System.out.println("准备请求Camera信息");
+                    break;
+                case StringsFiled.GET_CAMERA_INFO_SUCCESS:
+                    System.out.println("请求Camera信息成功");
+                    liveActivity.getDeviceInfo();
+                    break;
+                case StringsFiled.GET_CAMERA_INFO_FAILURE:
+                    System.out.println("请求Camera信息失败");
+                    liveActivity.goneLoad();
+                    liveActivity.whichError = liveActivity.cameraError;
+                    break;
+                case StringsFiled.GET_DEVICE_INFO:
+                    System.out.println("准备请求DEVICE设备信息");
+                    break;
+                case StringsFiled.GET_DEVICE_INFO_SUCCESS:
+                    System.out.println("请求DEVICE设备信息成功");
+                    final String username = liveActivity.deviceInfo.getUserName();
+                    final String password = liveActivity.deviceInfo.getPassword();
+                    ThreadManager.getInstance().execute(new TimerTask() {
+                        @Override
+                        public void run() {
+                            liveActivity.startPlay(username, password);
+                        }
+                    });
+                    break;
+                case StringsFiled.GET_DEVICE_INFO_FAILURE:
+                    System.out.println("请求DEVICE设备信息失败");
+                    liveActivity.goneLoad();
+                    liveActivity.whichError = liveActivity.deviceError;
+                    break;
+
+
+                // 视频控制层回调的消息
+                case ConstantLiveSDK.RTSP_FAIL:
+                    ToastUtil.showToast(liveActivity, "RTSP链接失败");
+                    if (null != liveActivity.mLiveControl) {
+                        ThreadManager.getInstance().execute(new TimerTask() {
+                            @Override
+                            public void run() {
+                                liveActivity.mLiveControl.stop();
+                            }
+                        });
+                    }
+                    liveActivity.goneLoad();
+                    liveActivity.whichError = liveActivity.playError;
+                    break;
+                case ConstantLiveSDK.RTSP_SUCCESS:
+                    System.out.println("启动取流成功");
+                    break;
+                case ConstantLiveSDK.STOP_SUCCESS:
+                    System.out.println("停止成功");
+                    if (liveActivity.mError != null && liveActivity.mLoad != null) {
+                        liveActivity.goneLoad();
+                        liveActivity.whichError = liveActivity.playError;
+                    }
+                    break;
+                case ConstantLiveSDK.START_OPEN_FAILED:
+                    ToastUtil.showToast(liveActivity, "开启播放库失败");
+                    liveActivity.goneLoad();
+                    liveActivity.whichError = liveActivity.playError;
+                    break;
+                case ConstantLiveSDK.PLAY_DISPLAY_SUCCESS:
+                    System.out.println("播放成功");
+                    liveActivity.goneAll();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,29 +183,28 @@ public class LiveActivity extends Activity implements View.OnClickListener, Surf
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_screen);
 
-        Intent intent = getIntent();
-        Camera camera = (Camera) intent.getSerializableExtra(StringsFiled.CAMERA_INFORMATION);
-
+        initData();
         initViews();
 
-        new Thread() {
-            @Override
-            public void run() {
-                super.run();
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        getCameraInfo();
+    }
 
-                ViewsUitls.runInMainThread(new TimerTask() {
-                    @Override
-                    public void run() {
-                        goneAll();
-                    }
-                });
+    private void initData() {
+        Intent intent = getIntent();
+        camera = (Camera) intent.getSerializableExtra(StringsFiled.CAMERA_INFORMATION);
+        mVMSNetSDK = VMSNetSDK.getInstance();
+        mHandler = new MyHandler(this);
+
+        mLiveControl = new LiveControl();
+        mLiveControl.setLiveCallBack(new LiveControl.LiveCallBack() {
+            @Override
+            public void onMessageCallback(int message) {
+                if (null != mHandler) {
+                    // 发送消息
+                    mHandler.sendEmptyMessage(message);
+                }
             }
-        }.start();
+        });
     }
 
 
@@ -109,6 +212,29 @@ public class LiveActivity extends Activity implements View.OnClickListener, Surf
         mLoad = (LinearLayout) findViewById(R.id.ll_loading);
         mError = (LinearLayout) findViewById(R.id.ll_error);
         mSurfaceView = (SurfaceView) findViewById(R.id.sv_player);
+        mSurfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
+            @Override
+            public void surfaceCreated(SurfaceHolder holder) {
+
+            }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+            }
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder holder) {
+                if (null != mLiveControl) {
+                    ThreadManager.getInstance().execute(new TimerTask() {
+                        @Override
+                        public void run() {
+                            mLiveControl.stop();
+                        }
+                    });
+                }
+            }
+        });
         mTrueTimeData = (LinearLayout) findViewById(R.id.ll_video_true_time_data);
         ViewTreeObserver viewTreeObserver = mTrueTimeData.getViewTreeObserver();
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -135,22 +261,87 @@ public class LiveActivity extends Activity implements View.OnClickListener, Surf
 
         mError.setOnClickListener(this);
         mSurfaceView.setOnClickListener(this);
-        mSurfaceView.getHolder().addCallback(this);
     }
 
-    @Override
-    public void surfaceCreated(SurfaceHolder holder) {
+    /**
+     * 获取监控点详细信息
+     */
+    private void getCameraInfo() {
+        if (null == camera) {
+            Log.e("LiveActivity", "从视频列表中传递过来的Camera对象为null");
+            goneLoad();
+            return;
+        }
+        mHandler.sendEmptyMessage(StringsFiled.GET_CAMERA_INFO);
+        mVMSNetSDK.setOnVMSNetSDKBusiness(new OnVMSNetSDKBusiness() {
 
+            @Override
+            public void onFailure() {
+                mHandler.sendEmptyMessage(StringsFiled.GET_CAMERA_INFO_FAILURE);
+            }
+
+            @Override
+            public void loading() {
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                if (data instanceof CameraInfo) {
+                    cameraInfo = (CameraInfo) data;
+                    mHandler.sendEmptyMessage(StringsFiled.GET_CAMERA_INFO_SUCCESS);
+                }
+            }
+        });
+        mVMSNetSDK.getCameraInfo(camera);
     }
 
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+    /**
+     * 获取设备信息
+     */
+    private void getDeviceInfo() {
+        if (null == cameraInfo) {
+            Log.e("LiveActivity", "getCameraInfo()方法获取的CameraInfo为null");
+            goneLoad();
+            return;
+        }
 
+        mVMSNetSDK.setOnVMSNetSDKBusiness(new OnVMSNetSDKBusiness() {
+
+            @Override
+            public void onFailure() {
+                mHandler.sendEmptyMessage(StringsFiled.GET_DEVICE_INFO_FAILURE);
+            }
+
+            @Override
+            public void loading() {
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                if (data instanceof DeviceInfo) {
+                    deviceInfo = (DeviceInfo) data;
+                    mHandler.sendEmptyMessage(StringsFiled.GET_DEVICE_INFO_SUCCESS);
+                }
+            }
+
+        });
+        mVMSNetSDK.getDeviceInfo(cameraInfo.getDeviceID());
     }
 
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
 
+    /**
+     * 开启播放
+     */
+    private void startPlay(String username, String password) {
+        System.out.println();
+        String liveUrl = VMSNetSDK.getInstance().getPlayUrl(cameraInfo, ConstantLiveSDK.MAIN_HING_STREAM);
+        mLiveControl.setLiveParams(liveUrl, null == username ? "" : username, null == password ? "" : password);
+        if (LiveControl.LIVE_PLAY == mLiveControl.getLiveState()) {
+            mLiveControl.stop();
+        }
+        if (LiveControl.LIVE_INIT == mLiveControl.getLiveState()) {
+            mLiveControl.startLive(mSurfaceView);
+        }
     }
 
     private void goneLoad() {
@@ -192,30 +383,31 @@ public class LiveActivity extends Activity implements View.OnClickListener, Surf
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_error:
-                // TODO 点击重新播放
-                /*if (mLoginId < 0) { // 登录失败重新登录
-                    goneError();
-                    ThreadManager.getInstance().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            loginStart();
-                        }
-                    });
-                } else if (mPlayID < 0) {// 登录成功但播放失败
-                    goneError();
-                    ThreadManager.getInstance().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (mPlayID < 0) {
-                                previewStart();
+                switch (whichError) {
+                    case cameraError:
+                        goneError();
+                        getCameraInfo();
+                        break;
+                    case deviceError:
+                        goneError();
+                        getDeviceInfo();
+                        break;
+                    case playError:
+                        goneError();
+                        ThreadManager.getInstance().execute(new TimerTask() {
+                            @Override
+                            public void run() {
+                                startPlay(deviceInfo.getUserName(), deviceInfo.getPassword());
                             }
-                        }
-                    });
-                } else {
-                    System.out.println("播放到一半时失败");
-                }*/
+                        });
+                        break;
+                    default:
+                        ToastUtil.showToast(this, "参数不对");
+                        break;
+                }
                 break;
             case R.id.sv_player:
+                System.out.println("kjsahdfkha;lshd======================================");
                 // 根据实时界面是否是在第一次播放成功后出现
                 if (isCanShowTrueTimeData) {
                     // 根据实时界面是否出现来进行退回动画
@@ -368,7 +560,9 @@ public class LiveActivity extends Activity implements View.OnClickListener, Surf
         ViewsUitls.runInMainThread(new TimerTask() {
             @Override
             public void run() {
-                ToastUtil.showToast(ViewsUitls.getContext(), "网络异常，无法获取实时数据");
+                if (isAlreadyShowTrueTimeData) {
+                    ToastUtil.showToast(ViewsUitls.getContext(), "网络异常，无法获取实时数据");
+                }
             }
         });
     }
@@ -450,12 +644,6 @@ public class LiveActivity extends Activity implements View.OnClickListener, Surf
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
-                ThreadManager.getInstance().execute(new TimerTask() {
-                    @Override
-                    public void run() {
-                        // TODO 停止播放相关
-                    }
-                });
 
                 if (keepTimeTimerTask != null)
                     keepTimeTimerTask.cancel();
@@ -475,8 +663,12 @@ public class LiveActivity extends Activity implements View.OnClickListener, Surf
                     System.out.println("是否取消了：" + callTrueTime.isCanceled());
                     callTrueTime.cancel();
                 }
-                System.out.println("是否取消了：" + callTrueTime.isCanceled());
-                mTrueTimeData.setVisibility(View.INVISIBLE);
+                if (callTrueTime != null) {
+                    System.out.println("是否取消了：" + callTrueTime.isCanceled());
+                }
+                if (mTrueTimeData != null) {
+                    mTrueTimeData.setVisibility(View.INVISIBLE);
+                }
 
                 // 延时关闭界面
                 new Thread() {
