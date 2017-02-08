@@ -1,6 +1,7 @@
 package com.minlu.fosterpig.activity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,8 @@ import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.base.BaseActivity;
 import com.minlu.fosterpig.base.MyApplication;
+import com.minlu.fosterpig.fragment.AmendVideoConfigFragment;
+import com.minlu.fosterpig.fragment.IsAmendVideoConfigFragment;
 import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
 
@@ -19,7 +22,7 @@ import java.util.List;
 /**
  * Created by user on 2016/11/23.
  */
-public class SettingActivity extends BaseActivity implements View.OnClickListener {
+public class SettingActivity extends BaseActivity implements View.OnClickListener, IsAmendVideoConfigFragment.ClickSureListener {
 
     private ImageView mSwitch;
 
@@ -86,6 +89,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.ll_setting_video_config:
 
+                IsAmendVideoConfigFragment isAmendVideoConfigFragment = new IsAmendVideoConfigFragment();
+                isAmendVideoConfigFragment.show(getSupportFragmentManager(), "isAmendVideoConfigFragment");
 
                 break;
         }
@@ -139,5 +144,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         super.onDestroy();
 
         MyApplication.getSaveActivity().remove(this);
+    }
+
+    @Override
+    public void onClickSure(DialogInterface dialog, int id) {
+        AmendVideoConfigFragment amendVideoConfigFragment = new AmendVideoConfigFragment();
+        amendVideoConfigFragment.show(getSupportFragmentManager(), "amendVideoConfigFragment");
     }
 }
