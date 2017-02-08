@@ -224,6 +224,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         MyApplication.getSaveActivity().add(this);// 将本activity加入集合便于设置界面中退出
 
+        // 判断是否第一次进入app主页,是就存储初始化的视频参数值,不是就跳过
+        if (-1 == SharedPreferencesUtil.getint(ViewsUitls.getContext(), StringsFiled.FIRST_IN_APP, -1)) {
+            SharedPreferencesUtil.saveint(ViewsUitls.getContext(), StringsFiled.FIRST_IN_APP, 1);
+            SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.VIDEO_LOGIN_IP_KEY, IpFiled.VIDEO_LOGIN_IP_VALUE);
+            SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.VIDEO_LOGIN_USER_NAME_KEY, IpFiled.VIDEO_LOGIN_USER_NAME_VALUE);
+            SharedPreferencesUtil.saveStirng(ViewsUitls.getContext(), StringsFiled.VIDEO_LOGIN_PASS_WORD_KEY, IpFiled.VIDEO_LOGIN_PASS_WORD_VALUE);
+            System.out.println("第一次登录");
+        } else {
+            System.out.println("不是第一次登录");
+        }
+
         // 该存储内容是为了在其他界面确认过报警后在回到本界面时可以根据这个数据来判断时候要重新扫描
         SharedPreferencesUtil.saveint(ViewsUitls.getContext(), StringsFiled.IS_SURE_WARN, -1);// 存储为-1初始化
 

@@ -18,12 +18,12 @@ import com.hikvision.sdk.net.bean.RootCtrlCenter;
 import com.hikvision.sdk.net.bean.SubResourceNodeBean;
 import com.hikvision.sdk.net.business.OnVMSNetSDKBusiness;
 import com.hikvision.sdk.utils.HttpConstants;
-import com.minlu.fosterpig.IpFiled;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.activity.VideoTwoListActivity;
 import com.minlu.fosterpig.adapter.VideoAreaListAdapter;
 import com.minlu.fosterpig.haikang.LoginCameraData;
+import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.StringUtils;
 import com.minlu.fosterpig.util.ViewsUitls;
 
@@ -144,6 +144,10 @@ public class VideoListFragment extends Fragment implements AdapterView.OnItemCli
     }
 
     private void startLogin() {
+        final String ip = SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.VIDEO_LOGIN_IP_KEY, "");
+        String userName = SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.VIDEO_LOGIN_USER_NAME_KEY, "");
+        String passWord = SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.VIDEO_LOGIN_PASS_WORD_KEY, "");
+
         System.out.println();
         VMSNetSDK.getInstance().setOnVMSNetSDKBusiness(new OnVMSNetSDKBusiness() {
             @Override
@@ -163,7 +167,7 @@ public class VideoListFragment extends Fragment implements AdapterView.OnItemCli
                     // 成功登陆后保存LoginData对象信息和url
 
                     LoginCameraData.getInstance().setLoginData((LoginData) data);
-                    LoginCameraData.getInstance().setLoginIpAddress(IpFiled.VIDEO_LOGIN_IP);
+                    LoginCameraData.getInstance().setLoginIpAddress(ip);
                     getRootControlCenter();
                 } else {
                     whichError = loginError;
@@ -173,7 +177,7 @@ public class VideoListFragment extends Fragment implements AdapterView.OnItemCli
 
         });
         // 登录请求
-        VMSNetSDK.getInstance().login(IpFiled.VIDEO_LOGIN_IP, IpFiled.VIDEO_LOGIN_USER_NAME, IpFiled.VIDEO_LOGIN_PASS_WORD, ViewsUitls.getMacAddress(getContext()));
+        VMSNetSDK.getInstance().login(ip, userName, passWord, ViewsUitls.getMacAddress(getContext()));
     }
 
     /**

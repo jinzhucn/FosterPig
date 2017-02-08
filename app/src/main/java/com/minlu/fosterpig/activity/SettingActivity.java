@@ -46,6 +46,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 //        aboutUs.setOnClickListener(this);
         View versionInformation = view.findViewById(R.id.ll_setting_version_information);
         versionInformation.setOnClickListener(this);
+        View videoConfig = view.findViewById(R.id.ll_setting_video_config);
+        videoConfig.setOnClickListener(this);
+
         Button mLogout = (Button) view.findViewById(R.id.bt_setting_logout);
         mLogout.setOnClickListener(this);
 
@@ -81,7 +84,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 setSwitchServiceWarn();
 
                 break;
+            case R.id.ll_setting_video_config:
 
+
+                break;
         }
 
     }

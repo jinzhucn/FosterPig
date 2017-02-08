@@ -92,6 +92,7 @@ public class LiveActivity extends Activity implements View.OnClickListener {
     private final int cameraError = 1;
     private final int deviceError = 2;
     private final int playError = 3;
+    private String deviceNumber;
 
     static class MyHandler extends Handler {
         WeakReference<LiveActivity> mActivity;
@@ -366,6 +367,7 @@ public class LiveActivity extends Activity implements View.OnClickListener {
 
     // 调用了该方法，代表播放成功，开始请求实时数据和第一次显示实时数据板
     private void goneAll() {
+        deviceNumber = deviceInfo.getIndexCode();
         ViewsUitls.runInMainThread(new Runnable() {
             @Override
             public void run() {
@@ -484,7 +486,7 @@ public class LiveActivity extends Activity implements View.OnClickListener {
             public void run() {
                 System.out.println("==================================requestHttpGetDataTimer==================================");
                 OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
-                RequestBody formBody = new FormBody.Builder().add("id", "").build();
+                RequestBody formBody = new FormBody.Builder().add("id", deviceNumber).build();
                 Request request = new Request.Builder().tag("mGetHttpData")
                         .url(IpFiled.VIDEO_TRUE_TIME_DATA)
                         .post(formBody)
@@ -497,39 +499,47 @@ public class LiveActivity extends Activity implements View.OnClickListener {
                         String result = response.body().string();
                         try {
                             JSONObject jsonObject = new JSONObject(result);
-                            if (jsonObject.has("partSensor")) {
-                                JSONObject partSensor = jsonObject.optJSONObject("partSensor");
+                            if (jsonObject.has("result")) {
+                                if (jsonObject.optString("result").contains("true")) {
+                                    if (jsonObject.has("partSensor")) {
+                                        JSONObject partSensor = jsonObject.optJSONObject("partSensor");
 
-                                final double ammoniaData = getDoubleData(partSensor, "v1");
-                                final double temperatureData = getDoubleData(partSensor, "v2");
-                                final double humidityData = getDoubleData(partSensor, "v3");
-                                final int powerSupplyData1 = getIntData(partSensor, "v4");
-                                final int powerSupplyData2 = getIntData(partSensor, "v5");
-                                final int powerSupplyData3 = getIntData(partSensor, "v6");
-                                final int powerSupplyData4 = getIntData(partSensor, "v7");
-                                final int powerSupplyData5 = getIntData(partSensor, "v8");
-                                final int powerSupplyData6 = getIntData(partSensor, "v9");
-                                final int powerSupplyData7 = getIntData(partSensor, "v10");
-                                final int powerSupplyData8 = getIntData(partSensor, "v11");
-                                ViewsUitls.runInMainThread(new TimerTask() {
-                                    @Override
-                                    public void run() {
-                                        setTrueTimeText(ammoniaData, temperatureData, humidityData, powerSupplyData1, powerSupplyData2, powerSupplyData3, powerSupplyData4, powerSupplyData5, powerSupplyData6, powerSupplyData7, powerSupplyData8);
+                                        final double ammoniaData = getDoubleData(partSensor, "v1");
+                                        final double temperatureData = getDoubleData(partSensor, "v2");
+                                        final double humidityData = getDoubleData(partSensor, "v3");
+                                        final int powerSupplyData1 = getIntData(partSensor, "v4");
+                                        final int powerSupplyData2 = getIntData(partSensor, "v5");
+                                        final int powerSupplyData3 = getIntData(partSensor, "v6");
+                                        final int powerSupplyData4 = getIntData(partSensor, "v7");
+                                        final int powerSupplyData5 = getIntData(partSensor, "v8");
+                                        final int powerSupplyData6 = getIntData(partSensor, "v9");
+                                        final int powerSupplyData7 = getIntData(partSensor, "v10");
+                                        final int powerSupplyData8 = getIntData(partSensor, "v11");
+                                        ViewsUitls.runInMainThread(new TimerTask() {
+                                            @Override
+                                            public void run() {
+                                                setTrueTimeText(ammoniaData, temperatureData, humidityData, powerSupplyData1, powerSupplyData2, powerSupplyData3, powerSupplyData4, powerSupplyData5, powerSupplyData6, powerSupplyData7, powerSupplyData8);
+                                            }
+                                        });
+                                    } else {
+                                        showError("网络异常，无法获取实时数据");
                                     }
-                                });
-                            } else {
-                                showError();
+                                } else {
+                                    showError("编号错误，无法获取实时数据");
+                                }
+                            }else {
+                                showError("网络异常，无法获取实时数据");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            showError();
+                            showError("网络异常，无法获取实时数据");
                         }
                     } else {
-                        showError();
+                        showError("网络异常，无法获取实时数据");
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
-                    showError();
+                    showError("网络异常，无法获取实时数据");
                 }
             }
         };
@@ -555,13 +565,13 @@ public class LiveActivity extends Activity implements View.OnClickListener {
     }
 
     /*实时数据请求失败时做出的UI反应*/
-    private void showError() {
+    private void showError(final String toast) {
         System.out.println("====================================requestHttpGetData==onFailure====================================");
         ViewsUitls.runInMainThread(new TimerTask() {
             @Override
             public void run() {
                 if (isAlreadyShowTrueTimeData) {
-                    ToastUtil.showToast(ViewsUitls.getContext(), "网络异常，无法获取实时数据");
+                    ToastUtil.showToast(ViewsUitls.getContext(), toast);
                 }
             }
         });

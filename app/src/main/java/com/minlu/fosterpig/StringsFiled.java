@@ -94,6 +94,17 @@ public class StringsFiled {
      */
     public final static String CAMERA_INFORMATION = "camera_information";
 
+
+    // 视频
+    public final static String VIDEO_LOGIN_IP_KEY = "video_login_ip";
+
+    public final static String VIDEO_LOGIN_USER_NAME_KEY = "video_login_user_name";
+
+    public final static String VIDEO_LOGIN_PASS_WORD_KEY = "video_login_pass_word";
+
+    // 第一次进入app
+    public final static String FIRST_IN_APP = "first_in_app";
+
     // 在main界面中的hundle
     public final static int SERVER_OUTAGE = 0;// 服务器宕机
 
