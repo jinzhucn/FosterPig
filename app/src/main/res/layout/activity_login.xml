@@ -38,6 +38,19 @@
         android:singleLine="true"
         android:textColor="@color/black" />
 
+    <!--    <TextView
+            android:id="@+id/tv_network_configuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/login_password"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="@dimen/login_two_edit_text_margin"
+            android:text="网络配置"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:textStyle="bold" />-->
+
     <CheckBox
         android:id="@+id/cb_login_remember_password"
         android:layout_width="wrap_content"
@@ -56,18 +69,53 @@
         android:textSize="12dp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/bt_login_button"
+    <LinearLayout
         style="@style/login_in_padding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/cb_login_remember_password"
         android:layout_marginTop="35dp"
-        android:background="@drawable/selector_login_button"
-        android:text="@string/login_button"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_network_configuration_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_network_configuration_button"
+            android:text="网络配置"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/bt_login_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_login_button"
+            android:text="@string/login_button"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+    <!--    <Button
+            android:id="@+id/bt_login_button"
+            style="@style/login_in_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cb_login_remember_password"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/selector_login_button"
+            android:text="@string/login_button"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold" />-->
+
 
     <TextView
         android:layout_width="wrap_content"

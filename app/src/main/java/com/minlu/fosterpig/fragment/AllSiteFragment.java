@@ -15,6 +15,7 @@ import com.minlu.fosterpig.bean.AllSiteBean;
 import com.minlu.fosterpig.bean.FacilityDetail;
 import com.minlu.fosterpig.http.OkHttpManger;
 import com.minlu.fosterpig.manager.ThreadManager;
+import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.StringUtils;
 import com.minlu.fosterpig.util.ToastUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
@@ -131,8 +132,11 @@ public class AllSiteFragment extends BaseFragment<AllSiteBean> implements SwipeR
     private void requestData() {
         OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
         RequestBody formBody = new FormBody.Builder().build();
+
+        String ipAddress = SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.IP_ADDRESS_PREFIX, "");
+
         Request request = new Request.Builder()
-                .url(IpFiled.ALL_SITE_DATA)
+                .url(ipAddress + IpFiled.ALL_SITE_DATA)
                 .post(formBody)
                 .build();
         try {
@@ -141,7 +145,7 @@ public class AllSiteFragment extends BaseFragment<AllSiteBean> implements SwipeR
                 mResultString = response.body().string();
                 Log.i("okHttp_SUCCESS", mResultString);
                 analysisJsonDate();
-            }else{
+            } else {
                 System.out.println("=========================onFailure=============================");
                 requestDataIsSuccess = false;
             }

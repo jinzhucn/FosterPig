@@ -5,7 +5,7 @@ package com.minlu.fosterpig;
  */
 public class IpFiled {
 
-    public final static String IP = "http://www.jsmjzl.com/ess.web3.0/";// www.jsmjzl.com
+    public final static String IP = "/ess.web3.0/";// www.jsmjzl.com
 
     public final static String LOGIN = IP + "loginForm.html";
 
@@ -21,6 +21,9 @@ public class IpFiled {
 
     public final static String VIDEO_LIST_DATA = IP + "getNvrList.html";
 
+    /**
+     * 视频配置参数
+     */
     public final static String VIDEO_LOGIN_IP_VALUE = "https://192.168.1.26:443";
 
     public final static String VIDEO_LOGIN_USER_NAME_VALUE = "admin";

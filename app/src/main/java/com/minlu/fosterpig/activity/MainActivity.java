@@ -369,8 +369,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
         RequestBody formBody = new FormBody.Builder().build();
+
+        String ipAddress = SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.IP_ADDRESS_PREFIX, "");
+
         Request request = new Request.Builder()
-                .url(IpFiled.MAIN_GET_ALL_INFORMATION)
+                .url(ipAddress + IpFiled.MAIN_GET_ALL_INFORMATION)
                 .post(formBody)
                 .build();
         okHttpClient.newCall(request).enqueue(new Callback() {

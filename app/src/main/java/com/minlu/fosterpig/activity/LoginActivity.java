@@ -62,12 +62,17 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     private SQLiteDatabase writableDatabase;
     private String loginResult;
     private String loginResultMessage;
+    private Button mBNetworkConfiguration;
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_login_button:
                 login();
+                break;
+            case R.id.bt_network_configuration_button:
+
+
                 break;
         }
     }
@@ -77,7 +82,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         //设置ip
-        SharedPreferencesUtil.saveStirng(getApplicationContext(), StringsFiled.IP_ADDRESS_PREFIX, "http://" + "192.168.1.30:8085");
+        SharedPreferencesUtil.saveStirng(getApplicationContext(), StringsFiled.IP_ADDRESS_PREFIX, "http://www.jsmjzl.com");
 
         //创建数据库操作对象
         mySQLiteOpenHelper = new MySQLiteOpenHelper(ViewsUitls.getContext());
@@ -123,6 +128,8 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         mRbRemember.setChecked(mIsAuto);
         mBLogin = (Button) findViewById(R.id.bt_login_button);
         mBLogin.setOnClickListener(this);
+        mBNetworkConfiguration = (Button) findViewById(R.id.bt_network_configuration_button);
+        mBNetworkConfiguration.setOnClickListener(this);
 
         // 根据历史记录来设置显示
         if (!mHistoryUser.isEmpty() && !mHistoryPassWord.isEmpty()) {
@@ -139,6 +146,19 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                     ViewGroup.LayoutParams layoutParams = mBLogin.getLayoutParams();
                     layoutParams.height = mEtUser.getHeight();
                     mBLogin.setLayoutParams(layoutParams);
+                }
+            });
+        }
+
+        if (mEtUser != null && mBNetworkConfiguration != null) {
+            ViewTreeObserver viewTreeObserver = mEtUser.getViewTreeObserver();
+            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    mEtUser.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    ViewGroup.LayoutParams layoutParams = mBNetworkConfiguration.getLayoutParams();
+                    layoutParams.height = mEtUser.getHeight();
+                    mBNetworkConfiguration.setLayoutParams(layoutParams);
                 }
             });
         }
@@ -163,9 +183,11 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
         RequestBody formBody = new FormBody.Builder().add("username", userName)
                 .add("password", passWord).build();
-        System.out.println(IpFiled.LOGIN);
+
+        String ipAddress = SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.IP_ADDRESS_PREFIX, "");
+
         Request request = new Request.Builder()
-                .url(IpFiled.LOGIN)
+                .url(ipAddress + IpFiled.LOGIN)
                 .post(formBody)
                 .build();
 

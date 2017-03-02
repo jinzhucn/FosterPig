@@ -30,6 +30,7 @@ import com.minlu.fosterpig.StringsFiled;
 import com.minlu.fosterpig.haikang.LiveControl;
 import com.minlu.fosterpig.http.OkHttpManger;
 import com.minlu.fosterpig.manager.ThreadManager;
+import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.ToastUtil;
 import com.minlu.fosterpig.util.ViewsUitls;
 
@@ -487,8 +488,11 @@ public class LiveActivity extends Activity implements View.OnClickListener {
                 System.out.println("==================================requestHttpGetDataTimer==================================");
                 OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
                 RequestBody formBody = new FormBody.Builder().add("id", deviceNumber).build();
+
+                String ipAddress = SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.IP_ADDRESS_PREFIX, "");
+
                 Request request = new Request.Builder().tag("mGetHttpData")
-                        .url(IpFiled.VIDEO_TRUE_TIME_DATA)
+                        .url(ipAddress + IpFiled.VIDEO_TRUE_TIME_DATA)
                         .post(formBody)
                         .build();
                 callTrueTime = okHttpClient.newCall(request);
@@ -527,7 +531,7 @@ public class LiveActivity extends Activity implements View.OnClickListener {
                                 } else {
                                     showError("编号错误，无法获取实时数据");
                                 }
-                            }else {
+                            } else {
                                 showError("网络异常，无法获取实时数据");
                             }
                         } catch (JSONException e) {

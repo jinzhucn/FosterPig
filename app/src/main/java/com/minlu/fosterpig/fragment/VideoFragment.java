@@ -15,6 +15,7 @@ import com.minlu.fosterpig.base.ContentPage;
 import com.minlu.fosterpig.bean.SiteVideo;
 import com.minlu.fosterpig.bean.VideoBean;
 import com.minlu.fosterpig.http.OkHttpManger;
+import com.minlu.fosterpig.util.SharedPreferencesUtil;
 import com.minlu.fosterpig.util.StringUtils;
 import com.minlu.fosterpig.util.ViewsUitls;
 
@@ -137,8 +138,11 @@ public class VideoFragment extends BaseFragment<VideoBean> {
     private void requestData() {
         OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
         RequestBody formBody = new FormBody.Builder().build();
+
+        String ipAddress = SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.IP_ADDRESS_PREFIX, "");
+
         Request request = new Request.Builder()
-                .url(IpFiled.VIDEO_LIST_DATA)
+                .url(ipAddress + IpFiled.VIDEO_LIST_DATA)
                 .post(formBody)
                 .build();
         try {

@@ -97,8 +97,11 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
     private void requestData() {
         OkHttpClient okHttpClient = OkHttpManger.getInstance().getOkHttpClient();
         RequestBody formBody = new FormBody.Builder().build();
+
+        String ipAddress = SharedPreferencesUtil.getString(ViewsUitls.getContext(), StringsFiled.IP_ADDRESS_PREFIX, "");
+
         Request request = new Request.Builder()
-                .url(IpFiled.MAIN_GET_ALL_INFORMATION)
+                .url(ipAddress + IpFiled.MAIN_GET_ALL_INFORMATION)
                 .post(formBody)
                 .build();
         try {
@@ -107,7 +110,7 @@ public class AllWarnFragment extends BaseFragment<MainAllInformation> implements
                 mResultString = response.body().string();
                 Log.i("okHttp_SUCCESS", mResultString);
                 analysisJsonDate();
-            }else{
+            } else {
                 System.out.println("=========================onFailure=============================");
                 requestDataIsSuccess = false;
             }
