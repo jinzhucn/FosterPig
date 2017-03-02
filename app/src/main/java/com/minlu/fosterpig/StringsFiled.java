@@ -104,6 +104,9 @@ public class StringsFiled {
 
     // 第一次进入app
     public final static String FIRST_IN_APP = "first_in_app";
+    // 第一次进入login
+    public final static String FIRST_IN_LOGIN = "first_in_login";
+
 
     // 在main界面中的hundle
     public final static int SERVER_OUTAGE = 0;// 服务器宕机

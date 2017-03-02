@@ -17,6 +17,7 @@ import android.widget.EditText;
 import com.minlu.fosterpig.IpFiled;
 import com.minlu.fosterpig.R;
 import com.minlu.fosterpig.StringsFiled;
+import com.minlu.fosterpig.fragment.NetworkConfigFragment;
 import com.minlu.fosterpig.http.OkHttpManger;
 import com.minlu.fosterpig.sqlite.MySQLiteOpenHelper;
 import com.minlu.fosterpig.util.SharedPreferencesUtil;
@@ -71,8 +72,8 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                 login();
                 break;
             case R.id.bt_network_configuration_button:
-
-
+                NetworkConfigFragment networkConfigFragment = new NetworkConfigFragment();
+                networkConfigFragment.show(getSupportFragmentManager(), "networkConfigFragment");
                 break;
         }
     }
@@ -81,8 +82,15 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //设置ip
-        SharedPreferencesUtil.saveStirng(getApplicationContext(), StringsFiled.IP_ADDRESS_PREFIX, "http://www.jsmjzl.com");
+
+        // 判断是否第一次进入login页,是就存储初始化的Ip,不是就跳过
+        if (-1 == SharedPreferencesUtil.getint(ViewsUitls.getContext(), StringsFiled.FIRST_IN_LOGIN, -1)) {
+            SharedPreferencesUtil.saveint(ViewsUitls.getContext(), StringsFiled.FIRST_IN_LOGIN, 1);
+            SharedPreferencesUtil.saveStirng(getApplicationContext(), StringsFiled.IP_ADDRESS_PREFIX, "http://www.jsmjzl.com");
+            System.out.println("第一次进入登录页面");
+        } else {
+            System.out.println("不是第一次进入登录页面");
+        }
 
         //创建数据库操作对象
         mySQLiteOpenHelper = new MySQLiteOpenHelper(ViewsUitls.getContext());
@@ -198,7 +206,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                 ViewsUitls.runInMainThread(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtil.showToast(LoginActivity.this, "网络异常,请稍候");
+                        ToastUtil.showToast(LoginActivity.this, "网络异常,请查看网络是否配置正确");
                     }
                 });
             }
